@@ -19,7 +19,7 @@ export default function AddMedicine() {
     category: "",
     price: "",
     stock: "",
-    image: null, // <-- add image field
+    image: null, 
   };
 
   const [medicine, setMedicine] = useState(initialState);
@@ -30,7 +30,7 @@ export default function AddMedicine() {
     if (medicine.name && medicine.power && medicine.category && medicine.price && medicine.stock) {
       setErrorMsg("");
       try {
-        const formData = new FormData(); // <-- FormData to send file
+        const formData = new FormData();
         formData.append("name", medicine.name);
         formData.append("power", medicine.power);
         formData.append("category", medicine.category);
@@ -38,7 +38,7 @@ export default function AddMedicine() {
         formData.append("stock", medicine.stock);
         if (medicine.image) formData.append("image", medicine.image);
 
-        const response = await fetch("http://127.0.0.1:8000/api/medicine/add/", {
+        const response = await fetch("http://127.0.0.1:8000/medicine/add/", {
           method: "POST",
           body: formData, // <-- send formData
         });
