@@ -30,7 +30,7 @@ export default function DeleteMedicine() {
     if (!searchTerm) return setErrorMsg("Enter a medicine name to search");
     setErrorMsg("");
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/medicine/${searchTerm}/`);
+      const response = await fetch(`http://127.0.0.1:8000/medicine/${searchTerm}/`);
       if (!response.ok) {
         setErrorMsg("Medicine not found");
         setMedicine({
