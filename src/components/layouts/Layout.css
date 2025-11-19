@@ -1,0 +1,46 @@
+.header-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  color: #007bff;
+  font-weight: 600;
+  margin: 0;
+}
+
+.header-right .header-btn {
+  margin-left: 1rem;
+  text-decoration: none;
+  border: 1px solid #007bff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.login-btn {
+  background: transparent;
+  color: #007bff;
+}
+
+.login-btn:hover {
+  background: #007bff;
+  color: white;
+}
+
+.signup-btn {
+  background: #007bff;
+  color: white;
+}
+
+.signup-btn:hover {
+  background: #0056b3;
+}
