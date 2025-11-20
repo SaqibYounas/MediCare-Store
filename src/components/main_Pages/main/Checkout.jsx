@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../css/Checkout.css";
-
+import Header from "../Layouts/Header";
+import Footer from "../Layouts/Footer";
 export default function CheckoutPage() {
   const [form, setForm] = useState({
     name: "",
@@ -20,6 +21,8 @@ export default function CheckoutPage() {
   };
 
   return (
+    <>      <Header/>
+
     <div className="checkout-wrapper">
       {/* LEFT SIDE — FORM */}
       <div className="checkout-left">
@@ -103,5 +106,7 @@ export default function CheckoutPage() {
         <p className="secure">🔒 Secure Checkout – SSL Encrypted</p>
       </div>
     </div>
+    <Footer/>
+    </>
   );
 }

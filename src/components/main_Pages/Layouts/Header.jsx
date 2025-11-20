@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/Header.css";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { cartItems } = useContext(CartContext);
 
   return (
     <header className="header">
@@ -21,13 +24,15 @@ export default function Header() {
         {/* Desktop Menu */}
         <nav className="menu desktop-menu">
           <Link to="/">Home</Link>
+          <Link to="/store">Store</Link>
           <Link to="/about">About Us</Link>
           <Link to="/contact">Contact</Link>
         </nav>
 
         {/* Cart Icon */}
-        <Link to="/checkout" className="cart-icon">🛒</Link>
-      </div>
+ <Link to="/checkout" className="cart-icon">
+        🛒 {cartItems.length}
+      </Link>      </div>
 
       {/* Mobile Menu Dropdown */}
       {menuOpen && (

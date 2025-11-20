@@ -13,7 +13,8 @@ import Home from "./components/main_Pages/main/home";
 import ContactForm from "./components/main_Pages/main/Contact";
 import AboutUs from "./components/main_Pages/main/About";
 import CheckoutPage from "./components/main_Pages/main/Checkout.jsx";
-
+import MedicineStore from "./components/main_Pages/main/Store.jsx";
+import ProductDetail from "./components/main_Pages/main/ProductDetail.jsx"
 function App() {
   return (
     <BrowserRouter>
@@ -38,6 +39,8 @@ function App() {
 
         {/* Checkout */}
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/store" element={<MedicineStore />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
 
       </Routes>
     </BrowserRouter>
