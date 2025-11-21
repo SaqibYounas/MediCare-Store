@@ -1,4 +1,4 @@
-/* contact.css */
+/* ===== Contact Container ===== */
 .contact-container {
   display: flex;
   flex-wrap: wrap;
@@ -6,26 +6,41 @@
   max-width: 1000px;
   margin: 2rem auto;
   padding: 1rem;
+  animation: fadeInUp 0.8s ease forwards;
 }
 
+/* ===== Contact Info & Form ===== */
 .contact-info, .contact-form {
   flex: 1 1 400px;
   background-color: #f9f9f9;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
+.contact-info:hover, .contact-form:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* ===== Contact Info ===== */
 .contact-info h3 {
   font-size: 1.8rem;
   color: #1e40af;
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.contact-info:hover h3 {
+  color: #2563eb;
 }
 
 .contact-info p {
   margin: 0.5rem 0;
   color: #374151;
   font-size: 1rem;
+  transition: color 0.3s ease;
 }
 
 .contact-info span {
@@ -33,10 +48,16 @@
   color: #1e40af;
 }
 
+/* ===== Contact Form ===== */
 .contact-form h2 {
   font-size: 1.8rem;
   color: #1e40af;
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.contact-form:hover h2 {
+  color: #2563eb;
 }
 
 .contact-form input,
@@ -48,6 +69,14 @@
   margin-bottom: 1rem;
   font-size: 1rem;
   resize: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
+  outline: none;
 }
 
 .contact-form button {
@@ -57,26 +86,41 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .contact-form button:hover {
   background-color: #2563eb;
+  transform: scale(1.05);
 }
 
+/* ===== Success & Error Messages ===== */
 .contact-success {
-  color: green;
+  color: #16a34a;
   margin-bottom: 0.5rem;
+  animation: fadeIn 0.5s ease forwards;
 }
 
 .contact-error {
-  color: red;
+  color: #dc2626;
   margin-bottom: 0.5rem;
+  animation: fadeIn 0.5s ease forwards;
 }
 
-/* Responsive */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
   .contact-container {
     flex-direction: column;
   }
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

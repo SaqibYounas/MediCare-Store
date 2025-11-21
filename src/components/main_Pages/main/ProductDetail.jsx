@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Header from "../Layouts/Header";
-import Footer from "../Layouts/Footer";
+
 import "../css/ProductDetail.css";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
@@ -42,7 +41,6 @@ export default function ProductDetail() {
 
   return (
     <>
-      <Header />
       <div className="product-detail-wrapper">
         <div className="product-detail-container">
           {/* Product Image */}
@@ -112,7 +110,6 @@ export default function ProductDetail() {
       </div>
             <CartSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <Footer />
     </>
   );
 }

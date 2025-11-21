@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import AdminSideBar from "./layouts/AdminSideBar";
-import AdminFooter from "./layouts/AdminFooter";
+import AdminSideBar from "../../layouts/AdminSideBar";
+import AdminFooter from "../../layouts/AdminFooter";
 
 export default function AddMedicine() {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-/* about.css */
+/* ===== About Container ===== */
 .about-container {
   display: flex;
   flex-wrap: wrap;
@@ -6,20 +6,34 @@
   max-width: 1000px;
   margin: 2rem auto;
   padding: 1rem;
+  animation: fadeInUp 0.8s ease forwards;
 }
 
+/* ===== About Text & Image Boxes ===== */
 .about-text, .about-image {
   flex: 1 1 400px;
   background-color: #f9f9f9;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
+.about-text:hover, .about-image:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* ===== Text Styling ===== */
 .about-text h2 {
   font-size: 2rem;
   color: #1e40af;
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
+}
+
+.about-text:hover h2 {
+  color: #2563eb;
 }
 
 .about-text p {
@@ -27,6 +41,7 @@
   color: #374151;
   line-height: 1.6;
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
 }
 
 .about-text h3 {
@@ -35,16 +50,28 @@
   margin-bottom: 0.5rem;
 }
 
-/* Image styling */
+/* ===== Image Styling ===== */
 .about-image img {
   width: 100%;
   border-radius: 10px;
   object-fit: cover;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Responsive */
+.about-image:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
   .about-container {
     flex-direction: column;
   }
+}
+
+/* ===== Animations ===== */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }

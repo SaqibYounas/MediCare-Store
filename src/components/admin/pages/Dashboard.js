@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
-import AdminSideBar from "./layouts/AdminSideBar";
-import AdminFooter from "./layouts/AdminFooter";
+import AdminSideBar from "../../layouts/AdminSideBar";
+import AdminFooter from "../../layouts/AdminFooter";
 import { Bar } from "react-chartjs-2";
-import "./css/Dashboard.css"
+import "../css/Dashboard.css"
 import {
   Chart as ChartJS,
   BarElement,

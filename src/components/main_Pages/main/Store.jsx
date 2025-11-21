@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/Store.css";
-import Header from "../Layouts/Header";
-import Footer from "../Layouts/Footer";
+
 import { Link } from "react-router-dom";
 
 export default function StorePage() {
@@ -15,7 +14,6 @@ export default function StorePage() {
 
   return (
     <>
-      <Header />
 
       <div className="store-container">
         {medicines.map((m) => (
@@ -32,7 +30,6 @@ export default function StorePage() {
         ))}
       </div>
 
-      <Footer />
     </>
   );
 }

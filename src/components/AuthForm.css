@@ -1,19 +1,31 @@
+/* /* Center container */
 .auth-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Poppins", sans-serif;
+  padding: 20px; /* Responsive padding for small screens */
+  background: #f3f4f6; /* Optional light background */
 }
 
+/* Box styling */
 .auth-box {
   background: white;
   padding: 2rem;
   border-radius: 15px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   width: 380px;
+  max-width: 100%; /* ensures responsiveness */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.auth-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Title */
 .auth-title {
   text-align: center;
   color: #4f46e5;
@@ -22,6 +34,7 @@
   margin-bottom: 1.5rem;
 }
 
+/* Form */
 .auth-form {
   display: flex;
   flex-direction: column;
@@ -52,6 +65,7 @@
   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3);
 }
 
+/* Buttons */
 .auth-btn {
   background: #4f46e5;
   color: white;
@@ -68,6 +82,7 @@
   transform: scale(1.03);
 }
 
+/* Toggle & messages */
 .toggle-text {
   text-align: center;
   margin-top: 1rem;
@@ -95,4 +110,23 @@
 
 .message.error {
   color: #dc2626;
+}
+
+/* ==========================
+   Responsive
+========================== */
+@media (max-width: 768px) {
+  .auth-box {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  .auth-title {
+    font-size: 1.6rem;
+  }
+
+  .auth-btn {
+    padding: 12px;
+    font-size: 1rem;
+  }
 }

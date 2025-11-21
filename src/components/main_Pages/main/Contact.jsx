@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import Header from "../Layouts/Header";
-import Footer from "../Layouts/Footer";
+
 import "../css/Contact.css";
 export default function ContactForm() {
   const [form, setForm] = useState({
@@ -42,7 +41,6 @@ export default function ContactForm() {
 
   return (
     <>
-    <Header/>
     <div className="contact-container">
       
       {/* Left Side: Contact Info */}
@@ -96,7 +94,6 @@ export default function ContactForm() {
       </div>
 
     </div>
-    <Footer/>
     </>
   );
 }

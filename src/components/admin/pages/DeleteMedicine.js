@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import AdminSideBar from "./layouts/AdminSideBar";
+import AdminSideBar from "../../layouts/AdminSideBar";
 
 export default function DeleteMedicine() {
   const navigate = useNavigate();

@@ -1,0 +1,92 @@
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Dashboard from "./components/admin/pages//Dashboard.js";
+import AdminLogin from "./components/Login.jsx";
+import AdminProfile from "./components/AdminProfile.js";
+
+import UpdateMedicine from "./components/admin/pages/AddNewMedicine.js";
+import DeleteMedicine from "./components/admin/pages/DeleteMedicine.js";
+import AddNewMedicine from "./components/admin/pages/AddNewMedicine.js";
+
+import Home from "./components/main_Pages/main/home.jsx";
+import ContactForm from "./components/main_Pages/main/Contact.jsx";
+import AboutUs from "./components/main_Pages/main/About.jsx";
+import CheckoutPage from "./components/main_Pages/main/Checkout.jsx";
+import MedicineStore from "./components/main_Pages/main/Store.jsx";
+import ProductDetail from "./components/main_Pages/main/ProductDetail.jsx";
+import MainLayout from "./components/main_Pages/Layouts/MainLayout.jsx";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+
+        {/* Admin Routes - NO Header/Footer */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/login" element={<AdminLogin />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<AdminProfile />} />
+
+        {/* Medicine CRUD Routes - NO Header/Footer */}
+        <Route path="/update/medicine" element={<UpdateMedicine />} />
+        <Route path="/delete/medicine" element={<DeleteMedicine />} />
+        <Route path="/create/medicine" element={<AddNewMedicine />} />
+        <Route path="/updatemedicine" element={<UpdateMedicine />} />
+
+        {/* Main Pages - WITH Header/Footer */}
+        <Route
+          path="/"
+          element={
+            <MainLayout>
+              <Home />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <MainLayout>
+              <ContactForm />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/about"
+          element={
+            <MainLayout>
+              <AboutUs />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/checkout"
+          element={
+            <MainLayout>
+              <CheckoutPage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/store"
+          element={
+            <MainLayout>
+              <MedicineStore />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/product/:id"
+          element={
+            <MainLayout>
+              <ProductDetail />
+            </MainLayout>
+          }
+        />
+
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;

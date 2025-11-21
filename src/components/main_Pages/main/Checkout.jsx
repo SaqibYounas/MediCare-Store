@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
-import Header from "../Layouts/Header";
-import Footer from "../Layouts/Footer";
+
 import "../css/Checkout.css";
 
 export default function CheckoutPage() {
@@ -24,7 +23,6 @@ export default function CheckoutPage() {
 
   return (
     <>
-      <Header />
       <div className="checkout-wrapper">
 
         {/* LEFT — FORM */}
@@ -99,7 +97,7 @@ export default function CheckoutPage() {
           <p className="secure">🔒 Secure Checkout – SSL Encrypted</p>
         </div>
       </div>
-      <Footer />
+
     </>
   );
 }
