@@ -68,7 +68,7 @@ export default function ProductDetail() {
 
             {/* Action Buttons + Social Icons */}
             <div className="action-buttons">
-              <button className="wishlist-btn">Add to Wishlist</button>
+             
 
               <div className="share-btn-wrapper">
                 <button className="share-btn">Share</button>

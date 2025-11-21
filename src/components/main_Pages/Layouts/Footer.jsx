@@ -26,11 +26,15 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Right Small Text */}
-        <div className="footer-section right-text">
-          <p>© {new Date().getFullYear()} Medico Store</p>
-          <p>All Rights Reserved</p>
-          <p>Healthy Life, Trusted Medicine</p>
+        {/* Payment Icons */}
+        <div className="footer-section payment">
+          <h3>We Accept</h3>
+          <div className="payment-icons">
+            <img src="https://img.icons8.com/color/48/visa.png" alt="Visa" />
+            <img src="https://img.icons8.com/color/48/mastercard.png" alt="Mastercard" />
+            <img src="https://img.icons8.com/color/48/paypal.png" alt="Paypal" />
+            <img src="https://img.icons8.com/color/48/bank-card-back-side.png" alt="Card" />
+          </div>
         </div>
 
       </div>

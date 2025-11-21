@@ -1,42 +1,95 @@
 .store-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 25px;
-  padding: 40px;
+  grid-template-columns: repeat(5, 1fr); /* 5 cards per row */
+  gap: 15px; /* gap between cards */
+  padding: 20px;
 }
 
 .card {
-  width: 240px;
   border: 1px solid #eee;
-  padding: 15px;
+  padding: 10px;
   border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
   background: #fff;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
 .card img {
   width: 100%;
-  height: 200px;
+  height: 150px; /* smaller image */
   object-fit: contain;
+  border-radius: 6px;
+  transition: transform 0.3s ease;
 }
 
-.price {
-  font-size: 18px;
+.card img:hover {
+  transform: scale(1.05);
+}
+
+.card .name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 8px 0 4px;
+  text-align: center;
+}
+
+.card .price {
+  font-size: 16px;
   font-weight: bold;
+  color: #007bff;
+  margin-bottom: 8px;
 }
 
-.checkout-btn {
+.card .checkout-btn {
   width: 100%;
-  margin-top: 15px;
   padding: 8px;
   background: #007bff;
   border: none;
   color: white;
-  border-radius: 5px;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
+  text-align:center;
+  transition: all 0.3s ease;
+}
+
+.card .checkout-btn:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 1200px) {
+  .store-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .store-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .store-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .store-container {
+    grid-template-columns: 1fr;
+  }
 }

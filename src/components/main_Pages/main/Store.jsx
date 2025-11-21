@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../css/Store.css";
 import Header from "../Layouts/Header";
 import Footer from "../Layouts/Footer";
+import { Link } from "react-router-dom";
+
 export default function StorePage() {
   const [medicines, setMedicines] = useState([]);
 
@@ -13,25 +15,24 @@ export default function StorePage() {
 
   return (
     <>
-    <Header/>
-  
-    <div className="store-container">
-      {medicines.map((m) => (
-        <div
-          className="card"
-          key={m.id}
-          onClick={() => (window.location.href = `/product/${m.id}`)}
-        >
-          <img src={m.image_url} alt={m.name} />
-          <h3>{m.name}</h3>
-          <p className="price">Rs {m.price}</p>
-          <button className="checkout-btn">Checkout</button>
-        </div>
-      ))}
-    </div> 
-    <Footer/>
-     </>
+      <Header />
 
+      <div className="store-container">
+        {medicines.map((m) => (
+          <div className="card" key={m.id}>
+            <img src={m.image_url} alt={m.name} />
+            <h3>{m.name}</h3>
+            <p className="price">Rs {m.price}</p>
 
+            {/* Checkout button using Link */}
+            <Link to={`/product/${m.id}`} className="checkout-btn">
+              Checkout
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      <Footer />
+    </>
   );
 }
