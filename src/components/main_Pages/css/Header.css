@@ -1,6 +1,8 @@
-/* --------------------------------------- */
-/* 🔵 HEADER MAIN WRAPPER */
-/* --------------------------------------- */
+
+
+/* ------------------------- */
+/* HEADER MAIN WRAPPER       */
+/* ------------------------- */
 .header {
   width: 100%;
   background: linear-gradient(90deg, #0a66c2, #1e90ff);
@@ -9,22 +11,20 @@
   position: sticky;
   top: 0;
   z-index: 999;
-  padding-bottom: 10px;
   font-family: Arial, sans-serif;
+  padding-bottom: 10px;
 }
 
-/* --------------------------------------- */
-/* NAVIGATION CONTAINER */
-/* --------------------------------------- */
+/* NAV CONTAINER */
 .nav-container {
   max-width: 1400px;
   margin: auto;
-  padding: 12px 20px;
-
+  padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 /* Logo */
@@ -39,16 +39,21 @@
   transform: scale(1.05);
 }
 
-/* --------------------------------------- */
-/* DESKTOP MENU + HOVER UNDERLINE */
-/* --------------------------------------- */
+/* Desktop Menu */
+.desktop-menu {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex: 1;
+  justify-content: center;
+}
+
 .desktop-menu a {
-  position: relative;
-  text-decoration: none;
   color: #fff;
-  margin-right: 25px;
+  text-decoration: none;
   font-size: clamp(14px, 1.2vw, 18px);
   font-weight: 500;
+  position: relative;
   padding-bottom: 3px;
 }
 
@@ -60,26 +65,26 @@
   width: 0%;
   height: 2px;
   background: #fff;
-  transition: width 0.35s cubic-bezier(0.29, 0.01, 0.42, 1);
+  transition: width 0.35s ease;
 }
 
 .desktop-menu a:hover::after {
   width: 100%;
 }
 
-/* --------------------------------------- */
-/* CART ICON */
-/* --------------------------------------- */
+/* Cart Icon */
 .cart-icon {
   font-size: clamp(18px, 2vw, 24px);
   color: white;
   background: rgba(255,255,255,0.15);
   padding: 8px 14px;
   border-radius: 8px;
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(255,255,255,0.25);
   cursor: pointer;
-  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: 0.3s ease;
 }
 
 .cart-icon:hover {
@@ -87,17 +92,29 @@
   transform: scale(1.08);
 }
 
-/* --------------------------------------- */
-/* HAMBURGER BUTTON (MOBILE) */
-/* --------------------------------------- */
+.cart-icon .item-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: red;
+  color: #fff;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hamburger Menu */
 .menu-toggle {
   display: none;
   font-size: 30px;
   background: rgba(255,255,255,0.2);
-  border: 1px solid rgba(255,255,255,0.3);
   color: #fff;
-  padding: 8px 12px;
-  border-radius: 10px;
+  border-radius: 8px;
+  padding: 6px 10px;
   cursor: pointer;
   transition: 0.3s ease;
 }
@@ -107,6 +124,14 @@
   transform: scale(1.1);
 }
 
+/* Mobile Menu */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: #0a66c2;
+  gap: 10px;
+  padding: 10px 20px;
+}
 /* --------------------------------------- */
 /* SEARCH BAR SECTION */
 /* --------------------------------------- */
@@ -130,22 +155,14 @@
   font-size: clamp(14px, 1.3vw, 16px);
 }
 
-/* --------------------------------------- */
-/* FULL RESPONSIVENESS */
-/* --------------------------------------- */
+/* ------------------------- */
+/* RESPONSIVE                */
+/* ------------------------- */
 
 /* Tablets & below */
 @media (max-width: 1024px) {
-  .nav-container {
-    padding: 12px 15px;
-  }
-
   .desktop-menu a {
     margin-right: 15px;
-  }
-
-  .search-section {
-    gap: 10px;
   }
 }
 
@@ -159,35 +176,24 @@
     display: block;
   }
 
+  .nav-container {
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Logo & cart in flex */
   .logo {
-    text-align: center;
     flex: 1;
+    text-align: left;
   }
 
   .cart-icon {
-    position: absolute;
-    right: 55px;
-    top: 13px;
+    margin-left: auto;
   }
 
   .mobile-menu {
     display: flex;
-    flex-direction: column;
-    background: #0a66c2;
-    padding: 12px 20px;
-    border-top: 1px solid rgba(255,255,255,0.3);
-    gap: 5px;
-  }
-
-  .mobile-menu a {
-    padding: 10px 0;
-    color: #fff;
-    font-size: 17px;
-    text-decoration: none;
-  }
-
-  .mobile-menu a::after {
-    background: white;
   }
 
   .search-section {
@@ -195,31 +201,22 @@
   }
 }
 
-/* Small Phones (350px–480px) */
+/* Small Phones */
 @media (max-width: 480px) {
+  .cart-icon {
+    font-size: 20px;
+    padding: 6px 10px;
+  }
+
   .search-section input,
   .search-section select {
     font-size: 14px;
   }
-
-  .menu-toggle {
-    font-size: 26px;
-    padding: 6px 10px;
-  }
-
-  .cart-icon {
-    padding: 6px 12px;
-    font-size: 20px;
-  }
 }
 
+/* Ultra Small Devices */
 @media (max-width: 350px) {
   .logo {
     font-size: 18px;
-  }
-
-  .cart-icon {
-    right: 45px;
-    top: 14px;
   }
 }
