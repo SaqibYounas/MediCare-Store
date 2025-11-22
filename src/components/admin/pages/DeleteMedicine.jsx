@@ -21,11 +21,11 @@ export default function DeleteMedicine() {
   const [successMsg, setSuccessMsg] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const toTitleCase = (str) => {
-    return str
-      .toLowerCase()
-      .replace(/\b\w/g, (char) => char.toUpperCase());
-  };
+  // const toTitleCase = (str) => {
+  //   return str
+  //     .toLowerCase()
+  //     .replace(/\b\w/g, (char) => char.toUpperCase());
+  // };
 
   // Search medicine by name
   const handleSearch = async () => {
@@ -33,7 +33,7 @@ export default function DeleteMedicine() {
     setErrorMsg("");
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/medicine/${searchTerm}/`);
+      const response = await fetch(`http://127.0.0.1:8000/medicine/name/${searchTerm}/`);
       if (!response.ok) {
         setErrorMsg("Medicine not found");
         setMedicine({
@@ -49,7 +49,7 @@ export default function DeleteMedicine() {
         return;
       }
       const data = await response.json();
-      setMedicine(data); // Prefill form
+      setMedicine(data); 
     } catch (error) {
       console.error(error);
       setErrorMsg("Error fetching medicine data");
@@ -64,7 +64,7 @@ export default function DeleteMedicine() {
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/medicine/delete/${medicine.id}/`,
+        `http://127.0.0.1:8000/medicine/delete/${medicine.id}/`,
         { method: "DELETE" }
       );
 
@@ -85,7 +85,6 @@ export default function DeleteMedicine() {
         });
         setTimeout(() => {
           setSuccessMsg("");
-          navigate("/inventory");
         }, 2000);
       } else {
         setErrorMsg(data.error || "Failed to delete medicine");
@@ -110,7 +109,7 @@ export default function DeleteMedicine() {
                 type="text"
                 placeholder="Enter medicine name..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(toTitleCase(e.target.value))}
+                onChange={(e) => setSearchTerm((e.target.value))}
               />
               <button onClick={handleSearch}>Search</button>
             </div>

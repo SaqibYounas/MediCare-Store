@@ -14,7 +14,7 @@
   padding: 1.2rem;
   display: flex;
   flex-direction: column;
-  border-left: 3px solid #4e73df;  
+  border-left: 3px solid #4e73df;
 }
 
 .cart-sidebar.open {
@@ -136,4 +136,19 @@
   background-color: #2e59d9;
   transform: translateY(-3px);
   box-shadow: 0 6px 16px rgba(78, 115, 223, 0.45);
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  border-radius: 4px;
 }

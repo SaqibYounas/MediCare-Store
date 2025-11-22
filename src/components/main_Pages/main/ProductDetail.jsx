@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-
 import "../css/ProductDetail.css";
-import { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import CartSidebar from "../Layouts/SidebarCheckout";
-// Solid icons
 import { faTruck, faClock, faCreditCard, faMobileAlt, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
-
-// Brand icons
 import { faWhatsapp, faFacebookF, faTwitter, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
-
-// FontAwesome React component
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function ProductDetail() {
@@ -30,12 +23,20 @@ export default function ProductDetail() {
 
   const handleBuyNow = () => {
     addToCart(medicine, quantity);
-    // optionally open sidebar here
     setSidebarOpen(true);
   };
 
-  const increaseQty = () => setQuantity(quantity + 1);
-  const decreaseQty = () => quantity > 1 && setQuantity(quantity - 1);
+  const increaseQty = () => {
+    if (quantity < medicine.stock) {
+      setQuantity(quantity + 1);
+    }
+  };
+
+  const decreaseQty = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
 
   if (!medicine) return <p>Loading...</p>;
 
@@ -59,15 +60,13 @@ export default function ProductDetail() {
 
             {/* Quantity selector */}
             <div className="quantity-selector">
-              <button onClick={decreaseQty}>-</button>
+              <button onClick={decreaseQty} disabled={quantity <= 1}>-</button>
               <span>{quantity}</span>
-              <button onClick={increaseQty}>+</button>
+              <button onClick={increaseQty} disabled={quantity >= medicine.stock}>+</button>
             </div>
 
             {/* Action Buttons + Social Icons */}
             <div className="action-buttons">
-             
-
               <div className="share-btn-wrapper">
                 <button className="share-btn">Share</button>
                 <div className="social-icons">
@@ -86,8 +85,7 @@ export default function ProductDetail() {
                 </div>
               </div>
 
-                 <button className="checkout-btn" onClick={handleBuyNow}>Buy Now</button>
-
+              <button className="checkout-btn" onClick={handleBuyNow}>Buy Now</button>
             </div>
           </div>
 
@@ -108,8 +106,8 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
-            <CartSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
+      <CartSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
     </>
   );
 }

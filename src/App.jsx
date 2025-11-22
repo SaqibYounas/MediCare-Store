@@ -16,7 +16,8 @@ import CheckoutPage from "./components/main_Pages/main/Checkout.jsx";
 import MedicineStore from "./components/main_Pages/main/Store.jsx";
 import ProductDetail from "./components/main_Pages/main/ProductDetail.jsx";
 import MainLayout from "./components/main_Pages/Layouts/MainLayout.jsx";
-
+import NotFound from "./components/main_Pages/Layouts/NotFound.jsx";
+import AdminOrders from "./components/admin/pages/All_Orders.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -32,6 +33,7 @@ function App() {
         <Route path="/update/medicine" element={<UpdateMedicine />} />
         <Route path="/delete/medicine" element={<DeleteMedicine />} />
         <Route path="/create/medicine" element={<AddNewMedicine />} />
+        <Route path="/admin/orders" element={<AdminOrders />} />
 
         {/* Main Pages - WITH Header/Footer */}
         <Route
@@ -79,6 +81,14 @@ function App() {
           element={
             <MainLayout>
               <ProductDetail />
+            </MainLayout>
+          }
+        />
+         <Route
+          path="*"
+          element={
+            <MainLayout>
+              <NotFound />
             </MainLayout>
           }
         />

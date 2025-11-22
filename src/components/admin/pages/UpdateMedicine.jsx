@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AdminSideBar from "../../layouts/AdminSideBar";
-import "../css/UpdateMedicine.css"
+import "../css/UpdateMedicine.css";
+
 export default function UpdateMedicine() {
   const navigate = useNavigate();
 
@@ -10,21 +11,22 @@ export default function UpdateMedicine() {
     name: "",
     power: "",
     category: "",
-    type: "",
     price: "",
     stock: "",
+    image_url: "",
   });
 
   const [categories, setCategories] = useState([]);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [newImage, setNewImage] = useState(null);
 
-  // --- Fetch categories from API ---
+  // Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/api/categories/");
+        const res = await fetch("http://127.0.0.1:8000/medicine/categories/");
         if (res.ok) {
           const data = await res.json();
           setCategories(data);
@@ -50,19 +52,17 @@ export default function UpdateMedicine() {
         ]);
       }
     };
-
     fetchCategories();
   }, []);
 
-  // --- Search medicine by name ---
+  // Search medicine
   const handleSearch = async () => {
     if (!searchTerm) return setErrorMsg("Enter a medicine name to search");
-
     setErrorMsg("");
 
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/medicine/${searchTerm}/`
+        `http://127.0.0.1:8000/medicine/name/${searchTerm}/`
       );
 
       if (!response.ok) {
@@ -72,9 +72,9 @@ export default function UpdateMedicine() {
           name: "",
           power: "",
           category: "",
-          type: "",
           price: "",
           stock: "",
+          image_url: "",
         });
         return;
       }
@@ -87,56 +87,62 @@ export default function UpdateMedicine() {
     }
   };
 
-  // --- Update medicine ---
-  const handleUpdateMedicine = async () => {
-    if (
-      medicine.name &&
-      medicine.power &&
-      medicine.category &&
-      medicine.type &&
-      medicine.price &&
-      medicine.stock
-    ) {
-      try {
-        const response = await fetch(
-          `http://127.0.0.1:8000/api/medicine/update/${medicine.id}/`,
-          {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(medicine),
-          }
-        );
-
-        const data = await response.json();
-
-        if (response.ok) {
-          setSuccessMsg("Medicine updated successfully!");
-          setTimeout(() => {
-            navigate("/inventory");
-          }, 2000);
-        } else {
-          setErrorMsg(data.error || "Failed to update medicine");
-        }
-      } catch (error) {
-        setErrorMsg("Cannot connect to server!");
-      }
-    } else {
-      setErrorMsg("Please fill out all fields!");
-    }
-  };
-
+  // Handle input changes
   const handleChange = (e) => {
     setMedicine({ ...medicine, [e.target.name]: e.target.value });
+  };
+
+  // Handle image selection
+  const handleImageChange = (e) => {
+    setNewImage(e.target.files[0]);
+  };
+  const handleUpdateMedicine = async () => {
+    if (
+      !medicine.name ||
+      !medicine.power ||
+      !medicine.category ||
+      !medicine.price ||
+      !medicine.stock
+    ) {
+      setErrorMsg("Please fill out all fields!");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("name", medicine.name);
+      formData.append("power", medicine.power);
+      formData.append("category", medicine.category);
+      formData.append("price", medicine.price);
+      formData.append("stock", medicine.stock);
+      if (newImage) formData.append("image", newImage);
+
+      const response = await fetch(
+        `http://127.0.0.1:8000/medicine/update/${medicine.id}/`,
+        {
+          method: "POST", // MUST BE POST FOR FormData
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSuccessMsg("Medicine updated successfully!");
+      } else {
+        setErrorMsg(data.error || "Failed to update medicine");
+      }
+    } catch (error) {
+      setErrorMsg("Cannot connect to server!");
+    }
   };
 
   return (
     <>
       <AdminSideBar />
-
       <div className="main-panel">
         <div className="content">
           <div className="container-fluid update-medicine-container">
-
             <h4 className="page-title">Search & Update Medicine</h4>
 
             {/* Search Box */}
@@ -156,13 +162,7 @@ export default function UpdateMedicine() {
             {/* Form */}
             {medicine.id && (
               <div className="form-card">
-                <div className="header">
-                  <h5>Edit Medicine Details</h5>
-                  <Link to="/inventory" className="back-btn">Go Back</Link>
-                </div>
-
                 <div className="form-grid">
-
                   <label>Medicine Name</label>
                   <input
                     type="text"
@@ -187,17 +187,11 @@ export default function UpdateMedicine() {
                   >
                     <option value="">Select Category</option>
                     {categories.map((cat, idx) => (
-                      <option key={idx} value={cat}>{cat}</option>
+                      <option key={idx} value={cat}>
+                        {cat}
+                      </option>
                     ))}
                   </select>
-
-                  <label>Type</label>
-                  <input
-                    type="text"
-                    name="type"
-                    value={medicine.type}
-                    onChange={handleChange}
-                  />
 
                   <label>Price</label>
                   <input
@@ -214,6 +208,22 @@ export default function UpdateMedicine() {
                     value={medicine.stock}
                     onChange={handleChange}
                   />
+
+                  {/* Current Image */}
+                  {medicine.image_url && (
+                    <div className="current-image">
+                      <p>Current Image:</p>
+                      <img
+                        src={medicine.image_url}
+                        alt={medicine.name}
+                        className="medicine-image"
+                      />
+                    </div>
+                  )}
+
+                  {/* Upload New Image */}
+                  <label>Upload New Image</label>
+                  <input type="file" onChange={handleImageChange} />
                 </div>
 
                 <button className="update-btn" onClick={handleUpdateMedicine}>
@@ -223,7 +233,6 @@ export default function UpdateMedicine() {
             )}
           </div>
         </div>
-
       </div>
     </>
   );

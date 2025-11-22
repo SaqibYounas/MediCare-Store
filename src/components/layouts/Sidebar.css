@@ -1,0 +1,162 @@
+/* ================= Sidebar Base ================= */
+.sidebar {
+  width: 250px;
+  background: #2c3e50; /* dark blue-gray */
+  color: #ecf0f1; /* light text */
+  min-height: 100vh;
+  position: fixed;
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.sidebar .scrollbar-inner {
+  padding: 20px 0;
+}
+
+/* ================= User Info ================= */
+.sidebar .user {
+  text-align: center;
+  padding: 10px 0 20px 0;
+  border-bottom: 1px solid rgba(236, 240, 241, 0.2);
+}
+
+.sidebar .user .photo img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid #1abc9c;
+  transition: transform 0.3s ease;
+}
+
+.sidebar .user .photo img:hover {
+  transform: scale(1.1);
+}
+
+.sidebar .user .info span {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+
+.sidebar .user .user-level {
+  display: block;
+  font-size: 12px;
+  color: #1abc9c;
+  margin-top: 2px;
+}
+
+/* ================= Navigation ================= */
+.sidebar .nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar .nav .nav-item {
+  margin: 5px 0;
+}
+
+.sidebar .nav .nav-item a {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 20px;
+  color: #ecf0f1;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.sidebar .nav .nav-item a i {
+  margin-right: 12px;
+  font-size: 18px;
+}
+
+/* Hover & Active Effects */
+.sidebar .nav .nav-item a:hover {
+  background: #1abc9c;
+  color: #fff;
+}
+
+.sidebar .nav .nav-item a:hover i {
+  color: #fff;
+}
+
+/* Badge for pending orders */
+.sidebar .nav .nav-item .badge {
+  background: #e74c3c;
+  color: #fff;
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
+/* ================= Responsive Sidebar ================= */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: fixed;
+    left: 0;
+  }
+
+  .sidebar.active {
+    width: 250px;
+    transition: all 0.3s ease;
+  }
+}
+
+/* ================= Animation for sidebar links ================= */
+.sidebar .nav .nav-item a {
+  transform: translateX(-20px);
+  opacity: 0;
+  animation: slideIn 0.3s forwards;
+}
+
+.sidebar .nav .nav-item:nth-child(1) a {
+  animation-delay: 0.05s;
+}
+.sidebar .nav .nav-item:nth-child(2) a {
+  animation-delay: 0.1s;
+}
+.sidebar .nav .nav-item:nth-child(3) a {
+  animation-delay: 0.15s;
+}
+.sidebar .nav .nav-item:nth-child(4) a {
+  animation-delay: 0.2s;
+}
+.sidebar .nav .nav-item:nth-child(5) a {
+  animation-delay: 0.25s;
+}
+.sidebar .nav .nav-item:nth-child(6) a {
+  animation-delay: 0.3s;
+}
+.sidebar .nav .nav-item:nth-child(7) a {
+  animation-delay: 0.35s;
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.sidebar .nav .nav-item a.d-flex {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar .nav .nav-item a.d-flex div {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .nav .nav-item a .badge {
+  margin-left: 10px;
+  font-size: 12px;
+}

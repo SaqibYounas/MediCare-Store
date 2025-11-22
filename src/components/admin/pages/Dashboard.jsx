@@ -15,17 +15,16 @@ import "../css/Dashboard.css";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 export default function Dashboard() {
-  const [stats, setStats] = useState({
-    totalUsers: 0,
-    totalOrders: 0,
-    completedOrders: 0,
-    pendingOrders: 0,
-  });
+  const [stats, setStats] = useState(null); 
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Fetch Stats
   const fetchStats = useCallback(async () => {
+    setLoading(true);
+    setError(null);
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/dashboard-stats/");
+      const res = await fetch("http://127.0.0.1:8000/medicine/admin/dashboard-counts/");
+      if (!res.ok) throw new Error("Failed to fetch dashboard stats");
       const data = await res.json();
       setStats({
         totalUsers: data.totalUsers,
@@ -33,8 +32,11 @@ export default function Dashboard() {
         completedOrders: data.completedOrders,
         pendingOrders: data.pendingOrders,
       });
-    } catch (error) {
-      console.error("Error fetching stats:", error);
+    } catch (err) {
+      console.error(err);
+      setError(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -42,7 +44,9 @@ export default function Dashboard() {
     fetchStats();
   }, [fetchStats]);
 
-  // Chart Data
+  if (loading) return <p style={{ textAlign: "center", marginTop: "50px" }}>Loading dashboard...</p>;
+  if (error) return <p style={{ textAlign: "center", marginTop: "50px", color: "red" }}>Error: {error}</p>;
+
   const chartData = {
     labels: ["Total Orders", "Completed", "Pending"],
     datasets: [
@@ -69,7 +73,7 @@ export default function Dashboard() {
           <div className="container-fluid">
             <h3 className="page-title">Admin Dashboard</h3>
 
-            {/* ===== Stats Cards ===== */}
+            {/* Stats Cards */}
             <div className="stats-row">
               <div className="card-stats card-success">
                 <div className="card-body">
@@ -96,7 +100,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* ===== Chart Section ===== */}
+            {/* Chart */}
             <div className="row mt-4">
               <div className="col-12">
                 <div className="card chart-card">
@@ -112,7 +116,6 @@ export default function Dashboard() {
 
           </div>
         </div>
-
       </div>
     </>
   );
