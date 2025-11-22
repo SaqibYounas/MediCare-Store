@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Dashboard from "./components/admin/pages//Dashboard.js";
+import Dashboard from "./components/admin/pages//Dashboard.jsx";
 import AdminLogin from "./components/Login.jsx";
 import AdminProfile from "./components/AdminProfile.js";
 
-import UpdateMedicine from "./components/admin/pages/UpdateMedicine.js";
-import DeleteMedicine from "./components/admin/pages/DeleteMedicine.js";
-import AddNewMedicine from "./components/admin/pages/AddNewMedicine.js";
+import UpdateMedicine from "./components/admin/pages/UpdateMedicine.jsx";
+import DeleteMedicine from "./components/admin/pages/DeleteMedicine.jsx";
+import AddNewMedicine from "./components/admin/pages/AddNewMedicine.jsx";
 
 import Home from "./components/main_Pages/main/home.jsx";
 import ContactForm from "./components/main_Pages/main/Contact.jsx";

@@ -1,4 +1,4 @@
-/* Container Styling */
+/* Container */
 .container-fluid {
   max-width: 900px;
   margin: auto;
@@ -8,37 +8,44 @@
 .page-title {
   font-size: 22px;
   font-weight: 700;
-  margin-bottom: 20px;
 }
 
 /* Card */
 .card {
   border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-  border: none;
+  border: 1px solid #ccc; /* subtle border */
+  background: transparent; /* transparent background */
+  box-shadow: none;
   overflow: hidden;
 }
 
+/* Card Header */
 .card-header {
-  background: #007bff;
-  color: white;
-  padding: 15px 20px;
-}
-
-.card-title {
-  font-size: 18px;
   font-weight: 600;
+  padding: 15px 20px;
+  background: none; /* remove bg */
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Form Body */
+/* Card Body */
 .card-body {
   padding: 25px;
+  background: transparent;
+}
+
+/* Form Group */
+.form-group {
+  margin-bottom: 18px;
 }
 
 /* Labels */
 .form-group label {
   font-weight: 600;
   margin-bottom: 5px;
+  display: block;
 }
 
 /* Inputs */
@@ -47,12 +54,13 @@
   padding: 10px 12px !important;
   border: 1px solid #ccc !important;
   font-size: 15px;
+  width: 100%;
   transition: 0.3s;
 }
 
 .form-control:focus {
   border-color: #007bff !important;
-  box-shadow: 0 0 5px rgba(0,123,255,0.4) !important;
+  box-shadow: 0 0 5px rgba(0,123,255,0.2) !important;
 }
 
 /* Dropdown */
@@ -60,24 +68,9 @@ select.form-control {
   cursor: pointer;
 }
 
-/* Image Upload */
+/* File Input */
 input[type="file"] {
   padding: 6px;
-}
-
-/* Button */
-.btn-primary {
-  padding: 10px 25px;
-  font-size: 16px;
-  border-radius: 8px;
-  font-weight: 600;
-  background-color: #007bff;
-  border: none;
-  transition: background 0.3s ease-in-out;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
 }
 
 /* Messages */
@@ -87,9 +80,40 @@ input[type="file"] {
   font-weight: 600;
 }
 
-/* Spacing under each input */
-.form-group {
-  margin-bottom: 18px;
+/* Button Styles */
+.btn-primary {
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 18px;
+  font-weight: 600;
+  background-color: #28a745; /* green for add */
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+/* Delete Button */
+.btn-delete {
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 18px;
+  font-weight: 600;
+  background-color: #dc3545; /* red */
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-delete:hover {
+  background-color: #b02a37;
+  transform: scale(1.05);
 }
 
 /* Responsive */
@@ -106,7 +130,7 @@ input[type="file"] {
     font-size: 14px !important;
   }
 
-  .btn-primary {
+  .btn-primary, .btn-delete {
     width: 100%;
   }
 }

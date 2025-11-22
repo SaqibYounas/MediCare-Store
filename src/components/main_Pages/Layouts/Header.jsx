@@ -52,12 +52,12 @@ export default function Header() {
       <div className="search-section">
         <input type="text" placeholder="Search medicine..." />
         <select>
-             <option>Antibiotics</option>
-    <option>Painkillers</option>
-    <option>Vitamins</option>
-    <option>Blood Pressure</option>
-    <option>Diabetes</option>
-    <option>Heart</option>
+          <option>Antibiotics</option>
+          <option>Painkillers</option>
+          <option>Vitamins</option>
+          <option>Blood Pressure</option>
+          <option>Diabetes</option>
+          <option>Heart</option>
         </select>
       </div>
 

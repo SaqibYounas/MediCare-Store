@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSideBar from "../../layouts/AdminSideBar";
-
+import "../css/AddMedicine.css"
 export default function AddMedicine() {
 
   const importantCategories = [
@@ -158,7 +158,7 @@ export default function AddMedicine() {
                   <div className="form-group px-4 mb-3 text-center">
                     {errorMsg && <div className="text-danger mb-2">{errorMsg}</div>}
                     {successMsg && <div className="text-success mb-2">{successMsg}</div>}
-                    <button className="btn btn-primary" onClick={handleAddMedicine}>
+                    <button className=" btn-primary" onClick={handleAddMedicine}>
                       Add Medicine
                     </button>
                   </div>
