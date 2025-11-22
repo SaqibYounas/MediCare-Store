@@ -1,4 +1,6 @@
-/* Header Wrapper */
+/* --------------------------------------- */
+/* 🔵 HEADER MAIN WRAPPER */
+/* --------------------------------------- */
 .header {
   width: 100%;
   background: linear-gradient(90deg, #0a66c2, #1e90ff);
@@ -11,9 +13,11 @@
   font-family: Arial, sans-serif;
 }
 
-/* Navigation Container */
+/* --------------------------------------- */
+/* NAVIGATION CONTAINER */
+/* --------------------------------------- */
 .nav-container {
-  max-width: 1250px;
+  max-width: 1400px;
   margin: auto;
   padding: 12px 20px;
 
@@ -25,7 +29,7 @@
 
 /* Logo */
 .logo {
-  font-size: 22px;
+  font-size: clamp(18px, 2.5vw, 28px);
   font-weight: bold;
   color: #fff;
   transition: transform 0.3s ease;
@@ -35,41 +39,39 @@
   transform: scale(1.05);
 }
 
-/* ---------------------- */
-/* 🔹 Menu Links + Underline Animation */
-/* ---------------------- */
-
-.menu a {
+/* --------------------------------------- */
+/* DESKTOP MENU + HOVER UNDERLINE */
+/* --------------------------------------- */
+.desktop-menu a {
   position: relative;
   text-decoration: none;
   color: #fff;
   margin-right: 25px;
+  font-size: clamp(14px, 1.2vw, 18px);
   font-weight: 500;
   padding-bottom: 3px;
 }
 
-/* Hidden Line */
-.menu a::after {
+.desktop-menu a::after {
   content: "";
   position: absolute;
   left: 0;
   bottom: -2px;
   width: 0%;
   height: 2px;
-  background: red;
+  background: #fff;
   transition: width 0.35s cubic-bezier(0.29, 0.01, 0.42, 1);
 }
 
-/* On Hover */
-.menu a:hover::after {
+.desktop-menu a:hover::after {
   width: 100%;
 }
 
-/* ---------------------- */
-/* 🔹 Cart Icon Hover Effect */
-/* ---------------------- */
+/* --------------------------------------- */
+/* CART ICON */
+/* --------------------------------------- */
 .cart-icon {
-  font-size: 22px;
+  font-size: clamp(18px, 2vw, 24px);
   color: white;
   background: rgba(255,255,255,0.15);
   padding: 8px 14px;
@@ -85,31 +87,31 @@
   transform: scale(1.08);
 }
 
-/* ---------------------- */
-/* 🔹 Mobile Menu Button (Hamburger) */
-/* ---------------------- */
+/* --------------------------------------- */
+/* HAMBURGER BUTTON (MOBILE) */
+/* --------------------------------------- */
 .menu-toggle {
   display: none;
-  font-size: 26px;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.2);
+  font-size: 30px;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.3);
   color: #fff;
-  padding: 6px 10px;
-  border-radius: 8px;
+  padding: 8px 12px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: 0.3s ease;
 }
 
 .menu-toggle:hover {
-  background: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.4);
   transform: scale(1.1);
 }
 
-/* ---------------------- */
-/* Search Section */
-/* ---------------------- */
+/* --------------------------------------- */
+/* SEARCH BAR SECTION */
+/* --------------------------------------- */
 .search-section {
-  max-width: 1250px;
+  max-width: 1400px;
   margin: 10px auto 0 auto;
   padding: 0 20px;
 
@@ -125,17 +127,29 @@
   border: none;
   border-radius: 8px;
   outline: none;
+  font-size: clamp(14px, 1.3vw, 16px);
 }
 
-/* Desktop menu only */
-.desktop-menu {
-  display: flex;
-  gap: 20px;
+/* --------------------------------------- */
+/* FULL RESPONSIVENESS */
+/* --------------------------------------- */
+
+/* Tablets & below */
+@media (max-width: 1024px) {
+  .nav-container {
+    padding: 12px 15px;
+  }
+
+  .desktop-menu a {
+    margin-right: 15px;
+  }
+
+  .search-section {
+    gap: 10px;
+  }
 }
 
-/* ---------------------- */
-/* Mobile Responsiveness */
-/* ---------------------- */
+/* Mobile */
 @media (max-width: 768px) {
   .desktop-menu {
     display: none;
@@ -152,31 +166,61 @@
 
   .cart-icon {
     position: absolute;
-    right: 20px;
-    top: 15px;
+    right: 55px;
+    top: 13px;
   }
 
   .mobile-menu {
     display: flex;
     flex-direction: column;
     background: #0a66c2;
-    padding: 10px 20px;
+    padding: 12px 20px;
     border-top: 1px solid rgba(255,255,255,0.3);
+    gap: 5px;
   }
 
   .mobile-menu a {
     padding: 10px 0;
     color: #fff;
-    font-size: 16px;
+    font-size: 17px;
     text-decoration: none;
   }
 
-  /* Mobile underline */
   .mobile-menu a::after {
     background: white;
   }
 
   .search-section {
     flex-direction: column;
+  }
+}
+
+/* Small Phones (350px–480px) */
+@media (max-width: 480px) {
+  .search-section input,
+  .search-section select {
+    font-size: 14px;
+  }
+
+  .menu-toggle {
+    font-size: 26px;
+    padding: 6px 10px;
+  }
+
+  .cart-icon {
+    padding: 6px 12px;
+    font-size: 20px;
+  }
+}
+
+/* Ultra Small Devices (280px–350px) */
+@media (max-width: 350px) {
+  .logo {
+    font-size: 18px;
+  }
+
+  .cart-icon {
+    right: 45px;
+    top: 14px;
   }
 }

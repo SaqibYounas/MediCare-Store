@@ -1,0 +1,112 @@
+/* Container Styling */
+.container-fluid {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Page Title */
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Card */
+.card {
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  border: none;
+  overflow: hidden;
+}
+
+.card-header {
+  background: #007bff;
+  color: white;
+  padding: 15px 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Form Body */
+.card-body {
+  padding: 25px;
+}
+
+/* Labels */
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+/* Inputs */
+.form-control {
+  border-radius: 8px !important;
+  padding: 10px 12px !important;
+  border: 1px solid #ccc !important;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.form-control:focus {
+  border-color: #007bff !important;
+  box-shadow: 0 0 5px rgba(0,123,255,0.4) !important;
+}
+
+/* Dropdown */
+select.form-control {
+  cursor: pointer;
+}
+
+/* Image Upload */
+input[type="file"] {
+  padding: 6px;
+}
+
+/* Button */
+.btn-primary {
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  background-color: #007bff;
+  border: none;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Messages */
+.text-danger,
+.text-success {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Spacing under each input */
+.form-group {
+  margin-bottom: 18px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 10px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  input, select {
+    font-size: 14px !important;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+}

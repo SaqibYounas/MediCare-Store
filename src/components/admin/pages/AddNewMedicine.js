@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSideBar from "../../layouts/AdminSideBar";
-import AdminFooter from "../../layouts/AdminFooter";
 
 export default function AddMedicine() {
-  const navigate = useNavigate();
 
   const importantCategories = [
     "Antibiotics",
@@ -119,7 +117,7 @@ export default function AddMedicine() {
 
                     {/* Medicine Price */}
                     <div className="form-group">
-                      <label htmlFor="price">Medicine Price (₹)</label>
+                      <label htmlFor="price">Medicine Price (RS)</label>
                       <input
                         type="text"
                         className="form-control"
@@ -169,7 +167,6 @@ export default function AddMedicine() {
             </div>
           </div>
         </div>
-        <AdminFooter />
       </div>
     </>
   );

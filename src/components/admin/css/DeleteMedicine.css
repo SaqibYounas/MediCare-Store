@@ -1,0 +1,161 @@
+/* Container */
+.container-fluid {
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Page Title */
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* Search Container */
+.input-group {
+  display: flex;
+  gap: 10px;
+}/* Search Box */
+.search-box {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 12px 15px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1.5px solid #d1d5db;
+  background-color: #f9fafb;
+  transition: 0.3s ease;
+}
+
+.search-box input:focus {
+  background-color: #ffffff;
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(37,99,235,0.3);
+}
+
+.search-box button {
+  padding: 12px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  background-color: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.search-box button:hover {
+  background-color: #1d4ed8;
+}
+
+
+.input-group .form-control {
+  flex: 1;
+  padding: 12px 15px !important;
+  font-size: 16px;
+  border-radius: 10px !important;
+  border: 1.5px solid #d1d5db !important;
+  background-color: #f9fafb !important;
+  transition: 0.3s ease;
+}
+
+.input-group .form-control:focus {
+  background-color: #fff !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 0 8px rgba(37,99,235,0.3) !important;
+}
+
+/* Search Button */
+.input-group .btn-primary {
+  background: #2563eb !important;
+  border: none !important;
+  padding: 12px 22px;
+  font-size: 15px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.input-group .btn-primary:hover {
+  background: #1d4ed8 !important;
+}
+
+/* Messages */
+.text-danger, .text-success {
+  font-size: 15px;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+/* Card */
+.card {
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  border: none;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+.card-header {
+  background: #dc3545;
+  color: white;
+  padding: 15px 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Card Body */
+.card-body {
+  padding: 25px;
+  font-size: 16px;
+}
+
+.card-body p {
+  margin-bottom: 10px;
+}
+
+/* Delete Button */
+.btn-danger {
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease-in-out;
+}
+
+.btn-danger:hover {
+  background: #bb2d3b;
+}
+
+/* Medicine Image */
+.card-body img {
+  border-radius: 8px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  max-width: 150px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-group .btn-primary {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+}

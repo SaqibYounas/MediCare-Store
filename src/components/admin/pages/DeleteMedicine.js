@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AdminSideBar from "../../layouts/AdminSideBar";
+import "../css/DeleteMedicine.css";
 
 export default function DeleteMedicine() {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ export default function DeleteMedicine() {
     type: "",
     price: "",
     stock: "",
+    image_url: "",
   });
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -29,6 +31,7 @@ export default function DeleteMedicine() {
   const handleSearch = async () => {
     if (!searchTerm) return setErrorMsg("Enter a medicine name to search");
     setErrorMsg("");
+
     try {
       const response = await fetch(`http://127.0.0.1:8000/medicine/${searchTerm}/`);
       if (!response.ok) {
@@ -41,6 +44,7 @@ export default function DeleteMedicine() {
           type: "",
           price: "",
           stock: "",
+          image_url: "",
         });
         return;
       }
@@ -59,9 +63,10 @@ export default function DeleteMedicine() {
     if (!window.confirm(`Are you sure you want to delete ${medicine.name}?`)) return;
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/medicine/delete/${medicine.id}/`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/medicine/delete/${medicine.id}/`,
+        { method: "DELETE" }
+      );
 
       const data = await response.json();
 
@@ -76,6 +81,7 @@ export default function DeleteMedicine() {
           type: "",
           price: "",
           stock: "",
+          image_url: "",
         });
         setTimeout(() => {
           setSuccessMsg("");
@@ -98,68 +104,51 @@ export default function DeleteMedicine() {
           <div className="container-fluid">
             <h4 className="page-title">Search & Delete Medicine</h4>
 
-            {/* Search */}
-            <div className="row mb-3">
-              <div className="col-md-6">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Enter medicine name..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(toTitleCase(e.target.value))}
-                  />
-                  <button className="btn btn-primary" onClick={handleSearch}>
-                    Search
-                  </button>
-                </div>
-                {errorMsg && <div className="text-danger mt-2">{errorMsg}</div>}
-              </div>
+            {/* Search Box */}
+            <div className="search-box">
+              <input
+                type="text"
+                placeholder="Enter medicine name..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(toTitleCase(e.target.value))}
+              />
+              <button onClick={handleSearch}>Search</button>
             </div>
 
-            {/* Medicine Details for Delete */}
+            {errorMsg && <p className="error-text">{errorMsg}</p>}
+            {successMsg && <p className="success-text">{successMsg}</p>}
+
+            {/* Medicine Details */}
             {medicine.id && (
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="card">
-                    <div className="card-header">
-                      <div className="card-title">Medicine Details</div>
-                    </div>
-                    <div className="card-body px-4">
-                      <p><strong>Name:</strong> {medicine.name}</p>
-                      <p><strong>Power:</strong> {medicine.power}</p>
-                      <p><strong>Category:</strong> {medicine.category}</p>
-                      <p><strong>Type:</strong> {medicine.type}</p>
-                      <p><strong>Price:</strong> ₹{medicine.price}</p>
-                      <p><strong>Stock:</strong> {medicine.stock}</p>
+              <div className="form-card">
+                <h5>Medicine Details</h5>
+                <p><strong>Name:</strong> {medicine.name}</p>
+                <p><strong>Power:</strong> {medicine.power}</p>
+                <p><strong>Category:</strong> {medicine.category}</p>
+                <p><strong>Type:</strong> {medicine.type}</p>
+                <p><strong>Price:</strong> ₹{medicine.price}</p>
+                <p><strong>Stock:</strong> {medicine.stock}</p>
 
-                      {/* 🔹 Display Image if exists */}
-                      {medicine.image_url && (
-                        <div className="mt-3">
-                          <strong>Image:</strong>
-                          <div>
-                            <img
-                              src={medicine.image}
-                              alt={medicine.name}
-                              style={{ maxWidth: "150px", marginTop: "5px" }}
-                            />
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="form-group text-center mt-3">
-                        {errorMsg && <div className="text-danger">{errorMsg}</div>}
-                        {successMsg && <div className="text-success">{successMsg}</div>}
-                        <button
-                          className="btn btn-danger mt-2"
-                          onClick={handleDeleteMedicine}
-                        >
-                          Delete Medicine
-                        </button>
-                      </div>
+                {medicine.image_url && (
+                  <div className="mt-2">
+                    <strong>Image:</strong>
+                    <div>
+                      <img
+                        src={medicine.image_url}
+                        alt={medicine.name}
+                        style={{ maxWidth: "150px", marginTop: "5px", borderRadius: "6px" }}
+                      />
                     </div>
                   </div>
-                </div>
+                )}
+
+                <button
+                  className="update-btn mt-3"
+                  style={{ backgroundColor: "#dc3545" }}
+                  onClick={handleDeleteMedicine}
+                >
+                  Delete Medicine
+                </button>
               </div>
             )}
           </div>

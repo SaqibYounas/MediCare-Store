@@ -1,8 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import AdminSideBar from "../../layouts/AdminSideBar";
-import AdminFooter from "../../layouts/AdminFooter";
 import { Bar } from "react-chartjs-2";
-import "../css/Dashboard.css"
 import {
   Chart as ChartJS,
   BarElement,
@@ -11,6 +9,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { FaShoppingCart, FaCheckCircle, FaClock } from "react-icons/fa";
+import "../css/Dashboard.css";
 
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -22,12 +22,11 @@ export default function Dashboard() {
     pendingOrders: 0,
   });
 
-  // ========= Fetch Dashboard Stats =========
+  // Fetch Stats
   const fetchStats = useCallback(async () => {
     try {
       const res = await fetch("http://127.0.0.1:8000/api/dashboard-stats/");
       const data = await res.json();
-
       setStats({
         totalUsers: data.totalUsers,
         totalOrders: data.totalOrders,
@@ -43,18 +42,13 @@ export default function Dashboard() {
     fetchStats();
   }, [fetchStats]);
 
-
-  // ========= Chart Data =========
+  // Chart Data
   const chartData = {
     labels: ["Total Orders", "Completed", "Pending"],
     datasets: [
       {
         label: "Orders Overview",
-        data: [
-          stats.totalOrders,
-          stats.completedOrders,
-          stats.pendingOrders,
-        ],
+        data: [stats.totalOrders, stats.completedOrders, stats.pendingOrders],
         backgroundColor: ["#4e73df", "#1cc88a", "#f6c23e"],
         borderWidth: 1,
       },
@@ -66,7 +60,6 @@ export default function Dashboard() {
     plugins: { legend: { display: true } },
   };
 
-
   return (
     <>
       <AdminSideBar />
@@ -77,41 +70,36 @@ export default function Dashboard() {
             <h3 className="page-title">Admin Dashboard</h3>
 
             {/* ===== Stats Cards ===== */}
-            <div className="row">
-
-
-              <div className="col-md-3">
-                <div className="card card-stats card-success">
-                  <div className="card-body">
-                    <p className="card-category">Total Orders</p>
-                    <h4 className="card-title">{stats.totalOrders}</h4>
-                  </div>
+            <div className="stats-row">
+              <div className="card-stats card-success">
+                <div className="card-body">
+                  <div className="card-icon"><FaShoppingCart /></div>
+                  <p className="card-category">Total Orders</p>
+                  <h4 className="card-title">{stats.totalOrders}</h4>
                 </div>
               </div>
 
-              <div className="col-md-3">
-                <div className="card card-stats card-info">
-                  <div className="card-body">
-                    <p className="card-category">Completed</p>
-                    <h4 className="card-title">{stats.completedOrders}</h4>
-                  </div>
+              <div className="card-stats card-info">
+                <div className="card-body">
+                  <div className="card-icon"><FaCheckCircle /></div>
+                  <p className="card-category">Completed</p>
+                  <h4 className="card-title">{stats.completedOrders}</h4>
                 </div>
               </div>
 
-              <div className="col-md-3">
-                <div className="card card-stats card-warning">
-                  <div className="card-body">
-                    <p className="card-category">Pending</p>
-                    <h4 className="card-title">{stats.pendingOrders}</h4>
-                  </div>
+              <div className="card-stats card-warning">
+                <div className="card-body">
+                  <div className="card-icon"><FaClock /></div>
+                  <p className="card-category">Pending</p>
+                  <h4 className="card-title">{stats.pendingOrders}</h4>
                 </div>
               </div>
             </div>
 
-            {/* ===== Graph Section ===== */}
+            {/* ===== Chart Section ===== */}
             <div className="row mt-4">
-              <div className="col-md-12">
-                <div className="card">
+              <div className="col-12">
+                <div className="card chart-card">
                   <div className="card-header">
                     <h4 className="card-title">Orders Summary</h4>
                   </div>
@@ -125,7 +113,6 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <AdminFooter />
       </div>
     </>
   );

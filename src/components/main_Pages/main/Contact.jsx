@@ -47,8 +47,8 @@ export default function ContactForm() {
       <div className="contact-info">
         <h3>Contact Information</h3>
         <p><span>Address:</span> Main Road, City Center, Pakistan</p>
-        <p><span>Email:</span> medicostore@gmail.com</p>
-        <p><span>Phone:</span> 0300-1234567</p>
+        <p><span>Email:</span> muhammadsaqibyounas11@gmail.com</p>
+        <p><span>Phone:</span> 0342-0339016</p>
       </div>
 
       {/* Right Side: Contact Form */}

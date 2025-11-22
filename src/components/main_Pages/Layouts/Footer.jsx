@@ -11,8 +11,8 @@ export default function Footer() {
         <div className="footer-section location">
           <h3>📍 Our Location</h3>
           <p>Main Road, City Center, Pakistan</p>
-          <p>☎ 0300-1234567</p>
-          <p>✉ medicostore@gmail.com</p>
+          <p>☎ 0342-0339016</p>
+          <p>✉ muhammadsaqibyounas11@gmail.com</p>
         </div>
 
         {/* Page Links */}

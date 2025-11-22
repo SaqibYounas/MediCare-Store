@@ -1,6 +1,6 @@
 /* ===== Main Panel ===== */
 .main-panel {
-  margin-left: 250px; /* sidebar width */
+  margin-left: 250px;
   padding: 2rem;
   background-color: #f4f6f9;
   min-height: 100vh;
@@ -16,40 +16,44 @@
   margin-bottom: 2rem;
 }
 
-/* ===== Stats Cards ===== */
-.row {
+/* ===== Stats Row ===== */
+.stats-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.5rem;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
+/* Each Card */
 .card-stats {
-  flex: 1;
-  min-width: 200px;
+  flex: 1 1 30%;
+  min-width: 180px;
   border-radius: 12px;
   padding: 1.5rem;
   color: #fff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   position: relative;
   overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .card-stats:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 .card-stats .card-category {
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(255,255,255,0.8);
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .card-stats .card-title {
-  font-size: 28px;
+  font-size: 32px;
   font-weight: 700;
   margin: 0;
 }
@@ -59,7 +63,16 @@
 .card-info { background: linear-gradient(135deg,#36b9cc,#2c9faf); }
 .card-warning { background: linear-gradient(135deg,#f6c23e,#d1b12c); color: #333; }
 
-/* ===== Graph Section ===== */
+/* Optional Icon */
+.card-icon {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  font-size: 50px;
+  opacity: 0.1;
+}
+
+/* ===== Chart Section ===== */
 .card {
   background-color: #fff;
   border-radius: 12px;
@@ -81,10 +94,11 @@
 }
 
 .card-header .card-title {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: #34495e;
   margin: 0;
+  text-align: center;
 }
 
 .card-body {
@@ -94,6 +108,7 @@
 /* Chart Canvas */
 canvas {
   max-width: 100%;
+  height: 400px !important;
 }
 
 /* ===== Responsive ===== */
@@ -103,17 +118,8 @@ canvas {
     padding: 1rem;
   }
 
-  .row {
+  .stats-row {
     flex-direction: column;
+    gap: 1rem;
   }
-}
-
-/* ===== Optional: Add icons inside stats cards ===== */
-.card-stats::after {
-  content: '';
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  font-size: 50px;
-  opacity: 0.1;
 }

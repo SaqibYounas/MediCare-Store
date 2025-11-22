@@ -5,7 +5,7 @@ import Dashboard from "./components/admin/pages//Dashboard.js";
 import AdminLogin from "./components/Login.jsx";
 import AdminProfile from "./components/AdminProfile.js";
 
-import UpdateMedicine from "./components/admin/pages/AddNewMedicine.js";
+import UpdateMedicine from "./components/admin/pages/UpdateMedicine.js";
 import DeleteMedicine from "./components/admin/pages/DeleteMedicine.js";
 import AddNewMedicine from "./components/admin/pages/AddNewMedicine.js";
 
@@ -32,7 +32,6 @@ function App() {
         <Route path="/update/medicine" element={<UpdateMedicine />} />
         <Route path="/delete/medicine" element={<DeleteMedicine />} />
         <Route path="/create/medicine" element={<AddNewMedicine />} />
-        <Route path="/updatemedicine" element={<UpdateMedicine />} />
 
         {/* Main Pages - WITH Header/Footer */}
         <Route
