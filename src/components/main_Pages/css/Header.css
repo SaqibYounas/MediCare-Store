@@ -213,7 +213,6 @@
   }
 }
 
-/* Ultra Small Devices (280px–350px) */
 @media (max-width: 350px) {
   .logo {
     font-size: 18px;
