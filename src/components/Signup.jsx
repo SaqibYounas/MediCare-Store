@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import "./AuthForm.css"; // CSS file
 
 function Signup() {
   const [username, setUsername] = useState("");

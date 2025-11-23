@@ -1,123 +1,163 @@
 /* -------------------------- */
-/* SIGNUP CONTAINER           */
+/* AUTH CONTAINER             */
 /* -------------------------- */
-.signup-container {
-  min-height: 100vh;
+.auth-container {
+  height: 100vh; /* full viewport height */
   display: flex;
-  justify-content: center;
   align-items: center;
-  background-color: #f7f8fa;
+  justify-content: center;
   font-family: "Poppins", sans-serif;
-  padding: 20px;
+  background: #f3f4f6;
+  padding: 0; /* removed extra padding */
 }
 
 /* -------------------------- */
-/* SIGNUP BOX                 */
+/* AUTH BOX                   */
 /* -------------------------- */
-.signup-box {
-  background-color: #ffffff;
-  padding: 40px 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
+.auth-box {
+  background: white;
+  padding: 2rem; /* only internal padding */
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  width: 380px;
+  max-width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
 /* -------------------------- */
 /* TITLE                      */
 /* -------------------------- */
-.signup-title {
+.auth-title {
+  text-align: center;
+  color: #4f46e5;
   font-size: 1.8rem;
-  margin-bottom: 25px;
-  color: #333;
-  font-weight: 600;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
 }
-
 /* -------------------------- */
-/* FORM GROUP                 */
+/* FORM                       */
 /* -------------------------- */
-.signup-form .form-group {
-  margin-bottom: 20px;
-  text-align: left;
+.auth-form {
+  display: flex;
+  flex-direction: column;
 }
 
-.signup-form label {
-  display: block;
-  font-size: 0.9rem;
-  margin-bottom: 6px;
-  color: #555;
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin: 0 !important; /* remove extra margin */
 }
 
-.signup-form input {
-  width: 100%;
-  padding: 10px 12px;
+.form-group label {
+  margin-bottom: 4px; /* smaller spacing from input */
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 0.95rem;
-  transition: border 0.3s ease;
-}
-
-.signup-form input:focus {
-  border-color: #4f46e5; /* Indigo focus color */
   outline: none;
-  box-shadow: 0 0 5px rgba(79, 70, 229, 0.3);
+  font-size: 0.95rem;
 }
 
 /* -------------------------- */
-/* BUTTON                     */
+/* BUTTONS                    */
 /* -------------------------- */
-.signup-btn {
-  width: 100%;
-  padding: 12px;
+.auth-btn {
+  background: #4f46e5;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
   border: none;
   border-radius: 8px;
-  background-color: #4f46e5;
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 500;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.1s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.signup-btn.loading {
-  background-color: #7c3aed;
-  cursor: not-allowed;
+.auth-btn:hover {
+  background: #4338ca;
+  transform: scale(1.03);
 }
 
 /* -------------------------- */
-/* MESSAGE                     */
+/* TOGGLE & MESSAGES          */
 /* -------------------------- */
+.toggle-text {
+  text-align: center;
+  margin-top: 1rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #4f46e5;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .message {
-  margin-top: 20px;
+  text-align: center;
+  margin-top: 1rem;
+  font-weight: 500;
   font-size: 0.95rem;
 }
 
 .message.success {
-  color: #16a34a; /* Green */
+  color: #16a34a;
 }
 
 .message.error {
-  color: #dc2626; /* Red */
+  color: #dc2626;
 }
 
-/* -------------------------- */
+/* =========================== */
 /* RESPONSIVE                 */
-/* -------------------------- */
-@media (max-width: 500px) {
-  .signup-box {
-    padding: 30px 20px;
-  }
+/* =========================== */
 
-  .signup-title {
+/* Tablets & Medium Devices */
+@media (max-width: 1024px) {
+  .auth-box {
+    width: 90%;
+    padding: 2rem;
+  }
+  .auth-title {
+    font-size: 1.7rem;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  .auth-box {
+    width: 95%;
+    padding: 1.8rem;
+  }
+  .auth-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+  .auth-box {
+    width: 100%;
+    padding: 1.5rem;
+  }
+  .auth-title {
     font-size: 1.5rem;
   }
+}
 
-  .signup-form input {
-    padding: 10px;
-  }
-
-  .signup-btn {
-    padding: 10px;
+/* Ultra Small Devices */
+@media (max-width: 350px) {
+  .auth-title {
+    font-size: 1.4rem;
   }
 }
