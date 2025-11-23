@@ -1,0 +1,86 @@
+.card-container {
+  width: 100%;
+  max-width: 400px; /* Max width for larger screens */
+  padding: 25px 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin: 50px auto;
+  font-family: "Poppins", sans-serif;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.card-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 1.6rem;
+  color: #333;
+}
+
+.card-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-container label {
+  margin-bottom: 15px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.card-container input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-top: 5px;
+  font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-container input:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+  outline: none;
+}
+
+.card-container button {
+  padding: 12px;
+  margin-top: 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.card-container button:hover {
+  background-color: #45a049;
+  transform: scale(1.03);
+}
+
+/* Responsive for small screens */
+@media (max-width: 480px) {
+  .card-container {
+    padding: 20px 15px;
+    margin: 30px 10px;
+  }
+
+  .card-container h2 {
+    font-size: 1.4rem;
+  }
+
+  .card-container input, .card-container button {
+    font-size: 0.9rem;
+    padding: 10px;
+  }
+}

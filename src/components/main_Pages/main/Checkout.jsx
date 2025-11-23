@@ -1,10 +1,10 @@
 import React, { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import "../css/Checkout.css";
-
+import { useNavigate } from "react-router-dom";
 export default function CheckoutPage() {
   const { cartItems, getTotal } = useContext(CartContext);
-
+  const navigate=useNavigate()
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -41,7 +41,7 @@ export default function CheckoutPage() {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Your order has been placed successfully!");
+        navigate("/payment/card",2000)
 
         // 🔥 RESET FORM AFTER SUCCESS
         setForm({
@@ -69,7 +69,7 @@ export default function CheckoutPage() {
         <h2 className="title">Checkout</h2>
         <h4 className="subtitle">Shipping Information</h4>
 
-        <form onSubmit={handleSubmit} className="checkout-form">
+        <form  className="checkout-form">
           <label>Full Name *</label>
           <input
             type="text"
@@ -156,7 +156,7 @@ export default function CheckoutPage() {
             <input type="checkbox" required /> I agree to Terms & Conditions
           </div>
 
-          <button className="pay-btn">Pay Now</button>
+          <button className="pay-btn" onClick={handleSubmit}>Order Now</button>
         </form>
       </div>
 

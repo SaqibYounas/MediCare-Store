@@ -18,6 +18,7 @@ import ProductDetail from "./components/main_Pages/main/ProductDetail.jsx";
 import MainLayout from "./components/main_Pages/Layouts/MainLayout.jsx";
 import NotFound from "./components/main_Pages/Layouts/NotFound.jsx";
 import AdminOrders from "./components/admin/pages/All_Orders.jsx";
+import PaymentCard from "./components/main_Pages/main/Payment.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -81,6 +82,14 @@ function App() {
           element={
             <MainLayout>
               <ProductDetail />
+            </MainLayout>
+          }
+        />
+          <Route
+          path="/payment/card"
+          element={
+            <MainLayout>
+              <PaymentCard />
             </MainLayout>
           }
         />

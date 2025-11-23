@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/Header.css";
 import { CartContext } from "../../context/CartContext";
 import CartSidebar from "./SidebarCheckout";
@@ -8,6 +8,19 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { cartItems } = useContext(CartContext);
+
+  const [searchText, setSearchText] = useState("");
+  const [category, setCategory] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    navigate("/store", {
+      state: {
+        searchQuery: searchText,
+        category: category,
+      },
+    });
+  };
 
   return (
     <header className="header">
@@ -30,28 +43,17 @@ export default function Header() {
         </button>
       </div>
 
-      {menuOpen && (
-        <nav className="menu mobile-menu">
-          <Link to="/" onClick={() => setMenuOpen(false)}>
-            Home
-          </Link>
-          <Link to="/store" onClick={() => setMenuOpen(false)}>
-            Store
-          </Link>{" "}
-          {/* ← Added */}
-          <Link to="/about" onClick={() => setMenuOpen(false)}>
-            About Us
-          </Link>
-          <Link to="/contact" onClick={() => setMenuOpen(false)}>
-            Contact
-          </Link>
-        </nav>
-      )}
-
-      {/* Search */}
+      {/* SEARCH SECTION */}
       <div className="search-section">
-        <input type="text" placeholder="Search medicine..." />
-        <select>
+        <input
+          type="text"
+          placeholder="Search medicine..."
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        />
+
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="">All Categories</option>
           <option>Antibiotics</option>
           <option>Painkillers</option>
           <option>Vitamins</option>
@@ -59,9 +61,12 @@ export default function Header() {
           <option>Diabetes</option>
           <option>Heart</option>
         </select>
+
+        <button className="search-btn" onClick={handleSearch}>
+          Search
+        </button>
       </div>
 
-      {/* Sidebar */}
       <CartSidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
     </header>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../css/Store.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Loading from "../Layouts/Loading";
 import NoMedicineFound from "../Layouts/NoFoundMedicine";
 
@@ -20,62 +20,46 @@ const MedicineCard = ({ medicine }) => (
 );
 
 export default function StorePage() {
+  const location = useLocation();
+  const searchQuery = location.state?.searchQuery || "";
+  const selectedCategory = location.state?.category || "";
+
   const [medicines, setMedicines] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/medicine/get/all")
       .then((res) => res.json())
-      .then((data) => {
-        setMedicines(data);
-        const cats = [...new Set(data.map((m) => m.category))];
-        setCategories(cats);
-        setSelectedCategory(cats[0] || "");
-      })
+      .then((data) => setMedicines(data))
       .catch((err) => console.error(err))
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) {
-    return (
-      <div className="loading-container">
-        <Loading />
-      </div>
-    );
-  }
+  if (loading) return <Loading />;
+  if (medicines.length === 0) return <NoMedicineFound />;
 
-  if (medicines.length === 0) {
-    return (
-      <div className="not-found">
-        <NoMedicineFound />
-      </div>
-    );
-  }
+  // ---- FILTER LOGIC ----
+  const filtered = medicines.filter((m) => {
+    const matchesSearch =
+      searchQuery === "" ||
+      m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      m.category.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesCategory =
+      selectedCategory === "" || m.category === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="store-layout">
-      {categories.map((cat) => {
-        const filteredMedicines = medicines.filter((m) => m.category === cat);
-        return (
-          <div className="category-slider-section" key={cat}>
-            <div className="vertical-category-tab">
-              <span className="category-name-vertical">{cat}</span>
-            </div>
+      {filtered.length === 0 && <NoMedicineFound />}
 
-            <div className="horizontal-product-list">
-              {filteredMedicines.length > 0 ? (
-                filteredMedicines.map((m) => (
-                  <MedicineCard key={m.id} medicine={m} />
-                ))
-              ) : (
-                <p>No medicines in this category.</p>
-              )}
-            </div>
-          </div>
-        );
-      })}
+      <div className="horizontal-product-list">
+        {filtered.map((m) => (
+          <MedicineCard key={m.id} medicine={m} />
+        ))}
+      </div>
     </div>
   );
 }
