@@ -11,11 +11,11 @@ import {
 } from "chart.js";
 import { FaShoppingCart, FaCheckCircle, FaClock } from "react-icons/fa";
 import "../css/Dashboard.css";
-
+import LoadingPage from "../../layouts/Loading";
 ChartJS.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 export default function Dashboard() {
-  const [stats, setStats] = useState(null); 
+  const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -23,7 +23,9 @@ export default function Dashboard() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("http://127.0.0.1:8000/medicine/admin/dashboard-counts/");
+      const res = await fetch(
+        "http://127.0.0.1:8000/medicine/admin/dashboard-counts/"
+      );
       if (!res.ok) throw new Error("Failed to fetch dashboard stats");
       const data = await res.json();
       setStats({
@@ -44,8 +46,18 @@ export default function Dashboard() {
     fetchStats();
   }, [fetchStats]);
 
-  if (loading) return <p style={{ textAlign: "center", marginTop: "50px" }}>Loading dashboard...</p>;
-  if (error) return <p style={{ textAlign: "center", marginTop: "50px", color: "red" }}>Error: {error}</p>;
+  if (loading)
+    return (
+      <p style={{ textAlign: "center", marginTop: "50px" }}>
+        <LoadingPage/>
+      </p>
+    );
+  if (error)
+    return (
+      <p style={{ textAlign: "center", marginTop: "50px", color: "red" }}>
+        Error: {error}
+      </p>
+    );
 
   const chartData = {
     labels: ["Total Orders", "Completed", "Pending"],
@@ -77,7 +89,9 @@ export default function Dashboard() {
             <div className="stats-row">
               <div className="card-stats card-success">
                 <div className="card-body">
-                  <div className="card-icon"><FaShoppingCart /></div>
+                  <div className="card-icon">
+                    <FaShoppingCart />
+                  </div>
                   <p className="card-category">Total Orders</p>
                   <h4 className="card-title">{stats.totalOrders}</h4>
                 </div>
@@ -85,7 +99,9 @@ export default function Dashboard() {
 
               <div className="card-stats card-info">
                 <div className="card-body">
-                  <div className="card-icon"><FaCheckCircle /></div>
+                  <div className="card-icon">
+                    <FaCheckCircle />
+                  </div>
                   <p className="card-category">Completed</p>
                   <h4 className="card-title">{stats.completedOrders}</h4>
                 </div>
@@ -93,7 +109,9 @@ export default function Dashboard() {
 
               <div className="card-stats card-warning">
                 <div className="card-body">
-                  <div className="card-icon"><FaClock /></div>
+                  <div className="card-icon">
+                    <FaClock />
+                  </div>
                   <p className="card-category">Pending</p>
                   <h4 className="card-title">{stats.pendingOrders}</h4>
                 </div>
@@ -113,7 +131,6 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>

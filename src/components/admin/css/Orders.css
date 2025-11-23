@@ -4,7 +4,7 @@
 
 .main-panel {
   flex: 1;
-  padding: 2rem;
+  padding: 4rem;
   background-color: #f4f6f9;
   min-height: 100vh;
 }
@@ -40,4 +40,12 @@ button {
 
 button:hover {
   background-color: #c0392b;
+}
+
+h2{
+  font-size: 22px;
+    font-weight: 600;
+    color: black;
+    line-height: 30px;
+    margin-bottom: 20px;
 }

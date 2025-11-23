@@ -6,7 +6,6 @@ export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [pendingOrdersCount, setPendingOrdersCount] = useState(0);
 
-  // Fetch all orders
   const fetchOrders = async () => {
     try {
       const res = await fetch("http://127.0.0.1:8000/medicine/admin/orders/");
@@ -31,19 +30,18 @@ export default function AdminOrders() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
       });
-      fetchOrders(); // refresh list
+      fetchOrders();
     } catch (err) {
       console.error("Failed to update order:", err);
     }
   };
 
-  // Delete order
   const deleteOrder = async (id) => {
     try {
       await fetch(`http://127.0.0.1:8000/medicine/admin/orders/delete/${id}/`, {
         method: "DELETE",
       });
-      fetchOrders(); // refresh list
+      fetchOrders();
     } catch (err) {
       console.error("Failed to delete order:", err);
     }
@@ -51,14 +49,12 @@ export default function AdminOrders() {
 
   return (
     <div className="admin-panel">
-      {/* Sidebar */}
       <AdminSideBar pendingOrdersCount={pendingOrdersCount} />
 
-      {/* Main content */}
       <div className="main-panel">
         <div className="content">
           <div className="container-fluid">
-            <h2>All Orders</h2>
+            <h4>All Orders</h4>
             <div className="table-wrapper">
               <table>
                 <thead>
@@ -90,7 +86,9 @@ export default function AdminOrders() {
                         </select>
                       </td>
                       <td>
-                        <button onClick={() => deleteOrder(o.id)}>Delete</button>
+                        <button onClick={() => deleteOrder(o.id)}>
+                          Delete
+                        </button>
                       </td>
                     </tr>
                   ))}
