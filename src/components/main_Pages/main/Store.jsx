@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../css/Store.css";
 import { Link } from "react-router-dom";
 import Loading from "../Layouts/Loading";
+import NoMedicineFound from "../Layouts/NoFoundMedicine";
 export default function StorePage() {
   const [medicines, setMedicines] = useState([]);
   const [loading, setLoading] = useState(true); 
@@ -26,7 +27,7 @@ export default function StorePage() {
   if (medicines.length === 0) {
     return (
       <div className="not-found">
-        No medicines found.
+        <NoMedicineFound/>
       </div>
     );
   }
