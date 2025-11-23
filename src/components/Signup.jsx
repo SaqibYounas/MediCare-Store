@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import "./Signup.css"; // CSS file
+import "./AuthForm.css"; // CSS file
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -28,8 +28,6 @@ function Signup() {
       if (response.ok) {
         setMessage("🎉 Signup successful!");
         console.log("User created:", data);
-
-        // Clear fields
         setUsername("");
         setEmail("");
         setPassword("");
@@ -104,7 +102,9 @@ function Signup() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className={`message ${message.includes("❌") ? "error" : "success"}`}
+            className={`message ${
+              message.includes("❌") ? "error" : "success"
+            }`}
           >
             {message}
           </motion.p>

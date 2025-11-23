@@ -22,6 +22,12 @@ export default function UpdateMedicine() {
   const [searchTerm, setSearchTerm] = useState("");
   const [newImage, setNewImage] = useState(null);
 
+  // Capitalize first letter function
+  const capitalizeFirstLetter = (str) => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
+
   // Fetch categories
   useEffect(() => {
     const fetchCategories = async () => {
@@ -61,8 +67,9 @@ export default function UpdateMedicine() {
     setErrorMsg("");
 
     try {
+      const formattedSearch = capitalizeFirstLetter(searchTerm);
       const response = await fetch(
-        `http://127.0.0.1:8000/medicine/name/${searchTerm}/`
+        `http://127.0.0.1:8000/medicine/name/${formattedSearch}/`
       );
 
       if (!response.ok) {
@@ -80,7 +87,8 @@ export default function UpdateMedicine() {
       }
 
       const data = await response.json();
-      setMedicine(data);
+      // Capitalize name in frontend
+      setMedicine({ ...data, name: capitalizeFirstLetter(data.name) });
     } catch (error) {
       console.error(error);
       setErrorMsg("Error fetching medicine data");
@@ -89,13 +97,19 @@ export default function UpdateMedicine() {
 
   // Handle input changes
   const handleChange = (e) => {
-    setMedicine({ ...medicine, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "name") {
+      setMedicine({ ...medicine, [name]: capitalizeFirstLetter(value) });
+    } else {
+      setMedicine({ ...medicine, [name]: value });
+    }
   };
 
   // Handle image selection
   const handleImageChange = (e) => {
     setNewImage(e.target.files[0]);
   };
+
   const handleUpdateMedicine = async () => {
     if (
       !medicine.name ||
@@ -120,7 +134,7 @@ export default function UpdateMedicine() {
       const response = await fetch(
         `http://127.0.0.1:8000/medicine/update/${medicine.id}/`,
         {
-          method: "POST", // MUST BE POST FOR FormData
+          method: "POST", // FormData POST
           body: formData,
         }
       );
@@ -151,7 +165,7 @@ export default function UpdateMedicine() {
                 type="text"
                 placeholder="Search medicine name..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => setSearchTerm(capitalizeFirstLetter(e.target.value))}
               />
               <button onClick={handleSearch}>Search</button>
             </div>

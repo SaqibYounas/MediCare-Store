@@ -21,11 +21,11 @@ export default function DeleteMedicine() {
   const [successMsg, setSuccessMsg] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  // const toTitleCase = (str) => {
-  //   return str
-  //     .toLowerCase()
-  //     .replace(/\b\w/g, (char) => char.toUpperCase());
-  // };
+  // Capitalize first letter function
+  const capitalizeFirstLetter = (str) => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+  };
 
   // Search medicine by name
   const handleSearch = async () => {
@@ -33,7 +33,11 @@ export default function DeleteMedicine() {
     setErrorMsg("");
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/medicine/name/${searchTerm}/`);
+      const formattedSearch = capitalizeFirstLetter(searchTerm);
+      const response = await fetch(
+        `http://127.0.0.1:8000/medicine/name/${formattedSearch}/`
+      );
+
       if (!response.ok) {
         setErrorMsg("Medicine not found");
         setMedicine({
@@ -48,8 +52,10 @@ export default function DeleteMedicine() {
         });
         return;
       }
+
       const data = await response.json();
-      setMedicine(data); 
+      // Capitalize name in frontend as well
+      setMedicine({ ...data, name: capitalizeFirstLetter(data.name) });
     } catch (error) {
       console.error(error);
       setErrorMsg("Error fetching medicine data");
@@ -60,7 +66,8 @@ export default function DeleteMedicine() {
   const handleDeleteMedicine = async () => {
     if (!medicine.id) return setErrorMsg("No medicine selected to delete");
 
-    if (!window.confirm(`Are you sure you want to delete ${medicine.name}?`)) return;
+    if (!window.confirm(`Are you sure you want to delete ${medicine.name}?`))
+      return;
 
     try {
       const response = await fetch(
@@ -109,7 +116,9 @@ export default function DeleteMedicine() {
                 type="text"
                 placeholder="Enter medicine name..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm((e.target.value))}
+                onChange={(e) =>
+                  setSearchTerm(capitalizeFirstLetter(e.target.value))
+                }
               />
               <button onClick={handleSearch}>Search</button>
             </div>
@@ -121,12 +130,24 @@ export default function DeleteMedicine() {
             {medicine.id && (
               <div className="form-card">
                 <h5>Medicine Details</h5>
-                <p><strong>Name:</strong> {medicine.name}</p>
-                <p><strong>Power:</strong> {medicine.power}</p>
-                <p><strong>Category:</strong> {medicine.category}</p>
-                <p><strong>Type:</strong> {medicine.type}</p>
-                <p><strong>Price:</strong> ₹{medicine.price}</p>
-                <p><strong>Stock:</strong> {medicine.stock}</p>
+                <p>
+                  <strong>Name:</strong> {medicine.name}
+                </p>
+                <p>
+                  <strong>Power:</strong> {medicine.power}
+                </p>
+                <p>
+                  <strong>Category:</strong> {medicine.category}
+                </p>
+                <p>
+                  <strong>Type:</strong> {medicine.type}
+                </p>
+                <p>
+                  <strong>Price:</strong> ₹{medicine.price}
+                </p>
+                <p>
+                  <strong>Stock:</strong> {medicine.stock}
+                </p>
 
                 {medicine.image_url && (
                   <div className="mt-2">
@@ -135,7 +156,11 @@ export default function DeleteMedicine() {
                       <img
                         src={medicine.image_url}
                         alt={medicine.name}
-                        style={{ maxWidth: "150px", marginTop: "5px", borderRadius: "6px" }}
+                        style={{
+                          maxWidth: "150px",
+                          marginTop: "5px",
+                          borderRadius: "6px",
+                        }}
                       />
                     </div>
                   </div>

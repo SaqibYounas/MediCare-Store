@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminSideBar from "../../layouts/AdminSideBar";
 import "../css/AddMedicine.css"
-export default function AddMedicine() {
 
+export default function AddMedicine() {
   const importantCategories = [
     "Antibiotics",
     "Painkillers",
@@ -24,12 +24,19 @@ export default function AddMedicine() {
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
+  // Function to capitalize first letter
+  const capitalizeFirstLetter = (str) => {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+
   const handleAddMedicine = async () => {
     if (medicine.name && medicine.power && medicine.category && medicine.price && medicine.stock) {
       setErrorMsg("");
+
       try {
         const formData = new FormData();
-        formData.append("name", medicine.name);
+        formData.append("name", capitalizeFirstLetter(medicine.name)); // Capitalized
         formData.append("power", medicine.power);
         formData.append("category", medicine.category);
         formData.append("price", medicine.price);
@@ -38,7 +45,7 @@ export default function AddMedicine() {
 
         const response = await fetch("http://127.0.0.1:8000/medicine/add/", {
           method: "POST",
-          body: formData, // <-- send formData
+          body: formData, 
         });
 
         const data = await response.json();
@@ -80,7 +87,7 @@ export default function AddMedicine() {
                         value={medicine.name}
                         id="name"
                         onChange={(e) =>
-                          setMedicine({ ...medicine, name: e.target.value })
+                          setMedicine({ ...medicine, name: capitalizeFirstLetter(e.target.value) })
                         }
                         placeholder="Enter Medicine Name"
                       />
