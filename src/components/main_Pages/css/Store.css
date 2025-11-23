@@ -67,6 +67,7 @@
 
 .card .checkout-btn:hover {
   background: #0056b3;
+  color:white;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
@@ -108,3 +109,158 @@
     font-size: 14px;
   }
 }
+/* --- New Layout Containers --- */
+
+.store-layout {
+  padding: 20px;
+}
+
+.category-selector-tabs {
+    /* Style for simple tabs to select the category */
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.category-tab-btn {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.category-tab-btn.active {
+    background: #007bff; /* Example active color */
+    color: white;
+    border-color: #007bff;
+}
+
+.category-slider-section {
+  display: flex;
+  align-items: center; /* Vertically align tab and products */
+  gap: 10px;
+  overflow: hidden; /* Important for clean layout */
+}
+
+
+.vertical-category-tab {
+  background-color: #007bff; /* Blue color from the image */
+  height: 300px; /* Adjust height as needed */
+  width: 50px; /* Width of the tab */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px; /* Rounded edges like the image */
+  flex-shrink: 0; /* Prevents it from shrinking */
+}
+
+.category-name-vertical {
+  /* To make the text vertical */
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  writing-mode: vertical-rl; /* Key for vertical text */
+  text-orientation: mixed;
+  transform: rotate(180deg); /* To read correctly from top to bottom */
+}
+
+
+/* --- Horizontal Product List (The Slider) --- */
+
+.horizontal-product-list {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto; /* Enables horizontal scrolling */
+  padding: 10px;
+  /* Scrollbar styling (optional) */
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none; /* For IE and Edge */
+}
+
+.horizontal-product-list::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Opera */
+}
+
+
+/* --- Product Card Styling (Individual Item) --- */
+
+.product-card {
+  /* To mimic the cards in the image */
+  width: 200px; /* Fixed width for slider effect */
+  flex-shrink: 0; /* Crucial for horizontal scrolling */
+  background: white;
+  border: 1px solid #eee;
+  padding: 15px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  position: relative; /* For image box alignment */
+}
+
+.product-image-box {
+  /* Container for the image to ensure consistent sizing */
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.product-card img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.product-name {
+  font-size:18px !important;
+  margin: 10px 0;
+  height: 40px; 
+    font-weight: bold !important;
+
+}
+
+.product-price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.buy-btn {
+  display: block;
+  padding: 8px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    position: absolute; 
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot.active {
+    background-color: #333; 
+}
+
+

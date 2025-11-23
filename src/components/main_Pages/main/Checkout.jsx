@@ -13,6 +13,7 @@ export default function CheckoutPage() {
     zip: "",
     country: "",
     state: "",
+    phone: "",
   });
 
   const handleChange = (e) => {
@@ -30,8 +31,6 @@ export default function CheckoutPage() {
       })),
     };
 
-    console.log("Submitting order", orderData); // ✅ Check console
-
     try {
       const res = await fetch("http://127.0.0.1:8000/medicine/place-order/", {
         method: "POST",
@@ -43,7 +42,18 @@ export default function CheckoutPage() {
 
       if (res.ok) {
         alert("Your order has been placed successfully!");
-        // Optionally clear cart here
+
+        // 🔥 RESET FORM AFTER SUCCESS
+        setForm({
+          name: "",
+          email: "",
+          address: "",
+          city: "",
+          zip: "",
+          country: "",
+          state: "",
+          phone: "",
+        });
       } else {
         alert(data.error || "Something went wrong!");
       }
@@ -54,10 +64,11 @@ export default function CheckoutPage() {
 
   return (
     <div className="checkout-wrapper">
-      {/* ===== LEFT: Form ===== */}
+      {/* LEFT FORM */}
       <div className="checkout-left">
         <h2 className="title">Checkout</h2>
         <h4 className="subtitle">Shipping Information</h4>
+
         <form onSubmit={handleSubmit} className="checkout-form">
           <label>Full Name *</label>
           <input
@@ -78,7 +89,14 @@ export default function CheckoutPage() {
           />
 
           <label>Phone Number *</label>
-          <input type="text" name="phone" placeholder="03xx-xxxxxxx" required />
+          <input
+            type="text"
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            placeholder="03xx-xxxxxxx"
+            required
+          />
 
           <label>Address *</label>
           <input
@@ -138,14 +156,11 @@ export default function CheckoutPage() {
             <input type="checkbox" required /> I agree to Terms & Conditions
           </div>
 
-          {/* Optional Pay Now button triggers same submit */}
-          <button className="pay-btn" onClick={handleSubmit}>
-            Pay Now
-          </button>
+          <button className="pay-btn">Pay Now</button>
         </form>
       </div>
 
-      {/* ===== RIGHT: Cart Summary ===== */}
+      {/* RIGHT SUMMARY */}
       <div className="checkout-right">
         <h3 className="subtitle">Order Summary</h3>
 
@@ -166,11 +181,14 @@ export default function CheckoutPage() {
             <span>Subtotal</span>
             <span>Rs {getTotal()}</span>
           </p>
+
           <p>
             <span>Shipping</span>
             <span>Rs 0</span>
           </p>
+
           <hr />
+
           <p className="total">
             <span>Total</span>
             <span>Rs {getTotal()}</span>

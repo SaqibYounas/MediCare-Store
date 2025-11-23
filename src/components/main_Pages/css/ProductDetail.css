@@ -78,6 +78,7 @@
   border: 1px solid #ddd;
   border-radius: 6px;
   background: #fff;
+  color:black;
   transition: all 0.2s ease;
 }
 
@@ -228,5 +229,125 @@
 
   .product-info {
     max-width: 100%;
+  }
+}
+
+.store-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  padding: 20px 0;
+}
+
+/* --- Responsive Card Grid --- */
+.store-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 15px;
+  padding: 20px 0;
+}
+
+/* === Card === */
+.card {
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #fff;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.card * {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Name */
+.card .name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin: 8px 0 4px;
+}
+
+/* Price */
+.card .price {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+/* Button */
+.card .checkout-btn {
+  width: 100%;
+  padding: 8px;
+  background: #007bff;
+  color: white;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.card .checkout-btn:hover {
+  background: #0056b3;
+}
+
+/* ============================
+   RESPONSIVE BREAKPOINTS
+=============================== */
+
+/* 1200px → 4 Cards */
+@media (max-width: 1200px) {
+  .store-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 992px → 3 Cards */
+@media (max-width: 992px) {
+  .store-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 768px → 2 Cards */
+@media (max-width: 768px) {
+  .store-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 480px → 1 Card */
+@media (max-width: 480px) {
+  .store-container {
+    grid-template-columns: 1fr;
+  }
+
+  .card .name {
+    font-size: 13px;
+  }
+
+  .card .price {
+    font-size: 16px;
+  }
+
+  .card .checkout-btn {
+    font-size: 14px;
+    padding: 6px;
   }
 }
