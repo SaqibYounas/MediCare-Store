@@ -43,7 +43,6 @@ export default function CheckoutPage() {
       if (res.ok) {
         navigate("/payment/card",2000)
 
-        // 🔥 RESET FORM AFTER SUCCESS
         setForm({
           name: "",
           email: "",
