@@ -19,10 +19,13 @@ table {
   margin-top: 20px;
 }
 
-th, td {
+th {
   padding: 10px 15px;
   border: 1px solid #ddd;
   text-align: left;
+  background-color: #2c7be5; 
+  color: white; 
+  font-weight: 600;
 }
 
 select {

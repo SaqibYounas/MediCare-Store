@@ -94,12 +94,23 @@ export default function AdminSideBar({ pendingOrdersCount }) {
                 )}
               </Link>
             </li>
-
-            
+            <li className="nav-item">
+              <Link onClick={handleLinkClick} to="/admin/payments">
+                <i className="la la-credit-card"></i>
+                <p>Payments</p>
+              </Link>
+            </li>
 
             <li className="nav-item">
-              <Link onClick={handleLinkClick}   to="/login">
-              
+              <Link onClick={handleLinkClick} to="/admin/messages">
+                <i className="la la-envelope"></i>
+                <p>Messages</p>
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link onClick={handleLinkClick} to="/login">
+
                 <i className="la la-power-off"></i>
                 <p>Logout</p>
               </Link>

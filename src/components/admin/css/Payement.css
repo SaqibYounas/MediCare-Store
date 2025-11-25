@@ -1,0 +1,77 @@
+.payment-container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 40px auto;
+  margin-left: 250px; /* agar sidebar hai */
+  font-family: Arial, sans-serif;
+  overflow-x: auto; /* horizontal scroll for small screens */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on mobile */
+    background-color: #f4f6f9;
+
+}
+body {
+  background-color: #f4f6f9; /* full screen background */
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+.payment-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+    background-color: #f4f6f9;
+
+}
+
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* table scroll if screen smaller */
+  table-layout: auto; /* allow columns to adjust */
+}
+
+.payment-table th,
+.payment-table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  word-break: break-word; /* prevent text overflow */
+}
+
+.payment-table th {
+  background: #2c7be5;
+  color: white;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 50px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .payment-container {
+    margin-left: 200px; /* reduce sidebar space */
+  }
+}
+
+@media (max-width: 768px) {
+  .payment-table th,
+  .payment-table td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .payment-table th,
+  .payment-table td {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .payment-container {
+    margin-left: 0; /* remove sidebar margin on very small screens */
+  }
+}

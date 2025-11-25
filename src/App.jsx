@@ -19,6 +19,8 @@ import MainLayout from "./components/main_Pages/Layouts/MainLayout.jsx";
 import NotFound from "./components/main_Pages/Layouts/NotFound.jsx";
 import AdminOrders from "./components/admin/pages/All_Orders.jsx";
 import PaymentCard from "./components/main_Pages/main/Payment.jsx";
+import MessagesList from "./components/admin/pages/Messages.jsx";
+import PaymentsList from "./components/admin/pages/Payement.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -35,6 +37,8 @@ function App() {
         <Route path="/delete/medicine" element={<DeleteMedicine />} />
         <Route path="/create/medicine" element={<AddNewMedicine />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
+        <Route path="/admin/messages" element={<MessagesList />} />
+        <Route path="/admin/payments" element={<PaymentsList />} />
 
         {/* Main Pages - WITH Header/Footer */}
         <Route
