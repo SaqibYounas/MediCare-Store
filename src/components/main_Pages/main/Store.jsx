@@ -36,9 +36,7 @@ export default function StorePage() {
   }, []);
 
   if (loading) return <Loading />;
-  if (medicines.length === 0) return <NoMedicineFound />;
 
-  // ---- FILTER LOGIC ----
   const filtered = medicines.filter((m) => {
     const matchesSearch =
       searchQuery === "" ||
@@ -51,15 +49,32 @@ export default function StorePage() {
     return matchesSearch && matchesCategory;
   });
 
+  const groupedByCategory = filtered.reduce((acc, medicine) => {
+    const category = medicine.category;
+    if (!acc[category]) {
+      acc[category] = [];
+    }
+    acc[category].push(medicine);
+    return acc;
+  }, {});
+
+  const categories = Object.keys(groupedByCategory);
+
+  if (filtered.length === 0) return <NoMedicineFound />;
+
   return (
     <div className="store-layout">
-      {filtered.length === 0 && <NoMedicineFound />}
-
-      <div className="horizontal-product-list">
-        {filtered.map((m) => (
-          <MedicineCard key={m.id} medicine={m} />
-        ))}
-      </div>
+      {categories.map((category) => (
+        <div key={category} className="category-section">
+          <h2>{category}</h2>
+          <div className="horizontal-product-list">
+            {groupedByCategory[category].map((m) => (
+              <MedicineCard key={m.id} medicine={m} />
+            ))}
+          </div>
+          <hr />
+        </div>
+      ))}
     </div>
   );
 }

@@ -1,0 +1,77 @@
+.main-wrapper {
+  padding: 30px;
+  font-family: "Poppins", sans-serif;
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+.title {
+  font-size: 30px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.status {
+  padding: 5px 10px;
+  border-radius: 6px;
+  color: white;
+  font-weight: 600;
+}
+
+.pending {
+  background: #f39c12; /* Yellow */
+}
+
+.onway {
+  background: #2980b9; /* Blue */
+}
+
+.completed {
+  background: #27ae60; /* Green */
+}
+
+.delivered {
+  background: #2ecc71; /* Bright Green */
+}
+
+.section-title {
+  margin-top: 40px;
+  margin-bottom: 10px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 40px;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+}
+
+.styled-table thead {
+  background: #34495e;
+  color: #fff;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 18px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.styled-table tbody tr:hover {
+  background: #f0f4ff;
+}
+
+.loading {
+  font-size: 20px;
+  padding: 30px;
+  text-align: center;
+}

@@ -15,35 +15,48 @@ export default function Header() {
 
   const handleSearch = () => {
     navigate("/store", {
-      state: {
-        searchQuery: searchText,
-        category: category,
-      },
+      state: { searchQuery: searchText, category: category },
     });
   };
 
   return (
     <header className="header">
       <div className="nav-container">
+
+        {/* Hamburger Button */}
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? "✖" : "☰"}
         </button>
 
         <div className="logo">🩺 MediCare Store</div>
 
+        {/* Desktop Menu */}
         <nav className="menu desktop-menu">
           <Link to="/">Home</Link>
           <Link to="/store">Store</Link>
           <Link to="/about">About Us</Link>
           <Link to="/contact">Contact</Link>
+          <Link to="/orders" className="order-icon">📦 Orders</Link>
         </nav>
 
+        {/* Cart Icon */}
         <button onClick={() => setSidebarOpen(true)} className="cart-icon">
           🛒 {cartItems.length}
         </button>
       </div>
 
-      {/* SEARCH SECTION */}
+      {/* ✅ MOBILE MENU (TOGGLE BASED) */}
+      {menuOpen && (
+        <nav className="mobile-menu">
+          <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+          <Link to="/store" onClick={() => setMenuOpen(false)}>Store</Link>
+          <Link to="/about" onClick={() => setMenuOpen(false)}>About Us</Link>
+          <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
+          <Link to="/orders" onClick={() => setMenuOpen(false)}>📦 Orders</Link>
+        </nav>
+      )}
+
+      {/* SEARCH BAR */}
       <div className="search-section">
         <input
           type="text"

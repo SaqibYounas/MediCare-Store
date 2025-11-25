@@ -21,6 +21,7 @@ import AdminOrders from "./components/admin/pages/All_Orders.jsx";
 import PaymentCard from "./components/main_Pages/main/Payment.jsx";
 import MessagesList from "./components/admin/pages/Messages.jsx";
 import PaymentsList from "./components/admin/pages/Payement.jsx";
+import OrdersPage from "./components/main_Pages/main/Orders.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -94,6 +95,15 @@ function App() {
           element={
             <MainLayout>
               <PaymentCard />
+            </MainLayout>
+          }
+        />
+        
+          <Route
+          path="/orders"
+          element={
+            <MainLayout>
+              <OrdersPage />
             </MainLayout>
           }
         />
