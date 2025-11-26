@@ -27,40 +27,52 @@ export default function DeleteMedicine() {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
   };
 
-  // Search medicine by name
-  const handleSearch = async () => {
-    if (!searchTerm) return setErrorMsg("Enter a medicine name to search");
-    setErrorMsg("");
+const handleSearch = async () => {
+  if (!searchTerm) return setErrorMsg("Enter a medicine name to search");
+  setErrorMsg("");
 
-    try {
-      const formattedSearch = capitalizeFirstLetter(searchTerm);
-      const response = await fetch(
-        `http://127.0.0.1:8000/medicine/name/${formattedSearch}/`
-      );
+  try {
+    const formattedSearch = capitalizeFirstLetter(searchTerm);
+    const response = await fetch(
+      `http://127.0.0.1:8000/medicine/name/${formattedSearch}/`
+    );
 
-      if (!response.ok) {
-        setErrorMsg("Medicine not found");
-        setMedicine({
-          id: "",
-          name: "",
-          power: "",
-          category: "",
-          type: "",
-          price: "",
-          stock: "",
-          image_url: "",
-        });
-        return;
-      }
-
-      const data = await response.json();
-      // Capitalize name in frontend as well
-      setMedicine({ ...data, name: capitalizeFirstLetter(data.name) });
-    } catch (error) {
-      console.error(error);
-      setErrorMsg("Error fetching medicine data");
+    if (!response.ok) {
+      setErrorMsg("Medicine not found");
+      setMedicine({
+        id: "",
+        name: "",
+        power: "",
+        category: "",
+        type: "",
+        price: "",
+        stock: "",
+        image_url: "",
+      });
+      return;
     }
-  };
+
+    const data = await response.json();
+
+    // 🟩 FIX: use first medicine from array
+    const med = data.medicines[0];
+
+    setMedicine({
+      id: med.id,
+      name: capitalizeFirstLetter(med.name),
+      power: med.power,
+      category: med.category,
+      type: med.type || "", 
+      price: med.price,
+      stock: med.stock,
+      image_url: med.image ? `http://127.0.0.1:8000${med.image}` : null
+    });
+
+  } catch (error) {
+    console.error(error);
+    setErrorMsg("Error fetching medicine data");
+  }
+};
 
   // Delete medicine
   const handleDeleteMedicine = async () => {
@@ -143,7 +155,7 @@ export default function DeleteMedicine() {
                   <strong>Type:</strong> {medicine.type}
                 </p>
                 <p>
-                  <strong>Price:</strong> ₹{medicine.price}
+                  <strong>Price:</strong> RS: {medicine.price}
                 </p>
                 <p>
                   <strong>Stock:</strong> {medicine.stock}

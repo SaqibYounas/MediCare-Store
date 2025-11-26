@@ -32,11 +32,12 @@ export default function CheckoutPage() {
     };
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/medicine/place-order/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData),
-      });
+     const res = await fetch("http://127.0.0.1:8000/medicine/place-order/", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(orderData),
+});
+
 
       const data = await res.json();
 

@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import Loading from "../Layouts/Loading";
 import NoMedicineFound from "../Layouts/NoFoundMedicine";
 
+// Medicine card component
 const MedicineCard = ({ medicine }) => (
   <div className="product-card" key={medicine.id}>
     <div className="product-image-box">
@@ -26,7 +27,6 @@ export default function StorePage() {
 
   const [medicines, setMedicines] = useState([]);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     fetch("http://127.0.0.1:8000/medicine/get/all")
       .then((res) => res.json())
@@ -37,30 +37,47 @@ export default function StorePage() {
 
   if (loading) return <Loading />;
 
-  const filtered = medicines.filter((m) => {
-    const matchesSearch =
-      searchQuery === "" ||
-      m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      m.category.toLowerCase().includes(searchQuery.toLowerCase());
+  // Search query words me split karna
+  const searchWords = searchQuery.toLowerCase().split(" ").filter(Boolean);
+ const scored = medicines
+  .map((m) => {
+    let score = 0;
 
-    const matchesCategory =
-      selectedCategory === "" || m.category === selectedCategory;
+    const medicineWords = m.name.toLowerCase().split(" ").filter(Boolean);
 
-    return matchesSearch && matchesCategory;
-  });
+    // multi-word search
+    searchWords.forEach((searchWord) => {
+      medicineWords.forEach((medWord) => {
+        if (medWord.includes(searchWord)) score += 2; // startsWith → includes for partial match
+      });
+      if (m.category.toLowerCase().includes(searchWord)) score += 1;
+    });
 
-  const groupedByCategory = filtered.reduce((acc, medicine) => {
-    const category = medicine.category;
-    if (!acc[category]) {
-      acc[category] = [];
+    // agar search query empty hai → show all medicines
+    if (searchWords.length === 0) score = 1;
+
+    // category filter
+    if (selectedCategory && m.category !== selectedCategory) {
+      // optional: comment out if you want all categories
+      // score = 0;
     }
+
+    return { ...m, score };
+  })
+  .filter((m) => m.score > 0)
+  .sort((a, b) => b.score - a.score);
+
+
+  if (scored.length === 0) return <NoMedicineFound />;
+
+  const groupedByCategory = scored.reduce((acc, medicine) => {
+    const category = medicine.category;
+    if (!acc[category]) acc[category] = [];
     acc[category].push(medicine);
     return acc;
   }, {});
 
   const categories = Object.keys(groupedByCategory);
-
-  if (filtered.length === 0) return <NoMedicineFound />;
 
   return (
     <div className="store-layout">

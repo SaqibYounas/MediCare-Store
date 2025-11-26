@@ -61,7 +61,6 @@ export default function UpdateMedicine() {
     fetchCategories();
   }, []);
 
-  // Search medicine
   const handleSearch = async () => {
     if (!searchTerm) return setErrorMsg("Enter a medicine name to search");
     setErrorMsg("");
@@ -87,8 +86,19 @@ export default function UpdateMedicine() {
       }
 
       const data = await response.json();
-      // Capitalize name in frontend
-      setMedicine({ ...data, name: capitalizeFirstLetter(data.name) });
+      console.log(data);
+      // 🟩 FIX: array me se first medicine lo
+      const med = data.medicines[0];
+
+      setMedicine({
+        id: med.id,
+        name: med.name,
+        power: med.power,
+        category: med.category,
+        price: med.price,
+        stock: med.stock,
+        image_url: med.image,
+      });
     } catch (error) {
       console.error(error);
       setErrorMsg("Error fetching medicine data");
@@ -111,45 +121,54 @@ export default function UpdateMedicine() {
   };
 
   const handleUpdateMedicine = async () => {
-    if (
-      !medicine.name ||
-      !medicine.power ||
-      !medicine.category ||
-      !medicine.price ||
-      !medicine.stock
-    ) {
-      setErrorMsg("Please fill out all fields!");
-      return;
-    }
+  if (
+    !medicine.name ||
+    !medicine.power ||
+    !medicine.category ||
+    !medicine.price ||
+    !medicine.stock
+  ) {
+    setErrorMsg("Please fill out all fields!");
+    return;
+  }
 
-    try {
-      const formData = new FormData();
-      formData.append("name", medicine.name);
-      formData.append("power", medicine.power);
-      formData.append("category", medicine.category);
-      formData.append("price", medicine.price);
-      formData.append("stock", medicine.stock);
-      if (newImage) formData.append("image", newImage);
+  try {
+    const formData = new FormData();
+    formData.append("name", medicine.name);
+    formData.append("power", medicine.power);
+    formData.append("category", medicine.category);
+    formData.append("price", medicine.price);
+    formData.append("stock", medicine.stock);
+    if (newImage) formData.append("image", newImage);
 
-      const response = await fetch(
-        `http://127.0.0.1:8000/medicine/update/${medicine.id}/`,
-        {
-          method: "POST", // FormData POST
-          body: formData,
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccessMsg("Medicine updated successfully!");
-      } else {
-        setErrorMsg(data.error || "Failed to update medicine");
+    const response = await fetch(
+      `http://127.0.0.1:8000/medicine/update/${medicine.id}/`,
+      {
+        method: "POST",
+        body: formData,
       }
-    } catch (error) {
-      setErrorMsg("Cannot connect to server!");
+    );
+
+    const data = await response.json();
+    console.log(data);
+
+    if (response.ok) {
+      setSuccessMsg("Medicine updated successfully!");
+      setErrorMsg(""); 
+
+      setTimeout(() => {
+        setSuccessMsg("");
+      }, 2000);
+    } else {
+      setErrorMsg(data.error || "Failed to update medicine");
+      setSuccessMsg(""); 
     }
-  };
+  } catch (error) {
+    setErrorMsg("Cannot connect to server!");
+    setSuccessMsg(""); 
+  }
+};
+
 
   return (
     <>
@@ -165,7 +184,9 @@ export default function UpdateMedicine() {
                 type="text"
                 placeholder="Search medicine name..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(capitalizeFirstLetter(e.target.value))}
+                onChange={(e) =>
+                  setSearchTerm(capitalizeFirstLetter(e.target.value))
+                }
               />
               <button onClick={handleSearch}>Search</button>
             </div>
@@ -223,12 +244,11 @@ export default function UpdateMedicine() {
                     onChange={handleChange}
                   />
 
-                  {/* Current Image */}
                   {medicine.image_url && (
                     <div className="current-image">
                       <p>Current Image:</p>
                       <img
-                        src={medicine.image_url}
+                        src={`http://127.0.0.1:8000${medicine.image_url}`}
                         alt={medicine.name}
                         className="medicine-image"
                       />
