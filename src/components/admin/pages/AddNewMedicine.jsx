@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import AdminSideBar from "../../layouts/AdminSideBar";
-import "../css/AddMedicine.css"
+import { PlusCircle, Upload, AlertTriangle, CheckCircle } from "lucide-react";
+import "../css/AddMedicine.css"; // Keep your CSS file
 
 export default function AddMedicine() {
   const importantCategories = [
@@ -9,6 +9,17 @@ export default function AddMedicine() {
     "Painkillers",
     "Blood Pressure Medicines",
     "Vitamins & Supplements",
+    "Diabetes Medicines",
+    "Heart Medicines",
+    "Allergy Medicines",
+    "Cold & Flu Medicines",
+    "Digestive Medicines",
+    "Skin Medicines",
+    "Eye Medicines",
+    "Ear Medicines",
+    "Anti-inflammatory Medicines",
+    "Hormonal Medicines",
+    "Immunity Boosters",
   ];
 
   const initialState = {
@@ -17,26 +28,29 @@ export default function AddMedicine() {
     category: "",
     price: "",
     stock: "",
-    image: null, 
+    image: null,
   };
 
   const [medicine, setMedicine] = useState(initialState);
   const [errorMsg, setErrorMsg] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
-  // Function to capitalize first letter
-  const capitalizeFirstLetter = (str) => {
-    if (!str) return "";
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  };
+  const capitalizeFirstLetter = (str) =>
+    str ? str.charAt(0).toUpperCase() + str.slice(1) : "";
 
   const handleAddMedicine = async () => {
-    if (medicine.name && medicine.power && medicine.category && medicine.price && medicine.stock) {
+    if (
+      medicine.name &&
+      medicine.power &&
+      medicine.category &&
+      medicine.price &&
+      medicine.stock
+    ) {
       setErrorMsg("");
 
       try {
         const formData = new FormData();
-        formData.append("name", capitalizeFirstLetter(medicine.name)); // Capitalized
+        formData.append("name", capitalizeFirstLetter(medicine.name));
         formData.append("power", medicine.power);
         formData.append("category", medicine.category);
         formData.append("price", medicine.price);
@@ -45,13 +59,13 @@ export default function AddMedicine() {
 
         const response = await fetch("http://127.0.0.1:8000/medicine/add/", {
           method: "POST",
-          body: formData, 
+          body: formData,
         });
 
         const data = await response.json();
         if (response.ok) {
           setSuccessMsg(data.message);
-          setMedicine(initialState); // Reset form
+          setMedicine(initialState);
           setTimeout(() => setSuccessMsg(""), 3000);
         } else {
           setErrorMsg(data.error || "Something went wrong!");
@@ -64,112 +78,136 @@ export default function AddMedicine() {
     }
   };
 
+  const handleChange = (e) => {
+    const { id, value, files } = e.target;
+    if (id === "image" && files) setMedicine({ ...medicine, image: files[0] });
+    else if (id === "name") setMedicine({ ...medicine, name: capitalizeFirstLetter(value) });
+    else setMedicine({ ...medicine, [id]: value });
+  };
+
   return (
     <>
       <AdminSideBar />
       <div className="main-panel">
         <div className="content">
-          <div className="container-fluid">
-            <h4 className="page-title">Create Medicine</h4>
-            <div className="row">
-              <div className="col-md-12">
-                <div className="card">
-                  <div className="card-header d-flex justify-content-between align-items-center">
-                    <div className="card-title">New Medicine Details</div>
-                  </div>
-                  <div className="card-body px-4">
-                    {/* Medicine Name */}
-                    <div className="form-group">
-                      <label htmlFor="name">Medicine Name</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={medicine.name}
-                        id="name"
-                        onChange={(e) =>
-                          setMedicine({ ...medicine, name: capitalizeFirstLetter(e.target.value) })
-                        }
-                        placeholder="Enter Medicine Name"
-                      />
-                    </div>
+          <div className="max-width-container">
+            <h1 className="page-title">
+              <PlusCircle className="title-icon" /> Create New Medicine Product
+            </h1>
 
-                    {/* Medicine Power */}
-                    <div className="form-group">
-                      <label htmlFor="power">Medicine Power</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={medicine.power}
-                        id="power"
-                        onChange={(e) => setMedicine({ ...medicine, power: e.target.value })}
-                        placeholder="Enter Medicine Power"
-                      />
-                    </div>
+            <div className="form-card">
+              <div className="card-heading-section">
+                <h2 className="card-title">Medicine Details</h2>
+                <p className="card-subtitle">
+                  Enter product specifications and inventory info.
+                </p>
+              </div>
 
-                    {/* Medicine Category */}
-                    <div className="form-group">
-                      <label htmlFor="categorySelect">Medicine Category</label>
-                      <select
-                        className="form-control"
-                        value={medicine.category}
-                        onChange={(e) => setMedicine({ ...medicine, category: e.target.value })}
-                        id="categorySelect"
-                      >
-                        <option value="">Select Category</option>
-                        {importantCategories.map((cat) => (
-                          <option key={cat} value={cat}>{cat}</option>
-                        ))}
-                      </select>
-                    </div>
+              <div className="form-grid">
+                {/* Medicine Name */}
+                <div className="form-group">
+                  <label htmlFor="name">Medicine Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    value={medicine.name}
+                    onChange={handleChange}
+                    placeholder="Paracetamol"
+                    className="form-input"
+                  />
+                </div>
 
-                    {/* Medicine Price */}
-                    <div className="form-group">
-                      <label htmlFor="price">Medicine Price (RS)</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={medicine.price}
-                        id="price"
-                        onChange={(e) => setMedicine({ ...medicine, price: e.target.value })}
-                        placeholder="Enter Medicine Price"
-                      />
-                    </div>
+                {/* Medicine Power */}
+                <div className="form-group">
+                  <label htmlFor="power">Medicine Power</label>
+                  <input
+                    type="text"
+                    id="power"
+                    value={medicine.power}
+                    onChange={handleChange}
+                    placeholder="500mg"
+                    className="form-input"
+                  />
+                </div>
 
-                    {/* Medicine Stock */}
-                    <div className="form-group">
-                      <label htmlFor="stock">Medicine Stock</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        value={medicine.stock}
-                        id="stock"
-                        onChange={(e) => setMedicine({ ...medicine, stock: e.target.value })}
-                        placeholder="Enter Medicine Stock"
-                      />
-                    </div>
+                {/* Medicine Category */}
+                <div className="form-group">
+                  <label htmlFor="category">Medicine Category</label>
+                  <select
+                    id="category"
+                    value={medicine.category}
+                    onChange={handleChange}
+                    className="form-select"
+                  >
+                    <option value="">-- Select Category --</option>
+                    {importantCategories.map((cat) => (
+                      <option key={cat} value={cat}>
+                        {cat}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-                    {/* Medicine Image */}
-                    <div className="form-group">
-                      <label htmlFor="image">Medicine Image</label>
-                      <input
-                        type="file"
-                        className="form-control"
-                        id="image"
-                        accept="image/*"
-                        onChange={(e) => setMedicine({ ...medicine, image: e.target.files[0] })}
-                      />
-                    </div>
-                  </div>
+                {/* Medicine Price */}
+                <div className="form-group">
+                  <label htmlFor="price">Medicine Price (PKR)</label>
+                  <input
+                    type="number"
+                    id="price"
+                    value={medicine.price}
+                    onChange={handleChange}
+                    placeholder="45.75"
+                    className="form-input"
+                  />
+                </div>
 
-                  {/* Messages and Button */}
-                  <div className="form-group px-4 mb-3 text-center">
-                    {errorMsg && <div className="text-danger mb-2">{errorMsg}</div>}
-                    {successMsg && <div className="text-success mb-2">{successMsg}</div>}
-                    <button className=" btn-primary" onClick={handleAddMedicine}>
-                      Add Medicine
-                    </button>
+                {/* Medicine Stock */}
+                <div className="form-group">
+                  <label htmlFor="stock">Medicine Stock</label>
+                  <input
+                    type="number"
+                    id="stock"
+                    value={medicine.stock}
+                    onChange={handleChange}
+                    placeholder="500"
+                    className="form-input"
+                  />
+                </div>
+
+                {/* Medicine Image */}
+                <div className="form-group file-upload-container-wrapper">
+                  <label htmlFor="image">Medicine Image (.jpg, .png)</label>
+                  <div className="file-upload-container">
+                    <input
+                      type="file"
+                      id="image"
+                      accept="image/*"
+                      onChange={handleChange}
+                      className="hidden"
+                    />
+                    <label htmlFor="image" className="file-upload-label">
+                      <Upload /> {medicine.image ? medicine.image.name : "Choose Image File"}
+                    </label>
                   </div>
                 </div>
+              </div>
+
+              {/* Messages and Submit Button */}
+              <div className="button-section">
+                {errorMsg && (
+                  <div className="message-box message-box-error">
+                    <AlertTriangle className="message-icon" /> {errorMsg}
+                  </div>
+                )}
+                {successMsg && (
+                  <div className="message-box message-box-success">
+                    <CheckCircle className="message-icon" /> {successMsg}
+                  </div>
+                )}
+
+                <button className="submit-btn submit-btn-primary" onClick={handleAddMedicine}>
+                  <PlusCircle className="w-5 h-5 mr-2" /> Add Medicine
+                </button>
               </div>
             </div>
           </div>

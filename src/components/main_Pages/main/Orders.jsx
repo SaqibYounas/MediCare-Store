@@ -1,108 +1,183 @@
 import React, { useEffect, useState } from "react";
-import "../css/OrdersPage.css";
-import Loading from "../Layouts/Loading";
+import { Download, Package, ChevronRight, AlertCircle, Loader } from 'lucide-react';
+import "../css/OrdersPage.css"; // External CSS
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+
+// Loading component
+const Loading = () => (
+    <div className="loading-message">
+        <Loader className="spinner" size={24} /> Loading orders...
+    </div>
+);
 
 export default function OrdersPage() {
-  const [orders, setOrders] = useState([]);
-  const [payments, setPayments] = useState([]);
-  const [loading, setLoading] = useState(true);
+    const [orders, setOrders] = useState([]);
+    const [payments, setPayments] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch("http://127.0.0.1:8000/medicine/order/get/");
-        const data = await res.json();
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const res = await fetch("http://127.0.0.1:8000/medicine/order/get/");
+                const data = await res.json();
 
-        if (res.ok) {
-          setOrders(data.orders);
-          setPayments(data.payments);
+                if (res.ok && data) {
+                    setOrders(data.orders || []);
+                    setPayments(data.payments || []);
+                }
+            } catch (error) {
+                console.log("Error:", error);
+            } finally {
+                setLoading(false);
+            }
         }
-      } catch (error) {
-        console.log("Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
+        fetchData();
+    }, []);
 
-    fetchData();
-  }, []);
+    if (loading) return <Loading />;
 
-  // ✅ Use Loading Component here
-  if (loading) return <Loading />;
+    const formatDate = (isoString) => {
+        if (!isoString) return "-";
+        const options = {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: true,
+        };
+        return new Date(isoString).toLocaleString("en-PK", options);
+    };
 
-  return (
-    <div className="main-wrapper">
-      <h2 className="title">Your Orders</h2>
+    const getStatusClass = (status) => {
+        if (!status) return 'status-default';
+        const s = status.toLowerCase().replace(/ /g, "");
+        if (s === 'delivered') return 'status-delivered';
+        if (s === 'shipped') return 'status-shipped';
+        if (s === 'processing') return 'status-processing';
+        if (s === 'cancelled') return 'status-cancelled';
+        return 'status-default';
+    };
 
-      {/* Orders Table */}
-      <h3 className="section-title">Orders List</h3>
-      <div className="table-wrapper">
-        <table className="styled-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Total Amount</th>
-              <th>Status</th>
-              <th>Created At</th>
-            </tr>
-          </thead>
+    const downloadPDF = () => {
+        const doc = new jsPDF();
+        const dateTime = new Date().toLocaleString("en-PK", { hour12: true });
 
-          <tbody>
-            {orders.map((o) => (
-              <tr key={o.id}>
-                <td>{o.name}</td>
-                <td>Rs {o.total_amount}</td>
+        doc.setFontSize(18);
+        doc.text("Medicine Store", 14, 22);
+        doc.setFontSize(11);
+        doc.text(`Order History as of: ${dateTime}`, 14, 30);
 
-                <td
-                  className={
-                    o.status === "Pending"
-                      ? "status pending"
-                      : o.status === "On The Way"
-                      ? "status onway"
-                      : o.status === "Completed"
-                      ? "status completed"
-                      : o.status === "Delivered"
-                      ? "status delivered"
-                      : ""
-                  }
-                >
-                  {o.status}
-                </td>
+        const ordersTable = doc.autoTable({
+            startY: 40,
+            head: [["Name", "Total Amount", "Status", "Created At"]],
+            body: orders.map(o => [
+                o.name || "-",
+                "Rs " + (parseFloat(o.total_amount) || 0).toLocaleString("en-PK", { minimumFractionDigits: 2 }),
+                o.status || "-",
+                formatDate(o.created_at)
+            ]),
+            theme: "striped",
+            headStyles: { fillColor: [13, 148, 136] },
+            styles: { fontSize: 10 },
+        });
 
-                <td>{o.created_at}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+        doc.autoTable({
+            startY: (ordersTable.finalY || 50) + 10,
+            head: [["Name on Card", "Card Number", "Expiry", "Created At"]],
+            body: payments.map(p => [
+                p.name_on_card || "-",
+                p.card_number ? "**** **** **** " + String(p.card_number).slice(-4) : "-",
+                p.expiry_date || "-",
+                formatDate(p.created_at)
+            ]),
+            theme: "striped",
+            headStyles: { fillColor: [13, 148, 136] },
+            styles: { fontSize: 10 },
+        });
 
-      {/* Payments Table */}
-      <h3 className="section-title">Payments List</h3>
-      <div className="table-wrapper">
-        <table className="styled-table">
-          <thead>
-            <tr>
-              <th>Name on Card</th>
-              <th>Card Number</th>
-              <th>Expiry</th>
-              <th>Created At</th>
-            </tr>
-          </thead>
+        const pageHeight = doc.internal.pageSize.height;
+        doc.setFontSize(10);
+        doc.text("Generated by Medicine Store System", 14, pageHeight - 15);
+        doc.text("Address: Main Road, City Center, Pakistan", 14, pageHeight - 10);
 
-          <tbody>
-            {payments.map((p) => (
-              <tr key={p.id}>
-                <td>{p.name_on_card}</td>
+        doc.save("Order_History.pdf");
+    };
 
-                <td>**** **** **** {p.card_number.slice(-4)}</td>
+    const noData = orders.length === 0 && payments.length === 0;
 
-                <td>{p.expiry_date}</td>
-                <td>{p.created_at}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  );
+    return (
+        <div className="orders-page-container">
+            <h2 className="title"><Package size={32} /> Your Orders & Payments</h2>
+
+            <button className="download-btn" onClick={downloadPDF}>
+                <Download size={20} /> Download Order Slip (PDF)
+            </button>
+
+            {noData && (
+                <div className="table-wrapper no-data-wrapper">
+                    <div className="no-data">
+                        <AlertCircle size={20} /> No orders or payment history found.
+                    </div>
+                </div>
+            )}
+
+            {orders.length > 0 && (
+                <>
+                    <h3 className="section-title"><ChevronRight size={20} /> Orders List</h3>
+                    <div className="table-wrapper">
+                        <table className="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Order Name</th>
+                                    <th>Total Amount</th>
+                                    <th>Status</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {orders.map((o) => (
+                                    <tr key={o.id}>
+                                        <td>{o.name || "-"}</td>
+                                        <td>Rs {parseFloat(o.total_amount || 0).toLocaleString("en-PK", { minimumFractionDigits: 2 })}</td>
+                                        <td><span className={`status ${getStatusClass(o.status)}`}>{o.status || "N/A"}</span></td>
+                                        <td>{formatDate(o.created_at)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
+            )}
+
+            {payments.length > 0 && (
+                <>
+                    <h3 className="section-title"><ChevronRight size={20} /> Payment History</h3>
+                    <div className="table-wrapper">
+                        <table className="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Name on Card</th>
+                                    <th>Card Number</th>
+                                    <th>Expiry</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {payments.map((p) => (
+                                    <tr key={p.id}>
+                                        <td>{p.name_on_card || "-"}</td>
+                                        <td>{p.card_number ? "**** **** **** " + String(p.card_number).slice(-4) : "-"}</td>
+                                        <td>{p.expiry_date || "-"}</td>
+                                        <td>{formatDate(p.created_at)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </>
+            )}
+        </div>
+    );
 }

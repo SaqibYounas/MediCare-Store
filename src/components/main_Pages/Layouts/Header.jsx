@@ -22,7 +22,6 @@ export default function Header() {
   return (
     <header className="header">
       <div className="nav-container">
-
         {/* Hamburger Button */}
         <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? "✖" : "☰"}
@@ -36,7 +35,9 @@ export default function Header() {
           <Link to="/store">Store</Link>
           <Link to="/about">About Us</Link>
           <Link to="/contact">Contact</Link>
-          <Link to="/orders" className="order-icon">📦 Orders</Link>
+          <Link to="/orders" className="order-icon">
+            📦 Orders
+          </Link>
         </nav>
 
         {/* Cart Icon */}
@@ -48,11 +49,21 @@ export default function Header() {
       {/* ✅ MOBILE MENU (TOGGLE BASED) */}
       {menuOpen && (
         <nav className="mobile-menu">
-          <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-          <Link to="/store" onClick={() => setMenuOpen(false)}>Store</Link>
-          <Link to="/about" onClick={() => setMenuOpen(false)}>About Us</Link>
-          <Link to="/contact" onClick={() => setMenuOpen(false)}>Contact</Link>
-          <Link to="/orders" onClick={() => setMenuOpen(false)}>📦 Orders</Link>
+          <Link to="/" onClick={() => setMenuOpen(false)}>
+            Home
+          </Link>
+          <Link to="/store" onClick={() => setMenuOpen(false)}>
+            Store
+          </Link>
+          <Link to="/about" onClick={() => setMenuOpen(false)}>
+            About Us
+          </Link>
+          <Link to="/contact" onClick={() => setMenuOpen(false)}>
+            Contact
+          </Link>
+          <Link to="/orders" onClick={() => setMenuOpen(false)}>
+            📦 Orders
+          </Link>
         </nav>
       )}
 
@@ -66,13 +77,22 @@ export default function Header() {
         />
 
         <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="">All Categories</option>
-          <option>Antibiotics</option>
-          <option>Painkillers</option>
-          <option>Vitamins</option>
-          <option>Blood Pressure</option>
-          <option>Diabetes</option>
-          <option>Heart</option>
+            <option value="">All Categories</option>
+            <option>Antibiotics</option>
+            <option>Painkillers</option>
+            <option>Blood Pressure Medicines</option>
+            <option>Vitamins & Supplements</option>
+            <option>Diabetes Medicines</option>
+            <option>Heart Medicines</option>
+            <option>Allergy Medicines</option>
+            <option>Cold & Flu Medicines</option>
+            <option>Digestive Medicines</option>
+            <option>Skin Medicines</option>
+            <option>Eye Medicines</option>
+            <option>Ear Medicines</option>
+            <option>Anti-inflammatory Medicines</option>
+            <option>Hormonal Medicines</option>
+            <option>Immunity Boosters</option>
         </select>
 
         <button className="search-btn" onClick={handleSearch}>

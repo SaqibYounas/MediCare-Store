@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import AdminSideBar from "../../layouts/AdminSideBar";
-import "../css/Orders.css";
 import LoadingPage from "../../layouts/Loading";
+import { AlertTriangle, CheckCircle } from "lucide-react";
+import "../css/Orders.css";
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [pendingOrdersCount, setPendingOrdersCount] = useState(0);
-  const [loading, setLoading] = useState(true); 
-  const [actionLoading, setActionLoading] = useState(false); 
+  const [loading, setLoading] = useState(true);
+  const [actionLoading, setActionLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
-  // Fetch All Orders
   const fetchOrders = async () => {
     try {
       setLoading(true);
       const res = await fetch("http://127.0.0.1:8000/medicine/admin/orders/");
       const data = await res.json();
       setOrders(data.orders);
-
       const pending = data.orders.filter((o) => o.status === "Pending").length;
       setPendingOrdersCount(pending);
     } catch (err) {
       console.error("Failed to fetch orders:", err);
+      setErrorMsg("Failed to fetch orders!");
     } finally {
       setLoading(false);
     }
@@ -30,48 +32,43 @@ export default function AdminOrders() {
     fetchOrders();
   }, []);
 
-  // Update Order Status
   const updateOrderStatus = async (id, status) => {
     try {
       setActionLoading(true);
-      await fetch(
-        `http://127.0.0.1:8000/medicine/admin/orders/update/${id}/`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ status }),
-        }
-      );
+      await fetch(`http://127.0.0.1:8000/medicine/admin/orders/update/${id}/`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ status }),
+      });
+      setSuccessMsg("Order status updated!");
+      setTimeout(() => setSuccessMsg(""), 3000);
       fetchOrders();
     } catch (err) {
-      console.error("Failed to update order:", err);
+      console.error(err);
+      setErrorMsg("Failed to update order!");
     } finally {
       setActionLoading(false);
     }
   };
 
-  // Delete Order
   const deleteOrder = async (id) => {
     try {
       setActionLoading(true);
-      await fetch(
-        `http://127.0.0.1:8000/medicine/admin/orders/delete/${id}/`,
-        {
-          method: "DELETE",
-        }
-      );
+      await fetch(`http://127.0.0.1:8000/medicine/admin/orders/delete/${id}/`, {
+        method: "DELETE",
+      });
+      setSuccessMsg("Order deleted successfully!");
+      setTimeout(() => setSuccessMsg(""), 3000);
       fetchOrders();
     } catch (err) {
-      console.error("Failed to delete order:", err);
+      console.error(err);
+      setErrorMsg("Failed to delete order!");
     } finally {
       setActionLoading(false);
     }
   };
 
-  // Show loading page while fetching
-  if (loading) {
-    return <LoadingPage />;
-  }
+  if (loading) return <LoadingPage />;
 
   return (
     <div className="admin-panel">
@@ -79,17 +76,25 @@ export default function AdminOrders() {
 
       <div className="main-panel">
         <div className="content">
-          <div className="container-fluid">
-            <h4>All Orders</h4>
+          <div className="max-width-container">
+            <h1 className="page-title">All Orders</h1>
 
-            {actionLoading && (
-              <p style={{ color: "blue", marginBottom: "10px" }}>
-                Updating... Please Wait
-              </p>
+            {/* Messages */}
+            {errorMsg && (
+              <div className="message-box message-box-error">
+                <AlertTriangle className="message-icon" /> {errorMsg}
+              </div>
+            )}
+            {successMsg && (
+              <div className="message-box message-box-success">
+                <CheckCircle className="message-icon" /> {successMsg}
+              </div>
             )}
 
-            <div className="table-wrapper">
-              <table>
+            {actionLoading && <p className="updating-msg">Updating... Please Wait</p>}
+
+            <div className="table-card">
+              <table className="styled-table">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -100,7 +105,6 @@ export default function AdminOrders() {
                     <th>Actions</th>
                   </tr>
                 </thead>
-
                 <tbody>
                   {orders.map((o) => (
                     <tr key={o.id}>
@@ -108,24 +112,22 @@ export default function AdminOrders() {
                       <td>{o.name}</td>
                       <td>{o.email}</td>
                       <td>{o.total_amount}</td>
-
                       <td>
                         <select
                           value={o.status}
-                          onChange={(e) =>
-                            updateOrderStatus(o.id, e.target.value)
-                          }
+                          onChange={(e) => updateOrderStatus(o.id, e.target.value)}
                           disabled={actionLoading}
+                          className="form-select"
                         >
                           <option value="Pending">Pending</option>
                           <option value="Completed">Completed</option>
                         </select>
                       </td>
-
                       <td>
                         <button
                           onClick={() => deleteOrder(o.id)}
                           disabled={actionLoading}
+                          className="delete-btn"
                         >
                           Delete
                         </button>
@@ -133,10 +135,8 @@ export default function AdminOrders() {
                     </tr>
                   ))}
                 </tbody>
-
               </table>
             </div>
-
           </div>
         </div>
       </div>

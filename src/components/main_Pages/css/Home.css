@@ -1,119 +1,157 @@
-/* Hero Section */
+/* ---------------- HERO SECTION ---------------- */
+.hero-container {
+  font-family: "Arial", sans-serif;
+  background-color: #f0f8ff; /* light blue background */
+  color: #1a1a1a;
+}
+
 .hero-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fff; 
-  padding: 40px 20px; /* smaller padding for responsive look */
-  color: #0a66c2; 
-  overflow: hidden;
+  padding: 4rem 2rem;
 }
 
 .hero-content {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 900px; 
-  width: 100%;
-  gap: 20px;
   flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 10px auto;
+  gap: 2rem;
 }
 
 .hero-text {
-  flex: 1;
-  min-width: 200px; 
-  position: relative; 
-  overflow: hidden;
-  height: auto; 
-}
-
-/* Animated Welcome Text - only once */
-.hero-text .animated-text {
-  display: inline-block;
-  white-space: nowrap;
-  font-size: clamp(22px, 3vw, 36px);
-  font-weight: 700;
-  animation: slideTextOnce 2s ease-out forwards; 
-  position: relative;
-}
-
-/* Slide from left to center */
-@keyframes slideTextOnce {
-  0% {
-    transform: translateX(-120%);
-    opacity: 0;
-  }
-  50% {
-    transform: translateX(0%);
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(0%);
-    opacity: 1;
-  }
+  flex: 1 1 500px;
 }
 
 .hero-subtitle {
-  font-size: clamp(14px, 1.8vw, 18px);
-  margin-bottom: 20px;
+  display: inline-block;
+  text-transform: uppercase;
+  color: #007bff; /* blue theme */
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+  margin-top: 60px;
 }
 
-.shop-now-btn {
-  padding: 10px 20px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: none;
-  background-color: #0a66c2; 
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.hero-title .highlight {
+  color: #007bff; /* blue highlight */
+}
+
+.hero-description {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  max-width: 500px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background-color: #007bff;
   color: #fff;
+  padding: 0.75rem 2rem;
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s ease;
 }
 
-.shop-now-btn:hover {
-  background-color: #064a8d; 
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #007bff;
+  border: 2px solid #007bff;
+  padding: 0.75rem 2rem;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #e6f0ff;
+}
+
+/* Right side image */
+.hero-image-section {
+  flex: 1 1 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .hero-image {
-  flex: 1;
-  min-width: 200px;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Feature boxes */
+.feature-boxes {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.feature-box {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 15px;
   text-align: center;
+  flex: 1;
+  min-width: 90px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: default;
 }
 
-.hero-image img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 12px;
-  object-fit: cover;
+.feature-box:hover {
+  transform: translateY(-5px);
 }
 
-/* Responsive */
+.feature-icon {
+  color: #007bff;
+  width: 24px;
+  height: 24px;
+  margin-bottom: 0.5rem;
+}
+
+.feature-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
 @media (max-width: 768px) {
   .hero-content {
-    flex-direction: column-reverse;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    gap: 15px;
   }
 
   .hero-text {
-    margin-top: 15px;
-    height: auto;
+    max-width: 100%;
   }
 
-  .hero-title {
-    font-size: clamp(18px, 5vw, 28px);
-  }
-
-  .hero-subtitle {
-    font-size: clamp(12px, 3vw, 16px);
-  }
-
-  .shop-now-btn {
-    width: 100%; 
-    padding: 8px;
-  }
-
-  .hero-image img {
-    width: 100%;
-    height: auto;
+  .feature-boxes {
+    flex-wrap: wrap;
   }
 }

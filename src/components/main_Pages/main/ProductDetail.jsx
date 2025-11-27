@@ -136,7 +136,6 @@ export default function ProductDetail() {
             <p>Delivered to your doorstep</p>
           </div>
         </div>
-
         {/* Related Products */}
         {relatedMedicines.length > 0 && (
           <div
@@ -146,16 +145,20 @@ export default function ProductDetail() {
             <h2>Other products in {medicine.category}</h2>
 
             <div className="store-container">
-              {relatedMedicines.map((med) => (
-                <Link to={`/product/${med.id}`} key={med.id} className="card">
-                  <div className="product-image-box">
-                    <img src={med.image_url} alt={med.name} />
-                  </div>
-                  <p className="name">{med.name}</p>
-                  <p className="price">Rs {med.price}</p>
-                  <div className="checkout-btn">Buy Now</div>
-                </Link>
-              ))}
+              {relatedMedicines.slice(0, 5).map(
+                (
+                  med // <-- slice first 10 items
+                ) => (
+                  <Link to={`/product/${med.id}`} key={med.id} className="card">
+                    <div className="product-image-box">
+                      <img src={med.image_url} alt={med.name} />
+                    </div>
+                    <p className="name">{med.name}</p>
+                    <p className="price">Rs {med.price}</p>
+                    <div className="checkout-btn">Buy Now</div>
+                  </Link>
+                )
+              )}
             </div>
           </div>
         )}

@@ -1,21 +1,17 @@
-/* Container */
-.container-fluid {
-  max-width: 900px;
-  margin: auto;
+/* Container & Main Panel */
+.main-panel {
+  flex: 1;
+  padding: 2rem;
+  background-color: #f4f6f9;
+  min-height: 100vh;
 }
-
-/* Page Title */
-.page-title {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-/* Search Container */
-.input-group {
+h4.page-title {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
   display: flex;
-  gap: 10px;
-}/* Search Box */
+  align-items: center;
+}
+/* Search Box */
 .search-box {
   display: flex;
   gap: 10px;
@@ -24,138 +20,162 @@
 
 .search-box input {
   flex: 1;
-  padding: 12px 15px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: 1.5px solid #d1d5db;
-  background-color: #f9fafb;
-  transition: 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
 }
 
-.search-box input:focus {
-  background-color: #ffffff;
-  border-color: #2563eb;
-  box-shadow: 0 0 8px rgba(37,99,235,0.3);
-}
-
-.search-box button {
-  padding: 12px 22px;
-  font-size: 15px;
-  font-weight: 600;
-  border-radius: 10px;
-  border: none;
-  background-color: #2563eb;
+.search-btn {
+  padding: 8px 16px;
+  background-color: #007bff;
   color: white;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: 0.3s ease;
 }
 
-.search-box button:hover {
-  background-color: #1d4ed8;
-}
-
-
-.input-group .form-control {
-  flex: 1;
-  padding: 12px 15px !important;
-  font-size: 16px;
-  border-radius: 10px !important;
-  border: 1.5px solid #d1d5db !important;
-  background-color: #f9fafb !important;
-  transition: 0.3s ease;
-}
-
-.input-group .form-control:focus {
-  background-color: #fff !important;
-  border-color: #2563eb !important;
-  box-shadow: 0 0 8px rgba(37,99,235,0.3) !important;
-}
-
-/* Search Button */
-.input-group .btn-primary {
-  background: #2563eb !important;
-  border: none !important;
-  padding: 12px 22px;
-  font-size: 15px;
-  border-radius: 10px;
-  font-weight: 600;
-  transition: 0.3s ease;
-}
-
-.input-group .btn-primary:hover {
-  background: #1d4ed8 !important;
+.search-btn:hover {
+  background-color: #0056b3;
 }
 
 /* Messages */
-.text-danger, .text-success {
-  font-size: 15px;
-  margin-top: 8px;
-  font-weight: 600;
+.error-text {
+  color: #dc3545;
+  margin-bottom: 10px;
 }
-
-/* Card */
-.card {
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-  border: none;
-  overflow: hidden;
-  margin-top: 20px;
-}
-
-.card-header {
-  background: #dc3545;
-  color: white;
-  padding: 15px 20px;
-}
-
-.card-title {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-/* Card Body */
-.card-body {
-  padding: 25px;
-  font-size: 16px;
-}
-
-.card-body p {
+.success-text {
+  color: #28a745;
   margin-bottom: 10px;
 }
 
-/* Delete Button */
-.btn-danger {
-  padding: 10px 25px;
-  font-size: 16px;
+/* Medicine Card */
+.medicine-card {
+  display: flex;
+  gap: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap; /* Important for responsiveness */
+}
+
+.medicine-image {
+  width: 120px;
   border-radius: 8px;
-  font-weight: 600;
-  transition: background 0.3s ease-in-out;
+  object-fit: cover;
+  flex-shrink: 0;
 }
 
-.btn-danger:hover {
-  background: #bb2d3b;
+.medicine-info {
+  flex: 1;
+  min-width: 200px; /* Prevent content collapse */
 }
 
-/* Medicine Image */
-.card-body img {
-  border-radius: 8px;
-  margin-top: 10px;
-  border: 1px solid #ddd;
-  max-width: 150px;
+.medicine-info h5 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .input-group {
+.medicine-info p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.delete-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background-color: #b02a37;
+}
+
+/* ====== Responsive ====== */
+
+/* Tablet (<= 1024px) */
+@media screen and (max-width: 1024px) {
+  .medicine-card {
     flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
-  .input-group .btn-primary {
+  .medicine-image {
+    width: 150px;
+    margin-bottom: 15px;
+  }
+
+  .medicine-info {
+    min-width: auto;
+  }
+}
+
+/* Mobile (<= 768px) */
+@media screen and (max-width: 768px) {
+  .search-box {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-btn {
     width: 100%;
-    margin-top: 10px;
   }
 
-  .card-body {
+  .medicine-card {
     padding: 15px;
+  }
+
+  .medicine-image {
+    width: 100px;
+  }
+
+  .medicine-info h5 {
+    font-size: 16px;
+  }
+
+  .medicine-info p {
+    font-size: 13px;
+  }
+
+  .delete-btn {
+    width: 100%;
+    padding: 10px 0;
+  }
+}
+
+/* Small mobile (<= 480px) */
+@media screen and (max-width: 480px) {
+  .main-panel {
+    padding: 1rem;
+  }
+
+  .medicine-card {
+    padding: 10px;
+  }
+
+  .medicine-image {
+    width: 80px;
+  }
+
+  .medicine-info h5 {
+    font-size: 15px;
+  }
+
+  .medicine-info p {
+    font-size: 12px;
+  }
+
+  .delete-btn {
+    font-size: 14px;
   }
 }
