@@ -3,13 +3,8 @@ import { Download, Package, ChevronRight, AlertCircle, Loader } from 'lucide-rea
 import "../css/OrdersPage.css"; // External CSS
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import Loading from "../Layouts/Loading"
 
-// Loading component
-const Loading = () => (
-    <div className="loading-message">
-        <Loader className="spinner" size={24} /> Loading orders...
-    </div>
-);
 
 export default function OrdersPage() {
     const [orders, setOrders] = useState([]);
