@@ -4,7 +4,29 @@ import { Link, useLocation } from "react-router-dom";
 import Loading from "../Layouts/Loading";
 import NoMedicineFound from "../Layouts/NoFoundMedicine";
 
-// Medicine card component
+// ------------------ Fuzzy Search: Levenshtein Distance ------------------
+function levenshtein(a, b) {
+  const dp = Array(a.length + 1)
+    .fill(null)
+    .map(() => Array(b.length + 1).fill(null));
+
+  for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+  for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      dp[i][j] = Math.min(
+        dp[i - 1][j] + 1,
+        dp[i][j - 1] + 1,
+        dp[i - 1][j - 1] + cost
+      );
+    }
+  }
+  return dp[a.length][b.length];
+}
+
+// ------------------ Medicine Card Component ------------------
 const MedicineCard = ({ medicine }) => (
   <div className="product-card" key={medicine.id}>
     <div className="product-image-box">
@@ -20,6 +42,7 @@ const MedicineCard = ({ medicine }) => (
   </div>
 );
 
+// ------------------- STORE PAGE -------------------
 export default function StorePage() {
   const location = useLocation();
   const searchQuery = location.state?.searchQuery || "";
@@ -27,6 +50,7 @@ export default function StorePage() {
 
   const [medicines, setMedicines] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     fetch("http://127.0.0.1:8000/medicine/get/all")
       .then((res) => res.json())
@@ -37,43 +61,55 @@ export default function StorePage() {
 
   if (loading) return <Loading />;
 
-  // Search query words me split karna
   const searchWords = searchQuery.toLowerCase().split(" ").filter(Boolean);
- const scored = medicines
-  .map((m) => {
-    let score = 0;
 
-    const medicineWords = m.name.toLowerCase().split(" ").filter(Boolean);
+  // ---------------- Strong Fuzzy Scoring System ----------------
+  const scored = medicines
+    .map((m) => {
+      let score = 0;
 
-    // multi-word search
-    searchWords.forEach((searchWord) => {
-      medicineWords.forEach((medWord) => {
-        if (medWord.includes(searchWord)) score += 2; // startsWith → includes for partial match
+      const medName = m.name.toLowerCase();
+      const medCategory = m.category.toLowerCase();
+
+      searchWords.forEach((query) => {
+        // Exact includes
+        if (medName.includes(query)) score += 5;
+
+        // startsWith & word includes
+        medName.split(" ").forEach((w) => {
+          if (w.startsWith(query)) score += 4;
+          if (w.includes(query)) score += 3;
+        });
+
+        // category
+        if (medCategory.includes(query)) score += 2;
+
+        // Fuzzy match: handles spelling mistakes
+        const distance = levenshtein(query, medName.slice(0, query.length));
+
+        if (distance <= 2) score += 3;
+        else if (distance <= 3) score += 1;
       });
-      if (m.category.toLowerCase().includes(searchWord)) score += 1;
-    });
 
-    // agar search query empty hai → show all medicines
-    if (searchWords.length === 0) score = 1;
+      // Empty search → show all
+      if (searchWords.length === 0) score = 1;
 
-    // category filter
-    if (selectedCategory && m.category !== selectedCategory) {
-      // optional: comment out if you want all categories
-      // score = 0;
-    }
+      // Strict category filter (optional)
+      if (selectedCategory && m.category !== selectedCategory) score = 0;
 
-    return { ...m, score };
-  })
-  .filter((m) => m.score > 0)
-  .sort((a, b) => b.score - a.score);
+      return { ...m, score };
+    })
+    .filter((m) => m.score > 0)
+    .sort((a, b) => b.score - a.score);
 
-
+  // No results
   if (scored.length === 0) return <NoMedicineFound />;
 
-  const groupedByCategory = scored.reduce((acc, medicine) => {
-    const category = medicine.category;
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(medicine);
+  // Group by category
+  const groupedByCategory = scored.reduce((acc, med) => {
+    const cat = med.category;
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(med);
     return acc;
   }, {});
 
@@ -84,11 +120,13 @@ export default function StorePage() {
       {categories.map((category) => (
         <div key={category} className="category-section">
           <h2>{category}</h2>
+
           <div className="horizontal-product-list">
             {groupedByCategory[category].map((m) => (
               <MedicineCard key={m.id} medicine={m} />
             ))}
           </div>
+
           <hr />
         </div>
       ))}

@@ -5,6 +5,22 @@
   padding: 2rem;
 }
 
+.download-btn {
+  background-color:  #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #00796b;
+}
+
 .page-title {
   font-size: 1.8rem;
   margin-bottom: 1.5rem;
@@ -18,7 +34,7 @@
   background: #fff;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow-x: auto; /* Horizontal scroll for small screens */
   margin-top: 1rem;
 }

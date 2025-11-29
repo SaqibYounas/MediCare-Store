@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import "../css/Payment.css";
 import { CartContext } from "../../context/CartContext"; 
+import { useNavigate } from "react-router-dom";
 
 export default function PaymentCard() {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ export default function PaymentCard() {
     expiry: "",
     cvv: "",
   });
-
+  const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -42,7 +43,7 @@ export default function PaymentCard() {
       const data = await res.json();
 
       if (res.ok) {
-        setMessage("✅ Your Order is Placed Successfully!");
+        navigate("/payment/success")
         setFormData({ name: "", cardNumber: "", expiry: "", cvv: "" });
         refreshOrderCount();
       } else {

@@ -22,6 +22,7 @@ import PaymentCard from "./components/main_Pages/main/Payment.jsx";
 import MessagesList from "./components/admin/pages/Messages.jsx";
 import PaymentsList from "./components/admin/pages/Payement.jsx";
 import OrdersPage from "./components/main_Pages/main/Orders.jsx";
+import PaymentSuccess from "./components/main_Pages/main/PaymentSuccess.jsx";
 function App() {
   return (
     <BrowserRouter>
@@ -104,6 +105,14 @@ function App() {
           element={
             <MainLayout>
               <OrdersPage />
+            </MainLayout>
+          }
+        />
+          <Route
+          path="/payment/success"
+          element={
+            <MainLayout>
+              <PaymentSuccess />
             </MainLayout>
           }
         />
