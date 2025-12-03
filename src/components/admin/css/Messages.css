@@ -11,6 +11,48 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+} /* WhatsApp button */
+.whatsapp-btn {
+  background-color: #25d366;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.whatsapp-btn:hover {
+  background-color: #1ebe5d;
+  transform: scale(1.05);
+}
+
+/* Gmail button */
+.gmail-btn {
+  background-color: #ea4335;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.gmail-btn:hover {
+  background-color: #c9302c;
+  transform: scale(1.05);
+}
+
+/* Optional: align buttons nicely in table cell */
+.action-buttons {
+  display: flex;
+  gap: 8px;
 }
 
 /* Message Box */
@@ -37,7 +79,7 @@
   background: #fff;
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow-x: auto; /* Horizontal scroll for small screens */
 }
 

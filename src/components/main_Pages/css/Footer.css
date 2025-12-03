@@ -1,95 +1,143 @@
-/* Footer Wrapper */
-.footer {
-  width: 100%;
-  background-color: #f9fafb;
-  border-top: 1px solid #e5e7eb;
-  padding: 40px 0;
-  font-family: Arial, sans-serif;
-  color: #374151;
+/* --- 1. CSS Variables for Theming --- */
+:root {
+    --primary-color: #1d4ed8; /* Deep Blue */
+    --primary-hover-color: #1e40af;
+    --text-color: #4b5563; /* Gray */
+    --bg-color: #f9fafb; /* Light Gray Background */
+    --border-color: #e5e7eb;
 }
 
-/* Footer Grid */
-.footer-container {
-  max-width: 1250px;
-  margin: auto;
-  padding: 0 20px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  text-align: center;
+/* --- 2. Footer Wrapper --- */
+.app-footer {
+    width: 100%;
+    background-color: var(--bg-color);
+    border-top: 1px solid var(--border-color);
+    padding: 3rem 0 1rem 0; /* Adjusted padding */
+    font-family: 'Inter', sans-serif; /* Modern font */
+    color: var(--text-color);
 }
 
-/* Footer Headings */
-.footer-section h3 {
-  font-size: 18px;
-  font-weight: bold;
-  color: #1d4ed8;
-  margin-bottom: 10px;
+/* --- 3. Footer Grid/Container --- */
+.footer-content-wrapper {
+    max-width: 1280px;
+    margin: auto;
+    padding: 0 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem; /* Increased gap */
+    text-align: center;
 }
 
-/* Footer Links */
-.footer-section a {
-  position: relative;
-  text-decoration: none;
-  color: #374151;
-  font-size: 14px;
-  display: inline-block;
-  padding-bottom: 3px;
-  transition: color 0.3s ease;
+/* Mobile-first alignment */
+.footer-section p {
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
-.footer-section a:hover {
-  color: #1e40af; /* dark blue on hover */
+/* --- 4. Headings & Links --- */
+.footer-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.5px;
 }
 
-/* Hover underline animation */
-.footer-section a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 2px;
-  width: 0%;
-  background-color: #1e90ff; /* same as header hover */
-  transition: width 0.35s cubic-bezier(0.29, 0.01, 0.42, 1);
+.footer-link-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; /* Space between links */
 }
 
-.footer-section a:hover::after {
-  width: 100%;
+.footer-link-item {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    transition: color 0.3s ease, transform 0.3s ease;
+    display: inline-block;
 }
 
-/* Page List */
-.footer-section.pages ul {
-  list-style: none;
-  padding: 0;
+.footer-link-item:hover {
+    color: var(--primary-hover-color);
+    transform: translateX(5px); /* Subtle hover effect */
 }
 
-/* Payment Icons */
-.payment-icons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 10px;
+/* --- 5. Social Icons --- */
+.social-icon-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center; /* Center on mobile */
+    margin-top: 0.5rem;
 }
 
-.payment-icons img {
-  width: 42px;
-  height: auto;
-  transition: transform 0.2s ease;
+.social-icon-link {
+    font-size: 1.5rem; /* Larger icons */
+    transition: transform 0.3s ease, color 0.3s ease;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
 }
 
-.payment-icons img:hover {
-  transform: scale(1.15);
+/* Specific Social Colors */
+.social-icon-link.facebook { color: #1877f2; }
+.social-icon-link.instagram { color: #e1306c; }
+.social-icon-link.linkedin { color: #0a66c2; }
+
+.social-icon-link:hover {
+    transform: scale(1.15) rotate(5deg);
+    opacity: 0.85;
 }
 
-/* Desktop Layout */
+/* --- 6. Payment Icons --- */
+.payment-icon-group {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center; /* Center on mobile */
+    margin-top: 0.5rem;
+}
+
+.payment-icon-group img {
+    width: 40px;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.payment-icon-group img:hover {
+    transform: translateY(-3px); /* Lift effect */
+}
+
+/* --- 7. Copyright --- */
+.footer-copyright {
+    text-align: center;
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-copyright p {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* --- 8. Desktop/Tablet Layout (768px+) --- */
 @media (min-width: 768px) {
-  .footer-container {
-    grid-template-columns: repeat(3, 1fr);
-    text-align: left;
-  }
+    .footer-content-wrapper {
+        grid-template-columns: 2fr 1fr 1fr 1.5fr; /* Custom column widths */
+        text-align: left;
+    }
 
-  .payment-icons {
-    justify-content: flex-start;
-  }
+    .footer-social .social-icon-group,
+    .footer-payment .payment-icon-group {
+        justify-content: flex-start; /* Align left on desktop */
+    }
+
+    .footer-info-contact p {
+        padding-right: 2rem; /* Give some space */
+    }
 }

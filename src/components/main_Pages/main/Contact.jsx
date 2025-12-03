@@ -6,6 +6,7 @@ export default function ContactForm() {
     const [form, setForm] = useState({
         name: "",
         email: "",
+        whatsapp: "", // Added WhatsApp field
         subject: "",
         message: "",
     });
@@ -28,14 +29,14 @@ export default function ContactForm() {
             const response = await fetch("http://127.0.0.1:8000/medicine/contact/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form),
+                body: JSON.stringify(form), // WhatsApp field included here
             });
 
             const data = await response.json();
 
             if (response.ok) {
                 setSuccessMsg("Message Sent Successfully! ✔");
-                setForm({ name: "", email: "", subject: "", message: "" });
+                setForm({ name: "", email: "", whatsapp: "", subject: "", message: "" });
             } else {
                 setErrorMsg(data.error || "Error sending message ❌");
             }
@@ -68,6 +69,7 @@ export default function ContactForm() {
                     <form onSubmit={handleSubmit}>
                         <input type="text" name="name" placeholder="Your Name" value={form.name} onChange={handleChange} required />
                         <input type="email" name="email" placeholder="Your Email" value={form.email} onChange={handleChange} required />
+                        <input type="text" name="whatsapp" placeholder="Your WhatsApp Number" value={form.whatsapp} onChange={handleChange} /> {/* WhatsApp */}
                         <input type="text" name="subject" placeholder="Subject" value={form.subject} onChange={handleChange} required />
                         <textarea name="message" placeholder="Message" value={form.message} onChange={handleChange} rows="6" required />
 

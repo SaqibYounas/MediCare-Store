@@ -10,12 +10,6 @@ import {
   faMobileAlt,
   faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faWhatsapp,
-  faFacebookF,
-  faTwitter,
-  faLinkedinIn,
-} from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Loading from "../Layouts/Loading";
 
@@ -28,13 +22,11 @@ export default function ProductDetail() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    // Fetch selected product
     fetch(`http://127.0.0.1:8000/medicine/get/${id}/`)
       .then((res) => res.json())
       .then((data) => {
         setMedicine(data);
 
-        // Fetch all medicines and filter by same category excluding current product
         fetch("http://127.0.0.1:8000/medicine/get/all")
           .then((res) => res.json())
           .then((allData) => {
@@ -46,6 +38,10 @@ export default function ProductDetail() {
       })
       .catch((err) => console.error(err));
   }, [id]);
+
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
 
   const handleBuyNow = () => {
     addToCart(medicine, quantity);

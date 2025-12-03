@@ -1,60 +1,44 @@
-import React, { useRef } from 'react';
-import { Shield, Package, Droplet } from 'lucide-react';
+import React from "react";
+import { Link } from "react-router-dom";
 import "../css/Home.css";
-import { Link } from 'react-router-dom';
-import StorePage from './Store';
-const FeatureBox = ({ Icon, title }) => (
-  <div className="feature-box">
-    <Icon className="feature-icon" />
-    <span className="feature-title">{title}</span>
-  </div>
-);
+import StorePage from "./Store";
 
 export default function HeroSection() {
-  const featuredSectionRef = useRef(null);
-
-  const handleScrollToShop = () => {
-    if (featuredSectionRef.current) {
-      featuredSectionRef.current.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      console.log("Scroll to shop requested.");
-    }
-  };
-
   return (
-    <div className="hero-container">
-      <section className="hero-section">
-        <div className="hero-content">
-          {/* Left side */}
-          <div className="hero-text">
-            <span className="hero-subtitle">Trusted Care, Delivered Fast</span>
+    <div className="hero-page-wrapper">
+      <section className="hero-main-section">
+        <div className="hero-content-grid">
+          <div className="hero-text-content">
+            <p className="hero-subtitle">✅ Trusted Care, Delivered Fast</p>{" "}
             <h1 className="hero-title">
-              Your <span className="highlight">Health</span> is Our Priority.
+              Your <span className="hero-highlight">Health</span> is Our
+              Priority.
             </h1>
             <p className="hero-description">
-              Get essential medicines, vitamins, and healthcare products delivered safely to your door. Quality assured and certified by pharmacists.
+              Get essential **medicines, vitamins, and healthcare products**
+              delivered safely to your door. Quality assured and certified by
+              professional pharmacists.
             </p>
             <div className="hero-buttons">
-              <Link  className="btn-primary" to="/store">Shop Now</Link> 
+              <Link className="btn-primary hero-cta-btn" to="/store">
+                Shop Health Products
+              </Link>
             </div>
           </div>
 
-          {/* Right side */}
-          <div className="hero-image-section">
-            <img 
-              src="/HeroSection.jpg" 
-              alt="Pharmacy service" 
-              className="hero-image" 
-            />
-            <div className="feature-boxes">
-              <FeatureBox Icon={Shield} title="Certified" />
-              <FeatureBox Icon={Package} title="Fast Delivery" />
-              <FeatureBox Icon={Droplet} title="Quality Tested" />
+          {/* 2. HERO IMAGE & FEATURES (Right Side) */}
+          <div className="hero-image-media">
+            <div className="hero-image-card">
+              <img
+                src="/HeroSection.jpg"
+                alt="Pharmacist holding medicine box, symbolizing healthcare service"
+                className="hero-main-image"
+              />
             </div>
           </div>
         </div>
-      </section>
-      <StorePage/>
+      </section>{" "}
+      <StorePage />
     </div>
   );
 }

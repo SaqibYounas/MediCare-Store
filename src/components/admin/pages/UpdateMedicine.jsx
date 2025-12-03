@@ -31,22 +31,42 @@ export default function UpdateMedicine() {
           setCategories(data);
         } else {
           setCategories([
+            "All Categories",
             "Antibiotics",
             "Painkillers",
-            "Vitamins",
-            "Blood Pressure",
-            "Diabetes",
-            "Heart",
+            "Blood Pressure Medicines",
+            "Vitamins & Supplements",
+            "Diabetes Medicines",
+            "Heart Medicines",
+            "Allergy Medicines",
+            "Cold & Flu Medicines",
+            "Digestive Medicines",
+            "Skin Medicines",
+            "Eye Medicines",
+            "Ear Medicines",
+            "Anti-inflammatory Medicines",
+            "Hormonal Medicines",
+            "Immunity Boosters",
           ]);
         }
       } catch {
         setCategories([
+          "All Categories",
           "Antibiotics",
           "Painkillers",
-          "Vitamins",
-          "Blood Pressure",
-          "Diabetes",
-          "Heart",
+          "Blood Pressure Medicines",
+          "Vitamins & Supplements",
+          "Diabetes Medicines",
+          "Heart Medicines",
+          "Allergy Medicines",
+          "Cold & Flu Medicines",
+          "Digestive Medicines",
+          "Skin Medicines",
+          "Eye Medicines",
+          "Ear Medicines",
+          "Anti-inflammatory Medicines",
+          "Hormonal Medicines",
+          "Immunity Boosters",
         ]);
       }
     };
@@ -63,7 +83,15 @@ export default function UpdateMedicine() {
       );
       if (!res.ok) {
         setErrorMsg("Medicine not found");
-        setMedicine({ id: "", name: "", power: "", category: "", price: "", stock: "", image_url: "" });
+        setMedicine({
+          id: "",
+          name: "",
+          power: "",
+          category: "",
+          price: "",
+          stock: "",
+          image_url: "",
+        });
         return;
       }
       const data = await res.json();
@@ -93,7 +121,13 @@ export default function UpdateMedicine() {
   const handleImageChange = (e) => setNewImage(e.target.files[0]);
 
   const handleUpdateMedicine = async () => {
-    if (!medicine.name || !medicine.power || !medicine.category || !medicine.price || !medicine.stock) {
+    if (
+      !medicine.name ||
+      !medicine.power ||
+      !medicine.category ||
+      !medicine.price ||
+      !medicine.stock
+    ) {
       setErrorMsg("Please fill out all fields!");
       return;
     }
@@ -139,7 +173,9 @@ export default function UpdateMedicine() {
               type="text"
               placeholder="Search medicine name..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(capitalizeFirstLetter(e.target.value))}
+              onChange={(e) =>
+                setSearchTerm(capitalizeFirstLetter(e.target.value))
+              }
             />
             <button onClick={handleSearch}>Search</button>
           </div>
@@ -151,27 +187,59 @@ export default function UpdateMedicine() {
             <div className="form-card">
               <div className="form-grid">
                 <label>Medicine Name</label>
-                <input type="text" name="name" value={medicine.name} onChange={handleChange} />
+                <input
+                  type="text"
+                  name="name"
+                  value={medicine.name}
+                  onChange={handleChange}
+                />
 
                 <label>Power</label>
-                <input type="text" name="power" value={medicine.power} onChange={handleChange} />
+                <input
+                  type="text"
+                  name="power"
+                  value={medicine.power}
+                  onChange={handleChange}
+                />
 
                 <label>Category</label>
-                <select name="category" value={medicine.category} onChange={handleChange}>
+                <select
+                  name="category"
+                  value={medicine.category}
+                  onChange={handleChange}
+                >
                   <option value="">Select Category</option>
-                  {categories.map((cat, idx) => <option key={idx} value={cat}>{cat}</option>)}
+                  {categories.map((cat, idx) => (
+                    <option key={idx} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
                 </select>
 
                 <label>Price</label>
-                <input type="number" name="price" value={medicine.price} onChange={handleChange} />
+                <input
+                  type="number"
+                  name="price"
+                  value={medicine.price}
+                  onChange={handleChange}
+                />
 
                 <label>Stock</label>
-                <input type="number" name="stock" value={medicine.stock} onChange={handleChange} />
+                <input
+                  type="number"
+                  name="stock"
+                  value={medicine.stock}
+                  onChange={handleChange}
+                />
 
                 {medicine.image_url && (
                   <div className="current-image">
                     <p>Current Image:</p>
-                    <img src={`http://127.0.0.1:8000${medicine.image_url}`} alt={medicine.name} className="medicine-image" />
+                    <img
+                      src={`http://127.0.0.1:8000${medicine.image_url}`}
+                      alt={medicine.name}
+                      className="medicine-image"
+                    />
                   </div>
                 )}
 

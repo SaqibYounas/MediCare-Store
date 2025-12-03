@@ -20,10 +20,12 @@ export default function AdminOrders() {
       setLoading(true);
       const res = await fetch("http://127.0.0.1:8000/medicine/admin/orders/");
       const data = await res.json();
-      setOrders(data.orders);
-      setPayments(data.payments);
+      setOrders(data.orders || []);
+      setPayments(data.payments || []);
 
-      const pending = data.orders.filter((o) => o.status === "Pending").length;
+      const pending = (data.orders || []).filter(
+        (o) => o.status === "Pending"
+      ).length;
       setPendingOrdersCount(pending);
     } catch (err) {
       setErrorMsg("Failed to fetch orders!");
@@ -36,15 +38,19 @@ export default function AdminOrders() {
     fetchOrders();
   }, []);
 
-  /* ---------------- PDF FUNCTION (ONLY ORDERS) ---------------- */
+  // Filter orders
+  const pendingOrders = orders.filter((o) => o.status === "Pending");
+  const completedOrders = orders.filter(
+    (o) => o.status === "Completed" || o.status === "Delivered"
+  );
+
+  /* ---------------- PDF FUNCTION ---------------- */
   const downloadPDF = () => {
     try {
       if (!orders.length) {
         alert("No orders found!");
         return;
       }
-
-      console.log("Orders inside PDF:", orders);
 
       const doc = new jsPDF();
       doc.setFontSize(20);
@@ -55,7 +61,7 @@ export default function AdminOrders() {
       doc.text("Order History Report", 14, 25);
       doc.line(14, 28, 195, 28);
 
-      /* ORDER TABLE ONLY */
+      /* ORDER TABLE */
       autoTable(doc, {
         startY: 35,
         theme: "grid",
@@ -138,12 +144,10 @@ export default function AdminOrders() {
           <div className="max-width-container">
             <h1 className="page-title">All Orders</h1>
 
-            {/* Download PDF Button */}
             <button onClick={downloadPDF} className="download-btn">
               Download Orders PDF
             </button>
 
-            {/* Messages */}
             {errorMsg && (
               <div className="message-box message-box-error">
                 <AlertTriangle className="message-icon" /> {errorMsg}
@@ -159,53 +163,122 @@ export default function AdminOrders() {
               <p className="updating-msg">Updating... Please Wait</p>
             )}
 
-            <div className="table-card">
-              <table className="styled-table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
+            {/* ---------------- PENDING ORDERS TABLE ---------------- */}
+            {/* ---------------- PENDING ORDERS TABLE ---------------- */}
+            {pendingOrders.length > 0 && (
+              <>
+                <h2 className="table-title">Pending Orders</h2>
+                <div className="table-card">
+                  <table className="styled-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Amount</th>
+                        <th>Payment Method</th> {/* Added */}
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {pendingOrders.map((o) => (
+                        <tr key={o.id}>
+                          <td>{o.id}</td>
+                          <td>{o.name}</td>
+                          <td>{o.email}</td>
+                          <td>{o.total_amount}</td>
+                          <td>
+                            {o.payment_method === "cod"
+                              ? "Cash on Delivery"
+                              : "Card Payment"}
+                          </td>{" "}
+                          {/* Render */}
+                          <td>
+                            <select
+                              value={o.status}
+                              onChange={(e) =>
+                                updateOrderStatus(o.id, e.target.value)
+                              }
+                              disabled={actionLoading}
+                              className="form-select"
+                            >
+                              <option value="Pending">Pending</option>
+                              <option value="Completed">Completed</option>
+                            </select>
+                          </td>
+                          <td>
+                            <button
+                              onClick={() => deleteOrder(o.id)}
+                              disabled={actionLoading}
+                              className="delete-btn"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
 
-                <tbody>
-                  {orders.map((o) => (
-                    <tr key={o.id}>
-                      <td>{o.id}</td>
-                      <td>{o.name}</td>
-                      <td>{o.email}</td>
-                      <td>{o.total_amount}</td>
-                      <td>
-                        <select
-                          value={o.status}
-                          onChange={(e) =>
-                            updateOrderStatus(o.id, e.target.value)
-                          }
-                          disabled={actionLoading}
-                          className="form-select"
-                        >
-                          <option value="Pending">Pending</option>
-                          <option value="Completed">Completed</option>
-                        </select>
-                      </td>
-                      <td>
-                        <button
-                          onClick={() => deleteOrder(o.id)}
-                          disabled={actionLoading}
-                          className="delete-btn"
-                        >
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            {/* ---------------- COMPLETED ORDERS TABLE ---------------- */}
+            {completedOrders.length > 0 && (
+              <>
+                <h2 className="table-title">Completed Orders</h2>
+                <div className="table-card">
+                  <table className="styled-table">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Amount</th>
+                        <th>Payment Method</th> {/* Added */}
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {completedOrders.map((o) => (
+                        <tr key={o.id}>
+                          <td>{o.id}</td>
+                          <td>{o.name}</td>
+                          <td>{o.email}</td>
+                          <td>{o.total_amount}</td>
+                          <td>
+                            {o.payment_method === "cod"
+                              ? "Cash on Delivery"
+                              : "Card Payment"}
+                          </td>{" "}
+                          {/* Render */}
+                          <td>
+                            <select
+                              value={o.status}
+                              disabled
+                              className="form-select"
+                            >
+                              <option value={o.status}>{o.status}</option>
+                            </select>
+                          </td>
+                          <td>
+                            <button
+                              onClick={() => deleteOrder(o.id)}
+                              disabled={actionLoading}
+                              className="delete-btn"
+                            >
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

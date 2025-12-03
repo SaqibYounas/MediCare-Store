@@ -1,157 +1,216 @@
-/* ---------------- HERO SECTION ---------------- */
-.hero-container {
-  font-family: "Arial", sans-serif;
-  background-color: #f0f8ff; /* light blue background */
-  color: #1a1a1a;
+/* --- 1. Base Setup and Variables --- */
+:root {
+    --primary-color: #1d4ed8; /* Deep Blue, used for CTA and highlights */
+    --primary-light: #3b82f6; /* Lighter Blue */
+    --text-dark: #1f2937; /* Dark text for readability */
+    --text-medium: #4b5563; /* Medium gray for descriptions */
+    --bg-light: #f9fafb; /* Off-white background */
+    --shadow-heavy: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
-.hero-section {
-  padding: 4rem 2rem;
+.hero-page-wrapper {
+    background-color: var(--bg-light);
+    width: 100%;
+    padding: 3rem 0;
 }
 
-.hero-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-width: 1200px;
-  margin: 10px auto;
-  gap: 2rem;
+/* --- 2. Hero Section Layout --- */
+.hero-main-section {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
 }
 
-.hero-text {
-  flex: 1 1 500px;
+.hero-content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+/* --- 3. Text Content --- */
+.hero-text-content {
+    text-align: center;
 }
 
 .hero-subtitle {
-  display: inline-block;
-  text-transform: uppercase;
-  color: #007bff; /* blue theme */
-  font-weight: 600;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem;
-  margin-top: 60px;
+    display: inline-block;
+    color: var(--primary-light);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.5px;
+    padding: 0.25rem 0.5rem;
+    background-color: rgba(60, 130, 246, 0.1);
+    border-radius: 9999px; /* Pill shape */
 }
 
 .hero-title {
-  font-size: 2.5rem;
-  font-weight: 800;
-  line-height: 1.2;
-  margin-bottom: 1rem;
+    font-size: 3rem; /* Large font size */
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text-dark);
+    margin: 0 0 1rem 0;
 }
 
-.hero-title .highlight {
-  color: #007bff; /* blue highlight */
+.hero-highlight {
+    color: var(--primary-color);
+    /* Subtle underline animation or effect could go here */
 }
 
 .hero-description {
-  font-size: 1rem;
-  color: #333;
-  margin-bottom: 1.5rem;
-  max-width: 500px;
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
+/* --- 4. Buttons --- */
 .hero-buttons {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap; /* Allows wrapping on smaller screens */
+}
+
+.hero-cta-btn {
+    padding: 0.75rem 1.75rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
 }
 
 .btn-primary {
-  background-color: #007bff;
-  color: #fff;
-  padding: 0.75rem 2rem;
-  border: none;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    background-color: var(--primary-color);
+    color: white;
+    border: 2px solid var(--primary-color);
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+    background-color: var(--primary-hover-color);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);
 }
 
 .btn-secondary {
-  background-color: #fff;
-  color: #007bff;
-  border: 2px solid #007bff;
-  padding: 0.75rem 2rem;
-  border-radius: 50px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease;
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
 }
 
 .btn-secondary:hover {
-  background-color: #e6f0ff;
+    background-color: var(--primary-color);
+    color: white;
 }
 
-/* Right side image */
-.hero-image-section {
-  flex: 1 1 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.hero-image {
-  width: 100%;
-  max-width: 400px;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Feature boxes */
-.feature-boxes {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  width: 100%;
-}
-
-.feature-box {
-  background-color: #fff;
-  padding: 1rem;
-  border-radius: 15px;
-  text-align: center;
-  flex: 1;
-  min-width: 90px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  cursor: default;
-}
-
-.feature-box:hover {
-  transform: translateY(-5px);
-}
-
-.feature-icon {
-  color: #007bff;
-  width: 24px;
-  height: 24px;
-  margin-bottom: 0.5rem;
-}
-
-.feature-title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #333;
-}
-
-/* ---------------- RESPONSIVE ---------------- */
-@media (max-width: 768px) {
-  .hero-content {
+/* --- 5. Image and Features --- */
+.hero-image-media {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center;
-  }
+}
 
-  .hero-text {
-    max-width: 100%;
-  }
+.hero-image-card {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-heavy);
+    margin-bottom: 2rem;
+}
 
-  .feature-boxes {
+.hero-main-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+/* --- 6. Feature Boxes --- */
+.hero-feature-group {
+    display: flex;
+    gap: 1rem;
     flex-wrap: wrap;
-  }
+    justify-content: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.hero-feature-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+    flex-grow: 1;
+    min-width: 120px;
+    cursor: default;
+    transition: transform 0.2s ease;
+}
+
+.hero-feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.hero-feature-icon {
+    color: var(--primary-color);
+    min-width: 24px;
+    min-height: 24px;
+}
+
+.hero-feature-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-dark);
+}
+
+/* --- 7. Desktop Responsiveness (768px+) --- */
+@media (min-width: 768px) {
+    .hero-content-grid {
+        grid-template-columns: 1fr 1.2fr; /* Text left, Image slightly larger right */
+        gap: 4rem;
+        padding-top: 2rem;
+    }
+
+    .hero-text-content {
+        text-align: left;
+    }
+    
+    .hero-description {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .hero-buttons {
+        justify-content: flex-start;
+    }
+    
+    .hero-title {
+        font-size: 4rem; 
+    }
+
+    .hero-image-media {
+        align-items: flex-end;
+    }
+
+    .hero-image-card {
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-feature-group {
+        justify-content: flex-start;
+        max-width: 100%;
+    }
+    
+    .hero-feature-box {
+        flex-grow: 0;
+        /* Ensure boxes stack nicely on larger screens */
+    }
 }
