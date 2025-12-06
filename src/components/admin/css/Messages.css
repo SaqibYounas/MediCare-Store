@@ -1,99 +1,24 @@
-/* Container & Page Title */
-.max-width-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-
-.page-title {
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-} /* WhatsApp button */
-.whatsapp-btn {
-  background-color: #25d366;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.whatsapp-btn:hover {
-  background-color: #1ebe5d;
-  transform: scale(1.05);
-}
-
-/* Gmail button */
-.gmail-btn {
-  background-color: #ea4335;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.gmail-btn:hover {
-  background-color: #c9302c;
-  transform: scale(1.05);
-}
-
-/* Optional: align buttons nicely in table cell */
-.action-buttons {
-  display: flex;
-  gap: 8px;
-}
-
-/* Message Box */
-.message-box {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  font-weight: 500;
-}
-
-.message-box-error {
-  background-color: #ffe6e6;
-  color: #d93025;
-}
-
-.message-icon {
-  margin-right: 0.5rem;
-}
-
 /* Table Card */
 .table-card {
   background: #fff;
   border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow-x: auto; /* Horizontal scroll for small screens */
+  padding: 2rem; /* increased padding for bigger appearance */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  overflow-x: auto; /* horizontal scroll for small screens */
 }
 
 /* Styled Table */
 .styled-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px; /* ensures table doesn't shrink too much */
+  min-width: 700px; /* increased table size */
 }
 
 .styled-table th,
 .styled-table td {
-  padding: 12px 15px;
+  padding: 16px 20px; /* increased padding */
   text-align: left;
+  font-size: 1rem; /* slightly bigger text */
 }
 
 .styled-table thead {
@@ -109,36 +34,56 @@
   background-color: #eef2f7;
 }
 
-/* Responsive for Mobile Devices */
-@media (max-width: 768px) {
-  .max-width-container {
-    padding: 1rem;
+/* Action Buttons Fix */
+.action-buttons {
+  display: flex;
+  gap: 12px; /* more space between buttons */
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* space between icon & text */
+  padding: 8px 14px; /* slightly bigger buttons */
+  border-radius: 6px;
+  font-size: 15px; /* bigger font */
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.3s;
+}
+
+.whatsapp-btn {
+  background-color: #25d366;
+  color: white;
+}
+
+.gmail-btn {
+  background-color: #d93025;
+  color: white;
+}
+
+.action-btn:hover {
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .page-title {
-    font-size: 1.5rem;
+  .action-btn {
+    width: 100%;
+    justify-content: center;
   }
 
   .styled-table th,
   .styled-table td {
     padding: 10px;
-    font-size: 0.9rem;
-  }
-}
-
-/* Responsive for Very Small Screens */
-@media (max-width: 480px) {
-  .page-title {
-    font-size: 1.3rem;
-  }
-
-  .styled-table th,
-  .styled-table td {
-    padding: 8px;
     font-size: 0.8rem;
-  }
-
-  .table-card {
-    padding: 1rem;
   }
 }

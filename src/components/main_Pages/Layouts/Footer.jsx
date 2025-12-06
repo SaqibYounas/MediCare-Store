@@ -12,16 +12,30 @@ const FOOTER_LINKS = [
 ];
 
 const SOCIAL_MEDIA = [
-  { icon: FaFacebookF, url: "https://facebook.com", name: "Facebook", className: "facebook" },
-  { icon: FaInstagram, url: "https://instagram.com", name: "Instagram", className: "instagram" },
-  { icon: FaLinkedinIn, url: "https://linkedin.com", name: "LinkedIn", className: "linkedin" },
+  {
+    icon: FaFacebookF,
+    url: "https://www.facebook.com/share/1FYyzMDqL5/",
+    name: "Facebook",
+    className: "facebook",
+  },
+  {
+    icon: FaInstagram,
+    url: "https://www.instagram.com/saqib15_03?igsh=aTZ1eXFtNzFvZGVk",
+    name: "Instagram",
+    className: "instagram",
+  },
+  {
+    icon: FaLinkedinIn,
+    url: "https://www.linkedin.com/in/muhammad-saqib-younas-0123aa329",
+    name: "LinkedIn",
+    className: "linkedin",
+  },
 ];
 
 export default function Footer() {
   return (
     <footer className="app-footer">
       <div className="footer-content-wrapper">
-
         {/* 1. Brand & Location Info */}
         <div className="footer-section footer-info-contact">
           <h3 className="footer-heading">SuperCodersStore</h3>
@@ -36,7 +50,9 @@ export default function Footer() {
           <ul className="footer-link-list">
             {FOOTER_LINKS.map((link) => (
               <li key={link.path}>
-                <Link to={link.path} className="footer-link-item">{link.name}</Link>
+                <Link to={link.path} className="footer-link-item">
+                  {link.name}
+                </Link>
               </li>
             ))}
           </ul>
@@ -47,10 +63,10 @@ export default function Footer() {
           <h3 className="footer-heading">Connect With Us</h3>
           <div className="social-icon-group">
             {SOCIAL_MEDIA.map((social) => (
-              <a 
+              <a
                 key={social.name}
-                href={social.url} 
-                target="_blank" 
+                href={social.url}
+                target="_blank"
                 rel="noreferrer"
                 aria-label={social.name}
                 className={`social-icon-link ${social.className}`}
@@ -66,16 +82,27 @@ export default function Footer() {
           <h3 className="footer-heading">Payment Methods</h3>
           <div className="payment-icon-group">
             <img src="https://img.icons8.com/color/48/visa.png" alt="Visa" />
-            <img src="https://img.icons8.com/color/48/mastercard.png" alt="Mastercard" />
-            <img src="https://img.icons8.com/color/48/paypal.png" alt="Paypal" />
-            <img src="https://img.icons8.com/color/48/bank-card-back-side.png" alt="Card" />
+            <img
+              src="https://img.icons8.com/color/48/mastercard.png"
+              alt="Mastercard"
+            />
+            <img
+              src="https://img.icons8.com/color/48/paypal.png"
+              alt="Paypal"
+            />
+            <img
+              src="https://img.icons8.com/color/48/bank-card-back-side.png"
+              alt="Card"
+            />
           </div>
         </div>
-
       </div>
 
       <div className="footer-copyright">
-        <p>&copy; {new Date().getFullYear()} SuperCodersStore. All rights reserved.</p>
+        <p>
+          &copy; {new Date().getFullYear()} SuperCodersStore. All rights
+          reserved.
+        </p>
       </div>
     </footer>
   );
