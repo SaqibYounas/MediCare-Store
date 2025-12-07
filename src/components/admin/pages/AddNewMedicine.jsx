@@ -21,6 +21,16 @@ export default function AddMedicine() {
     "Hormonal Medicines",
     "Immunity Boosters",
   ];
+  const isFormValid = () => {
+    return (
+      medicine.name.trim() !== "" &&
+      medicine.power.trim() !== "" &&
+      medicine.category.trim() !== "" &&
+      medicine.price.trim() !== "" &&
+      medicine.stock.trim() !== "" &&
+      medicine.image !== null
+    );
+  };
 
   const initialState = {
     name: "",
@@ -81,7 +91,8 @@ export default function AddMedicine() {
   const handleChange = (e) => {
     const { id, value, files } = e.target;
     if (id === "image" && files) setMedicine({ ...medicine, image: files[0] });
-    else if (id === "name") setMedicine({ ...medicine, name: capitalizeFirstLetter(value) });
+    else if (id === "name")
+      setMedicine({ ...medicine, name: capitalizeFirstLetter(value) });
     else setMedicine({ ...medicine, [id]: value });
   };
 
@@ -186,7 +197,10 @@ export default function AddMedicine() {
                       className="hidden"
                     />
                     <label htmlFor="image" className="file-upload-label">
-                      <Upload /> {medicine.image ? medicine.image.name : "Choose Image File"}
+                      <Upload />{" "}
+                      {medicine.image
+                        ? medicine.image.name
+                        : "Choose Image File"}
                     </label>
                   </div>
                 </div>
@@ -205,7 +219,11 @@ export default function AddMedicine() {
                   </div>
                 )}
 
-                <button className="submit-btn submit-btn-primary" onClick={handleAddMedicine}>
+                <button
+                  className="submit-btn submit-btn-primary"
+                  onClick={handleAddMedicine}
+                  disabled={!isFormValid()}
+                >
                   <PlusCircle className="w-5 h-5 mr-2" /> Add Medicine
                 </button>
               </div>

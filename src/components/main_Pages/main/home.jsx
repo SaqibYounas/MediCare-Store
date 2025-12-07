@@ -9,13 +9,13 @@ export default function HeroSection() {
       <section className="hero-main-section">
         <div className="hero-content-grid">
           <div className="hero-text-content">
-            <p className="hero-subtitle">✅ Trusted Care, Delivered Fast</p>{" "}
+            <p className="hero-subtitle">Trusted Care, Delivered Fast</p>{" "}
             <h1 className="hero-title">
               Your <span className="hero-highlight">Health</span> is Our
               Priority.
             </h1>
             <p className="hero-description">
-              Get essential **medicines, vitamins, and healthcare products**
+              Get essential medicines, vitamins, and healthcare products
               delivered safely to your door. Quality assured and certified by
               professional pharmacists.
             </p>

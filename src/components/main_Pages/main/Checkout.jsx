@@ -28,6 +28,19 @@ export default function CheckoutPage() {
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const isFormValid = () => {
+    return (
+      form.name.trim() !== "" &&
+      form.email.trim() !== "" &&
+      form.address.trim() !== "" &&
+      form.city.trim() !== "" &&
+      form.zip.trim() !== "" &&
+      form.country.trim() !== "" &&
+      form.state.trim() !== "" &&
+      form.phone.trim() !== "" &&
+      cartItems.length > 0
+    );
+  };
 
   const stripe = useStripe();
   const elements = useElements();
@@ -219,7 +232,6 @@ export default function CheckoutPage() {
               >
                 <option value="">Choose country</option>
                 <option value="Pakistan">Pakistan</option>
-                <option value="USA">USA</option>
               </select>
             </div>
 
@@ -353,7 +365,7 @@ export default function CheckoutPage() {
             <button
               className="pay-btn"
               onClick={handleSubmit}
-              disabled={loading}
+              disabled={loading || !isFormValid()}
             >
               {loading ? "Processing..." : "Place Order"}
             </button>
