@@ -186,7 +186,7 @@ export default function OrdersPage() {
                 </>
             )}
 
-            {payments.length > 0 && (
+            {/* {payments.length > 0 && (
                 <>
                     <h3 className="section-title"><ChevronRight size={20} /> Payment History</h3>
                     <div className="table-wrapper">
@@ -212,7 +212,7 @@ export default function OrdersPage() {
                         </table>
                     </div>
                 </>
-            )}
+            )} */}
         </div>
     );
 }
