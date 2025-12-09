@@ -5,22 +5,32 @@ export default function Success() {
   const location = useLocation();
   const paymentMethod = location.state?.paymentMethod || "unknown";
 
+  let title = "";
+  let message = "";
+  let color = "green";
+
+  if (paymentMethod === "canceled") {
+    title = "Payment Canceled ❌";
+    message = "Your payment was canceled. You can try again.";
+    color = "red";
+  } else if (paymentMethod === "cod") {
+    title = "Order Placed 🎉";
+    message = "Your order has been placed successfully! Payment will be collected on delivery.";
+  } else if (paymentMethod === "card") {
+    title = "Payment Successful 🎉";
+    message = "Your payment has been processed successfully!";
+  } else {
+    title = "Status Unknown";
+    message = "Unable to determine payment status.";
+    color = "orange";
+  }
+
   return (
     <div style={styles.page}>
       <div style={styles.card}>
-        {paymentMethod === "cod" ? (
-          <>
-            <h1 style={{ color: "green" }}>Order Placed 🎉</h1>
-            <p>Your order has been placed successfully! Payment will be collected on delivery.</p>
-          </>
-        ) : (
-          <>
-            <h1 style={{ color: "green" }}>Payment Successful 🎉</h1>
-            <p>Your payment has been processed successfully!</p>
-          </>
-        )}
-
-        <Link to="/" style={styles.button}>Go Back to Home</Link>
+        <h1 style={{ color }}>{title}</h1>
+        <p>{message}</p>
+        <Link to="/store" style={styles.button}>Continue Shopping</Link>
       </div>
     </div>
   );

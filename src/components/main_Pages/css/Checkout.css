@@ -242,3 +242,59 @@
         font-size: 20px;
     }
 }
+
+
+.payment-options-wrapper {
+  width: 100%;
+}
+
+.payment-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+/* Payment Option Box */
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid #ddd;
+  padding: 12px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  flex: 1 1 48%; /* Tablet & Desktop Responsive */
+  transition: 0.3s ease;
+  font-size: 16px;
+}
+
+.payment-option input {
+  accent-color: #4caf50;
+  width: 18px;
+  height: 18px;
+}
+
+.payment-option.active {
+  border-color: #4caf50;
+  background: #e8f5e9;
+}
+
+
+@media (max-width: 480px) {
+  .payment-option {
+    flex: 1 1 100%; /* Mobile: full width */
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .payment-options {
+    flex-wrap: nowrap; 
+  }
+
+  .payment-option {
+    flex: 1;
+  }
+}

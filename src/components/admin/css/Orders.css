@@ -104,3 +104,41 @@
 .delete-btn:hover {
   background-color: #dc2626;
 }
+
+
+
+/* Filter dropdown wrapper */
+.filter-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.filter-wrapper label {
+  font-weight: 600;
+  color: #333;
+}
+
+.filter-select {
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-select:hover {
+  border-color: #1e90ff;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #1e90ff;
+  box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
+}

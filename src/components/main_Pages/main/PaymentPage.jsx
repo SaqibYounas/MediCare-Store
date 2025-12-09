@@ -14,7 +14,7 @@ export default function PaymentPage() {
     fetch("http://127.0.0.1:8000/payments/create-checkout-session/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: 100 }), // number, not string
+      body: JSON.stringify({ amount: 100 }),
     })
       .then((res) => res.json())
       .then((data) => {

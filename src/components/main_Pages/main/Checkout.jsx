@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { CartContext } from "../../context/CartContext";
 import "../css/Checkout.css";
 import { useNavigate } from "react-router-dom";
@@ -41,6 +41,33 @@ export default function CheckoutPage() {
       cartItems.length > 0
     );
   };
+
+  const cancelPayment = async () => {
+    const intentId = localStorage.getItem("payment_intent_id");
+    if (!intentId) return;
+
+    const res = await fetch("http://127.0.0.1:8000/payments/cancel-intent/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ payment_intent_id: intentId }),
+    });
+
+    const data = await res.json();
+
+    if (data.redirect_url) {
+      window.location.href = data.redirect_url;
+    }
+  };
+
+  useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+
+    if (query.get("canceled") && !localStorage.getItem("cancel_done")) {
+      setErrorMsg("❌ Payment was canceled. Please try again.");
+      cancelPayment();
+      localStorage.setItem("cancel_done", "yes");
+    }
+  }, []);
 
   const stripe = useStripe();
   const elements = useElements();
@@ -98,9 +125,19 @@ export default function CheckoutPage() {
         );
 
         const paymentData = await paymentRes.json();
-
+        if (paymentData.payment_intent_id) {
+          localStorage.setItem(
+            "payment_intent_id",
+            paymentData.payment_intent_id
+          );
+        }
         if (!paymentRes.ok || !paymentData.client_secret) {
-          setErrorMsg(paymentData.error || "Failed to create payment session.");
+          setErrorMsg("❌ Payment was canceled. Please try again.");
+            setTimeout(
+              () =>
+                navigate("/success", { state: { paymentMethod: "canceled" } }),
+              1500
+            );
           setLoading(false);
           return;
         }
@@ -118,7 +155,12 @@ export default function CheckoutPage() {
           });
 
         if (stripeError) {
-          setErrorMsg(stripeError.message);
+         setErrorMsg("❌ Payment was canceled. Please try again.");
+            setTimeout(
+              () =>
+                navigate("/success", { state: { paymentMethod: "canceled" } }),
+              1500
+            );
           setLoading(false);
           return;
         }
@@ -135,7 +177,12 @@ export default function CheckoutPage() {
 
           const data = await res.json();
           if (!res.ok) {
-            setErrorMsg(data.error || "Failed to save order after payment.");
+            setErrorMsg("❌ Payment was canceled. Please try again.");
+            setTimeout(
+              () =>
+                navigate("/success", { state: { paymentMethod: "canceled" } }),
+              1500
+            );
             setLoading(false);
             return;
           }

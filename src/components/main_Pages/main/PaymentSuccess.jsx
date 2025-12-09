@@ -7,9 +7,8 @@ export default function PaymentSuccess() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Redirect after 10 seconds
     const timer = setTimeout(() => {
-      navigate("/store"); // <-- Change this to any route you want
+      navigate("/store");
     }, 10000);
 
     return () => clearTimeout(timer);
