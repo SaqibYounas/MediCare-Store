@@ -6,7 +6,7 @@ import Dashboard from "./components/admin/pages/Dashboard.jsx";
 import AdminLogin from "./components/Login.jsx";
 import AdminProfile from "./components/AdminProfile.js";
 import UpdateMedicine from "./components/admin/pages/UpdateMedicine.jsx";
-import DeleteMedicine from "./components/admin/pages/DeleteMedicine.jsx";
+import DeleteMedicine from "./components/admin/pages/DeleteMedicine.jsx"; 
 import AddNewMedicine from "./components/admin/pages/AddNewMedicine.jsx";
 import AdminOrders from "./components/admin/pages/All_Orders.jsx";
 import MessagesList from "./components/admin/pages/Messages.jsx";
