@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-
+ 
 const useScript = (url, integrity, async = true, crossOrigin = "anonymous") => {
   useEffect(() => {
     const script = document.createElement("script");
