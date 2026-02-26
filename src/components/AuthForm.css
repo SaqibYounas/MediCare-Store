@@ -11,9 +11,7 @@
   padding: 0; /* removed extra padding */
 }
 
-/* -------------------------- */
-/* AUTH BOX                   */
-/* -------------------------- */
+
 .auth-box {
   background: white;
   padding: 2rem; /* only internal padding */
