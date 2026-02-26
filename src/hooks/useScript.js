@@ -5,7 +5,7 @@ const useScript = (url, integrity, async = true, crossOrigin = "anonymous") => {
     const script = document.createElement("script");
     script.src = url;
     script.async = async;
-
+ 
     if (integrity) {
       script.integrity = integrity;
     }
