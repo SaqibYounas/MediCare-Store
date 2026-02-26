@@ -14,7 +14,7 @@ import PaymentsList from "./components/admin/pages/Payement.jsx";
 
 // Main pages
 import Home from "./components/main_Pages/main/home.jsx";
-import ContactForm from "./components/main_Pages/main/Contact.jsx";
+import ContactForm from "./components/main_Pages/main/Contact.jsx"; 
 import AboutUs from "./components/main_Pages/main/About.jsx";
 import CheckoutPage from "./components/main_Pages/main/Checkout.jsx";
 import MedicineStore from "./components/main_Pages/main/Store.jsx";
