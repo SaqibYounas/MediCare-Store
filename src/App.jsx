@@ -41,7 +41,7 @@ const stripePromise = loadStripe(
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
+      <Routes> 
         {/* Admin Routes - NO Header/Footer */}
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/login" element={<AdminLogin />} />
