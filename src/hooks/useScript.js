@@ -11,7 +11,7 @@ const useScript = (url, integrity, async = true, crossOrigin = "anonymous") => {
     }
 
     script.crossOrigin = crossOrigin;
-    document.body.appendChild(script);
+    document.body.appendChild(script); 
 
     return () => {
       document.body.removeChild(script);
