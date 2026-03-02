@@ -7,7 +7,7 @@ import { AlertTriangle, CheckCircle } from "lucide-react";
 
 export default function CheckoutPage() {
   const { cartItems, getTotal } = useContext(CartContext);
-  const navigate = useNavigate();
+  const navigate = useNavigate();    
 
   const [form, setForm] = useState({ 
     name: "",
@@ -15,7 +15,7 @@ export default function CheckoutPage() {
     address: "",
     city: "",
     zip: "",
-    country: "",
+    country: "", 
     state: "",
     phone: "",
     payment_method: "cod",
