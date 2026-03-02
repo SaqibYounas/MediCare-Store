@@ -9,7 +9,7 @@ export default function CheckoutPage() {
   const { cartItems, getTotal } = useContext(CartContext);
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState({ 
     name: "",
     email: "",
     address: "",
