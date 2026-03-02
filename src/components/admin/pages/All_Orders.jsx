@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import AdminSideBar from "../../layouts/AdminSideBar";
 import LoadingPage from "../../layouts/Loading";
 import { AlertTriangle, CheckCircle } from "lucide-react";
-import { jsPDF } from "jspdf";
+import { jsPDF } from "jspdf"; 
 import autoTable from "jspdf-autotable";
 import "../css/Orders.css";
 
