@@ -9,7 +9,7 @@ export default function AuthForm() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleChange = (e) =>
+  const handleChange = (e) => 
     setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
