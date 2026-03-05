@@ -2,11 +2,11 @@
 // import { Link, useNavigate } from "react-router-dom";
 // import { auth } from "../firebase";
 // import { signInWithEmailAndPassword } from "firebase/auth";
-
+ 
 // export default function AdminLogin() {
 //   const navigate = useNavigate();
 //   useEffect(() => {
-//     auth.onAuthStateChanged((user) => {
+//     auth.onAuthStateChanged((user) => { 
 //       if (user) {
 //         navigate("/");
 //       }
