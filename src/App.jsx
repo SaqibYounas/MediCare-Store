@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Admin pages
 import Dashboard from "./components/admin/pages/Dashboard.jsx";
-import AdminLogin from "./components/Login.jsx";
+import AdminLogin from "./components/Login.jsx"; 
 import AdminProfile from "./components/AdminProfile.js";
 import UpdateMedicine from "./components/admin/pages/UpdateMedicine.jsx";
 import DeleteMedicine from "./components/admin/pages/DeleteMedicine.jsx"; 
